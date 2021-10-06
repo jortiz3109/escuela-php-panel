@@ -51,7 +51,7 @@
             "@php artisan key:generate --ansi"
         ],
         "test": "vendor/bin/phpunit",
-        "testdox": "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --coverage-clover coverage.xml",
+        "testdox": "XDEBUG_MODE=coverage vendor/bin/phpunit --stop-on-error --stop-on-failure --testdox --coverage-clover phpunit.coverage.xml",
         "php-cs-fixer": "vendor/bin/php-cs-fixer fix --using-cache=no",
         "php-cs-fixer-check": "vendor/bin/php-cs-fixer fix --dry-run --diff"
     },
