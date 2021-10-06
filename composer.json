@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.4.3",
@@ -17,6 +17,7 @@
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.2",
         "laravel/breeze": "^1.4",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
@@ -48,7 +49,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "test": "vendor/bin/phpunit",
+        "testdox": "XDEBUG_MODE=coverage vendor/bin/phpunit --stop-on-error --stop-on-failure --testdox --coverage-clover phpunit.coverage.xml",
+        "php-cs-fixer": "vendor/bin/php-cs-fixer fix --using-cache=no",
+        "php-cs-fixer-check": "vendor/bin/php-cs-fixer fix --dry-run --diff"
     },
     "extra": {
         "laravel": {
