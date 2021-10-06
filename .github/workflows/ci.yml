@@ -60,5 +60,9 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: composer run-script testdox
 
+      - name: Fix code coverage paths for Sonar
+        working-directory: ./build/reports/
+        run: sed -i 's/\/home\/runner\/work\/escuela-php-panel\/escuela-php-panel\//\/github\/workspace\//g' phpunit.coverage.xml
+
       - name: Upload coverage
         run: bash <(curl -s https://codecov.io/bash)
