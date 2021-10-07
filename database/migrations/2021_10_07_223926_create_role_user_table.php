@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRoleUserTable extends Migration
 {
-
     public function up(): void
     {
         Schema::create('role_user', function (Blueprint $table) {
@@ -21,7 +20,6 @@ class CreateRoleUserTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 
             $table->unique(['user_id', 'role_id']);
-
         });
     }
 
