@@ -1,4 +1,5 @@
 <table>
+    <caption>{{ $texts['title'] }}</caption>
     <theaders>
         <tr>
             <th>@lang('permissions.fields.name')</th>
