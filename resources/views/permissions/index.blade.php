@@ -2,8 +2,8 @@
     <caption>{{ $texts['title'] }}</caption>
     <theaders>
         <tr>
-            <th>@lang('permissions.fields.name')</th>
-            <th>@lang('permissions.fields.description')</th>
+            <th scope="col">@lang('permissions.fields.name')</th>
+            <th scope="col">@lang('permissions.fields.description')</th>
         </tr>
     </theaders>
     <tbody>
