@@ -14,7 +14,7 @@ class PermissionController extends Controller
      */
     public function index(IndexRequest $request, IndexViewModel $viewModel): View
     {
-        $permissions = Permission::filter($request->input('filters', []))->get();
+        $permissions = Permission::filter($request->input('filters', []))->paginate();
         $viewModel->collection($permissions);
 
         return view('permissions.index', $viewModel->toArray());

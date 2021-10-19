@@ -2,13 +2,13 @@
 
 namespace App\ViewModels\Concerns;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 trait HasCollection
 {
-    protected Collection $collection;
+    protected Paginator $collection;
 
-    public function collection(Collection $collection): self
+    public function collection(Paginator $collection): self
     {
         $this->collection = $collection;
         return $this;
