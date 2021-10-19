@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content')
 <table class="table is-narrow is-hoverable">
     <caption>{{ $texts['title'] }}</caption>

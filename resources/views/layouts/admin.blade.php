@@ -10,34 +10,23 @@
                     <aside class="menu">
                         <p class="menu-label">@lang('menu.administration')</p>
                         <ul class="menu-list">
-                            <a href="#">
-                                <em class="mdi mdi-cash"></em>
-                                @lang('Transactions')
-                            </a>
-                            <a href="#">
-                                <em class="mdi mdi-piggy-bank-outline"></em>
-                                @lang('Merchants')
-                            </a>
-                            <a href="#">
-                                <em class="mdi mdi-map-legend"></em>
-                                @lang('Countries')
-                            </a>
-                            <a href="#">
-                                <em class="mdi mdi-currency-usd"></em>
-                                @lang('Currencies')
-                            </a>
+                            <li><a href="#"><em class="pr-2 mdi mdi-cash"></em>@lang('Transactions')</a></li>
+                            <li>
+                                <a href="#">
+                                    <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>@lang('Merchants')
+                                </a>
+                                <ul>
+                                    <li><a>Payment methods</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>@lang('Countries')</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>@lang('Currencies')</a></li>
                         </ul>
 
                         <p class="menu-label">@lang('menu.security')</p>
                         <ul class="menu-list">
-                            <a href="{{ route('permissions.index') }}">
-                                <em class="mdi mdi-shield-lock"></em>
-                                @lang('permissions.navbar.title')
-                            </a>
-                            <a href="#">
-                                <em class="mdi mdi-account-multiple"></em>
-                                @lang('Users')
-                            </a>
+                            <li><a href="{{ route('permissions.index') }}"><em class="pr-2 mdi mdi-shield-lock"></em>@lang('permissions.navbar.title')</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-account-multiple"></em>@lang('Users')</a></li>
                         </ul>
                     </aside>
                 </div>
