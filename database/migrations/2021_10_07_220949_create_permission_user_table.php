@@ -10,14 +10,10 @@ class CreatePermissionUserTable extends Migration
     {
         Schema::create('permission_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('permission_id');
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('permission_id')->constrained()->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('SET NULL');
             $table->timestamp('created_at')->nullable();
-
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('SET NULL');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
 
             $table->unique(['user_id', 'permission_id']);
         });

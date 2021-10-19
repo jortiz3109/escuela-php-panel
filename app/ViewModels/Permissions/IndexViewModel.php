@@ -8,6 +8,7 @@ use App\ViewModels\ViewModel;
 class IndexViewModel extends ViewModel
 {
     use HasCollection;
+
     protected function buttons(): array
     {
         return [];
