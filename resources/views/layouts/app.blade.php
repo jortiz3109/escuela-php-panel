@@ -7,10 +7,12 @@
     <title>{{ $texts['title'] ?? config('app.name') }}</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.3.95/css/materialdesignicons.min.css">
-    <script src="{{ mix('js/app.js') }}" defer></script>
     @stack('head')
 </head>
 <body>
 @stack('main')
+<script src="{{ asset(mix('js/manifest.js')) }}"></script>
+<script src="{{ asset(mix('js/vendor.js')) }}"></script>
+<script src="{{ asset(mix('js/app.js')) }}"></script>
 </body>
 </html>
