@@ -10,5 +10,4 @@ class Permission extends Model
 {
     use HasFactory;
     use HasFilters;
-    public $timestamps = false;
 }
