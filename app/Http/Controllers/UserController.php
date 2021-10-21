@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\IndexRequest;
-use App\Http\Resources\UserCollection;
 use App\Models\User;
 use App\ViewModels\Users\IndexViewModel;
 use Illuminate\View\View;
