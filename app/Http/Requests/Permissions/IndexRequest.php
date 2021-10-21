@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Permissions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,12 +15,7 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters' => ['filled', 'array'],
-            'filters.email' => ['email'],
-            'filters.name' => ['string', 'max:120'],
-            'filters.enabled_at' => ['boolean'],
+            'filters.name' => ['filled', 'string', 'min:2', 'max:125'],
         ];
     }
 }
-
-
-
