@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\Users\IndexRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\User;

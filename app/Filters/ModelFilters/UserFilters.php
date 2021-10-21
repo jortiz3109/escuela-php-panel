@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filters\ModelFilters;
+
 use App\Filters\Conditions\Email;
 use App\Filters\Conditions\EnabledAt;
 use App\Filters\Conditions\Name;

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\ViewModels\Users;
+
 use App\ViewModels\Concerns\HasCollection;
 use App\ViewModels\ViewModel;
 
