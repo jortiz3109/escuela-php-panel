@@ -23,4 +23,3 @@ class UserFilters extends Filter
         return $this;
     }
 }
-
