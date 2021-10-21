@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Filters\ModelFilters;
 
 use App\Filters\Conditions\Email;
