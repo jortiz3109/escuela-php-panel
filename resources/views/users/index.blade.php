@@ -5,14 +5,15 @@
         <thead>
         <tr>
             <th scope="col">@lang('users.fields.name')</th>
-            <th scope="col">@lang('users.fields.description')</th>
+            <th scope="col">@lang('users.fields.email')</th>
             <th scope="col">@lang('users.fields.created_at')</th>
+
         </tr>
         </thead>
         <tfoot>
         <tr>
             <th scope="col">@lang('users.fields.name')</th>
-            <th scope="col">@lang('users.fields.description')</th>
+            <th scope="col">@lang('users.fields.email')</th>
             <th scope="col">@lang('users.fields.created_at')</th>
         </tr>
         </tfoot>
