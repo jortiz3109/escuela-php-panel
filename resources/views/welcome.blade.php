@@ -90,13 +90,6 @@
         <div class="top-right links">
             @auth
                 <a href="{{ url('/dashboard') }}">Dashboard</a>
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
-                </a>
-                
-                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
             @else
                 <a href="{{ url('/login') }}">Login</a>
             @endauth

@@ -16,18 +16,11 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        @auth
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST">
-                                @csrf
-                                <button class="button is-light" type="submit">
-                                    @lang('Logout')
-                                </button>
-                            </form>
-                        @else
+                        @guest
                             <a class="button is-light">
                                 @lang('auth.login')
                             </a>
-                        @endauth
+                        @endguest
                     </div>
                 </div>
             </div>
