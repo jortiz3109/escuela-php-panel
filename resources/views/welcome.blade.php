@@ -89,7 +89,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-                <a href="{{ url('/') }}">Home</a>
+                <a href="{{ url('/dashboard') }}">Dashboard</a>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>
