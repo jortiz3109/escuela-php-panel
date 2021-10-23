@@ -25,6 +25,10 @@ class FortifyServiceProvider extends ServiceProvider
                     ->by($request->email . $request->ip())
                     ->response(function () use ($request) {
                         DisableUser::execute($request->email);
+
+                        throw ValidationException::withMessages([
+                            Fortify::username() => [trans('auth.blocked')],
+                        ]);
                     });
         });
 
@@ -35,17 +39,23 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
     
-            if (
-                $user
-                && Hash::check($request->password, $user->password)
-                && $user->isEnabled()
-            ) {
-                return $user;
+            if (!$user) {
+                return false;
             }
 
-            throw ValidationException::withMessages([
-                Fortify::username() => [trans('auth.blocked')],
-            ]);
+            if (!Hash::check($request->password, $user->password)) {
+                return false;
+            }
+
+            if (!$user->isEnabled()) {
+                throw ValidationException::withMessages([
+                    Fortify::username() => [trans('auth.blocked')],
+                ]);
+
+                return false;
+            }
+
+            return $user;
         });
     }
 }
