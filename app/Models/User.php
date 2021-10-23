@@ -33,4 +33,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return null !== $this->enabled_at;
     }
+
+    public function markAsDisabled(): void
+    {
+        $this->enabled_at = null;
+
+        $this->save();
+    }
 }

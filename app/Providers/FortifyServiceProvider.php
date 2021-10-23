@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Actions\Auth\DisableUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -19,7 +20,12 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            return Limit::perMinute(5)->by($request->email . $request->ip());
+            return
+                Limit::perMinute(config('auth.max_attempts'))
+                    ->by($request->email . $request->ip())
+                    ->response(function () use ($request) {
+                        DisableUser::execute($request->email);
+                    });
         });
 
         RateLimiter::for('two-factor', function (Request $request) {
