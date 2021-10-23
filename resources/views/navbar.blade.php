@@ -16,9 +16,18 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light">
-                            @lang('auth.login')
-                        </a>
+                        @auth
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST">
+                                @csrf
+                                <button class="button is-light" type="submit">
+                                    @lang('Logout')
+                                </button>
+                            </form>
+                        @else
+                            <a class="button is-light">
+                                @lang('auth.login')
+                            </a>
+                        @endauth
                     </div>
                 </div>
             </div>
