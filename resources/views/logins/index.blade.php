@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <table class="table is-narrow is-hoverable">
+    <caption>{{ $texts['title'] }}</caption>
     <thead>
         <tr>
             <th scope="col">@lang('logins.fields.created_at')</th>

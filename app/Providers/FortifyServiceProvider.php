@@ -51,8 +51,6 @@ class FortifyServiceProvider extends ServiceProvider
                 throw ValidationException::withMessages([
                     Fortify::username() => [trans('auth.blocked')],
                 ]);
-
-                return false;
             }
 
             return $user;
