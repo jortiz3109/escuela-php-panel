@@ -25,7 +25,7 @@ class LogSuccessfulLogin
 
         if (!LoginLog::deviceExists($ipAddress, $userAgent)) {
             try {
-                $user->notify(new LoggedFromUnknownDevice);
+                $user->notify(new LoggedFromUnknownDevice());
             } catch (\Throwable $th) {
                 \Illuminate\Support\Facades\Log::error($th->getMessage());
             }

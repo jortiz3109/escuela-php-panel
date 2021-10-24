@@ -94,7 +94,6 @@ class AuthenticationTest extends TestCase
         $this->assertFalse($user->isEnabled());
     }
 
-
     public function test_it_log_the_login_attempt_when_user_are_authenticated(): void
     {
         $user = User::factory()->enabled()->create();
@@ -130,14 +129,15 @@ class AuthenticationTest extends TestCase
         ]);
 
         Notification::assertSentTo(
-            [$user], LoggedFromUnknownDevice::class
+            [$user],
+            LoggedFromUnknownDevice::class
         );
     }
 
     /**
      * @param array $loginLog
      * @dataProvider loginsProvider
-    */
+     */
     public function test_it_does_not_notify_when_logging_in_from_a_known_device(array $loginLog): void
     {
         Notification::fake();
@@ -159,7 +159,8 @@ class AuthenticationTest extends TestCase
         ]);
 
         Notification::assertNotSentTo(
-            [$user], LoggedFromUnknownDevice::class
+            [$user],
+            LoggedFromUnknownDevice::class
         );
     }
 

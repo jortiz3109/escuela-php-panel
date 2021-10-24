@@ -17,7 +17,7 @@ class LoggedFromUnknownDevice extends Notification
 
     public function toMail(): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->line('You have logged in from a new device.');
     }
 }

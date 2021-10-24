@@ -11,8 +11,8 @@ class LoginLog extends Model
 {
     use HasFactory;
 
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = null;
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = null;
 
     public function user(): BelongsTo
     {
