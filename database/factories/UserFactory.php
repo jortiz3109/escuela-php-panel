@@ -23,7 +23,7 @@ class UserFactory extends Factory
 
     public function unverified(): Factory
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'email_verified_at' => null,
             ];
@@ -32,7 +32,7 @@ class UserFactory extends Factory
 
     public function enabled(): Factory
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'enabled_at' => $this->faker->dateTime(),
             ];
@@ -41,7 +41,7 @@ class UserFactory extends Factory
 
     public function disabled(): Factory
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'enabled_at' => null,
             ];

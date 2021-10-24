@@ -13,12 +13,14 @@ class IndexTest extends TestCase
 {
     use RefreshDatabase;
 
+    public const LOGINS_URL = '/logins';
+
     public function test_it_can_list_logins(): void
     {
         /** @var \Illuminate\Contracts\Auth\Authenticatable */
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/logins');
+        $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
         $response->assertStatus(Response::HTTP_OK);
     }
@@ -30,7 +32,7 @@ class IndexTest extends TestCase
 
         LoginLog::factory()->for($user)->count(20)->create();
 
-        $response = $this->actingAs($user)->get('/logins');
+        $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
         $response->assertViewHas('logins');
 
@@ -47,7 +49,7 @@ class IndexTest extends TestCase
 
         LoginLog::factory()->for($user)->create();
 
-        $response = $this->actingAs($user)->get('/logins');
+        $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
         $this->assertInstanceOf(
             LoginLog::class,
@@ -66,7 +68,7 @@ class IndexTest extends TestCase
 
         $login = LoginLog::factory()->for($user)->create($data);
 
-        $response = $this->actingAs($user)->get('/logins');
+        $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
         $response->assertSee($login->created_at);
         $response->assertSee($login->ip_address);

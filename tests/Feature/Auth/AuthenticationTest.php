@@ -15,6 +15,9 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public const IP_ADDRESS = '127.0.0.1';
+    public const USER_AGENT = 'Opera/8.26 (X11; Linux x86_64; sl-SI)';
+
     public function test_login_screen_can_be_rendered(): void
     {
         $response = $this->get('/login');
@@ -99,8 +102,8 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->enabled()->create();
 
         $this->serverVariables = [
-            'REMOTE_ADDR' => '127.0.0.1',
-            'HTTP_USER_AGENT' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
+            'REMOTE_ADDR' => self::IP_ADDRESS,
+            'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
         $this->post('/login', [
@@ -110,8 +113,8 @@ class AuthenticationTest extends TestCase
 
         $this->assertDatabaseHas('login_logs', [
             'user_id' => $user->id,
-            'ip_address' => '127.0.0.1',
-            'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
+            'ip_address' => self::IP_ADDRESS,
+            'user_agent' => self::USER_AGENT,
         ]);
     }
 
@@ -149,8 +152,8 @@ class AuthenticationTest extends TestCase
         LoginLog::factory()->for($user)->create($loginLog);
 
         $this->serverVariables = [
-            'REMOTE_ADDR' => '127.0.0.1',
-            'HTTP_USER_AGENT' => 'Opera/8.26 (X11; Linux x86_64; sl-SI)',
+            'REMOTE_ADDR' => self::IP_ADDRESS,
+            'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
         $this->post('/login', [
@@ -170,8 +173,8 @@ class AuthenticationTest extends TestCase
             [
                 'data' => [
                     'created_at' => '2021-10-19 06:00:00',
-                    'ip_address' => '127.0.0.1',
-                    'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI)',
+                    'ip_address' => self::IP_ADDRESS,
+                    'user_agent' => self::USER_AGENT,
                 ],
             ],
         ];
