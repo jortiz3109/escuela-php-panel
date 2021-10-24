@@ -27,7 +27,10 @@
                         <ul class="menu-list">
                             <li><a href="{{ route('permissions.index') }}"><em class="pr-2 mdi mdi-shield-lock"></em>@lang('permissions.navbar.title')</a></li>
                             <li><a href="#"><em class="pr-2 mdi mdi-account-multiple"></em>@lang('Users')</a></li>
+                            <li><a href="{{ route('logins.index') }}"><em class="pr-2 mdi mdi-login"></em>@lang('Last logins')</a></li>
                         </ul>
+
+                        <p class="menu-label">@lang('menu.system')</p>
                         <ul class="menu-list">
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

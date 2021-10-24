@@ -1,22 +1,12 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\PermissionController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::view('/', 'welcome');
 
@@ -25,6 +15,8 @@ Route::get('/dashboard', DashboardController::class)
 
 Route::middleware('auth')->group(function () {
     Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
+
+    Route::name('logins.index')->get('/logins', LoginLogController::class);
 });
 
 Route::get('/email/verify', function () {
