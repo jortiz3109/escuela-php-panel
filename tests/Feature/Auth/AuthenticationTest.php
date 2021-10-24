@@ -90,4 +90,26 @@ class AuthenticationTest extends TestCase
 
         $this->assertFalse($user->isEnabled());
     }
+
+
+    public function test_it_log_the_login_attempt_when_user_are_authenticated(): void
+    {
+        $user = User::factory()->enabled()->create();
+
+        $this->serverVariables = [
+            'REMOTE_ADDR' => '192.168.1.1',
+            'HTTP_USER_AGENT' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
+        ];
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertDatabaseHas('login_logs', [
+            'user_id' => $user->id,
+            'ip_address' => '192.168.1.1',
+            'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
+        ]);
+    }
 }
