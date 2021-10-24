@@ -79,7 +79,7 @@ class IndexTest extends TestCase
             [
                 'data' => [
                     'created_at' => '2021-10-19 06:00:00',
-                    'ip_address' => '192.168.0.1',
+                    'ip_address' => '127.0.0.1',
                     'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI)',
                 ],
             ],
