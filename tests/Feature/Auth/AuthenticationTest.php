@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\LoginLog;
 use App\Models\User;
+use App\Notifications\LoggedFromUnknownDevice;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -111,5 +114,65 @@ class AuthenticationTest extends TestCase
             'ip_address' => '192.168.1.1',
             'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
         ]);
+    }
+
+    public function test_it_notify_when_login_from_a_unknow_device(): void
+    {
+        Notification::fake();
+
+        $user = User::factory()
+            ->enabled()
+            ->create();
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        Notification::assertSentTo(
+            [$user], LoggedFromUnknownDevice::class
+        );
+    }
+
+    /**
+     * @param array $loginLog
+     * @dataProvider loginsProvider
+    */
+    public function test_it_does_not_notify_when_logging_in_from_a_known_device(array $loginLog): void
+    {
+        Notification::fake();
+
+        $user = User::factory()
+            ->enabled()
+            ->create();
+
+        LoginLog::factory()->for($user)->create($loginLog);
+
+        $this->serverVariables = [
+            'REMOTE_ADDR' => '127.0.0.1',
+            'HTTP_USER_AGENT' => 'Opera/8.26 (X11; Linux x86_64; sl-SI)',
+        ];
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        Notification::assertNotSentTo(
+            [$user], LoggedFromUnknownDevice::class
+        );
+    }
+
+    public function loginsProvider(): array
+    {
+        return [
+            [
+                'data' => [
+                    'created_at' => '2021-10-19 06:00:00',
+                    'ip_address' => '127.0.0.1',
+                    'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI)',
+                ],
+            ],
+        ];
     }
 }
