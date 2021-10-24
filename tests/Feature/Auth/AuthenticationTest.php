@@ -99,7 +99,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->enabled()->create();
 
         $this->serverVariables = [
-            'REMOTE_ADDR' => '192.168.1.1',
+            'REMOTE_ADDR' => '127.0.0.1',
             'HTTP_USER_AGENT' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
         ];
 
@@ -110,7 +110,7 @@ class AuthenticationTest extends TestCase
 
         $this->assertDatabaseHas('login_logs', [
             'user_id' => $user->id,
-            'ip_address' => '192.168.1.1',
+            'ip_address' => '127.0.0.1',
             'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI) Presto/2.12.277 Version/10.00',
         ]);
     }
