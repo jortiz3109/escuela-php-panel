@@ -6,11 +6,12 @@ use App\Actions\Register\CreateUser as CreateUserAction;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Register\UserCreateRequest;
 use App\Providers\RouteServiceProvider;
 
 class UserController extends Controller
 {
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         $userId=auth()->id();
 
