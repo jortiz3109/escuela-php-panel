@@ -3,3 +3,7 @@
 
 // Buefy
 @import '~buefy/dist/buefy.css';
+
+[v-cloak] {
+    display: none;
+}
