@@ -19,6 +19,13 @@ class IndexViewModel extends ViewModel
         return trans('permissions.titles.index');
     }
 
+    public function filters(): array
+    {
+        return [
+            'name' => old('filters.name') ?? request()->input('filters.name'),
+        ];
+    }
+
     protected function data(): array
     {
         return [
