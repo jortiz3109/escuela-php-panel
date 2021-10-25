@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -52,6 +53,17 @@ class IndexTest extends TestCase
     }
 
     /**
+     * @dataProvider validationProvider
+     */
+    public function test_it_validates_filters(string $attribute, $value): void
+    {
+        $filters = http_build_query(['filters' => [$attribute => $value]]);
+        $response = $this->actingAs(User::factory()->create())->get('/permissions?' . $filters);
+
+        $response->assertSessionHasErrors("filters.{$attribute}");
+    }
+
+    /**
      * @param array $data
      * @dataProvider permissionProvider
      */
@@ -66,6 +78,14 @@ class IndexTest extends TestCase
 
         $this->assertEquals(1, $permissions->count());
         $this->assertEquals($data['name'], $permissions->first()->name);
+    }
+
+    public function validationProvider(): array
+    {
+        return [
+            'name min' => ['attribute' => 'name', 'value' => 'f'],
+            'name max' => ['attribute' => 'name', 'value' => Str::random(126)],
+        ];
     }
 
     public function permissionProvider(): array

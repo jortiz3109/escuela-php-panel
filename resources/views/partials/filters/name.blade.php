@@ -1,7 +1,7 @@
 <b-field
     label="@lang('Name')"
-    type="{{ $errors->has('name') ? 'is-danger' : '' }}"
-    message="{{ $errors->first('name') }}">
+    type="{{ $errors->has('filters.name') ? 'is-danger' : '' }}"
+    message="{{ $errors->first('filters.name') }}">
     <b-input
         name="filters[name]"
         value="{{ $value  }}"
