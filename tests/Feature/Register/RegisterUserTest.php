@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Register;
 
 use Tests\Feature\Auth;
 use App\Models\User;
@@ -11,6 +11,17 @@ use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
 {
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_example()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
 
     public function test_new_users_can_register()
     {
