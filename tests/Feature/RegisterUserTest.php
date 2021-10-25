@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
+use Tests\Feature\Auth;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -20,12 +20,11 @@ class RegisterUserTest extends TestCase
                 [
                         'name' => 'Jennifer',
                         'email' => 'jennifer@gmail.com',
-                        'password' => Hash::make('jennifer'),
-                        'created_by' => $user->id,
-                        'updated_by' => $user->id,
+                        'password' => 'jennifer'
                     ]);
 
         $this->assertAuthenticated();
+
         $response->assertRedirect(RouteServiceProvider::HOME);
 
     }

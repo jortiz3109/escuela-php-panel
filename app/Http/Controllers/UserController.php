@@ -2,30 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Register\CreateUser as CreateUserAction;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 
 class UserController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $userId=auth()->id();
 
-        $user = User::create([
+        CreateUserAction::execute([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'created_by' => $request->created_by,
-            'updated_by' =>  $request->updated_by,
+            'created_by' =>  $userId,
+            'updated_by' =>   $userId,
         ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
