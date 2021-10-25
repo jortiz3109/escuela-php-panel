@@ -60,7 +60,10 @@
                             </div>
                         </div>
                     </div>
-                    @yield('content')
+                    @includeWhen(count($filters), 'filters', compact('filters'))
+                    <div class="box block">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
         </div>
