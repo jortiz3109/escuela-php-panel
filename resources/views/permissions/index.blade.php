@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 @section('content')
-<table class="table is-narrow is-hoverable">
-    <caption>{{ $texts['title'] }}</caption>
+<table class="table is-narrow is-hoverable is-fullwidth">
+    <caption class="is-hidden">{{ $texts['title'] }}</caption>
     <thead>
         <tr>
             <th scope="col">@lang('permissions.fields.name')</th>
             <th scope="col">@lang('permissions.fields.description')</th>
-            <th scope="col">@lang('permissions.fields.created_at')</th>
+            <th scope="col" style="min-width: 8em">@lang('permissions.fields.created_at')</th>
         </tr>
     </thead>
     <tfoot>
@@ -26,5 +26,5 @@
     @endforeach
     </tbody>
 </table>
-{{ $permissions->render('partials.pagination.paginator') }}
+{{ $permissions->appends(request()->only('filters'))->render('partials.pagination.paginator') }}
 @endsection
