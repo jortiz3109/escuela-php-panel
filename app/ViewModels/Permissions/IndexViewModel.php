@@ -2,12 +2,12 @@
 
 namespace App\ViewModels\Permissions;
 
-use App\ViewModels\Concerns\HasCollection;
+use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
 
 class IndexViewModel extends ViewModel
 {
-    use HasCollection;
+    use HasPaginator;
 
     protected function buttons(): array
     {
