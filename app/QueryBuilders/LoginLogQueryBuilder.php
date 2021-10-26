@@ -8,10 +8,7 @@ class LoginLogQueryBuilder extends Builder
 {
     public function lastUserLogins(): self
     {
-        $userId = auth()->id();
-
-        return $this->where('user_id', $userId)
-            ->orderByDesc('created_at')
+        return $this->orderByDesc('created_at')
             ->take(10);
     }
 
