@@ -11,7 +11,7 @@
     <div class="card-content">
         <form action="{{ url()->current() }}" method="GET">
             @foreach($filters as $filter => $value)
-                @include("partials.filters.{$filter}", compact('value'))
+                @includeIf("partials.filters.{$filter}", compact('value'))
             @endforeach
             <b-button type="is-link" native-type="submit" icon-left="magnify">@lang('filters.find')</b-button>
             <b-button tag="a" type="is-link" href="{{ url()->current() }}" icon-left="eraser">@lang('filters.clear')</b-button>
