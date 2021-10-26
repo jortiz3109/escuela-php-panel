@@ -19,6 +19,11 @@ class LoginLog extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function device(): BelongsTo
+    {
+        return $this->belongsTo(KnowDevice::class);
+    }
+
     public function newEloquentBuilder($query): LoginLogQueryBuilder
     {
         return new LoginLogQueryBuilder($query);

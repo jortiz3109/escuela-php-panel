@@ -21,7 +21,7 @@
         <tr>
             <td>{{ $login->created_at }}</td>
             <td>{{ $login->ip_address }}</td>
-            <td>{{ $login->user_agent }}</td>
+            <td>{{ $login->device->user_agent }}</td>
         </tr>
     @endforeach
     </tbody>

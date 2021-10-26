@@ -35,6 +35,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(LoginLog::class);
     }
 
+    public function knowDevices(): HasMany
+    {
+        return $this->hasMany(KnowDevice::class);
+    }
+
     public function isEnabled(): bool
     {
         return null !== $this->enabled_at;

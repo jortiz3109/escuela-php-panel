@@ -11,8 +11,8 @@ class CreateLoginLogsTable extends Migration
         Schema::create('login_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('device_id')->constrained('know_devices')->onDelete('cascade');
             $table->string('ip_address', 15);
-            $table->string('user_agent', 300);
             $table->timestamp('created_at')->nullable();
         });
     }

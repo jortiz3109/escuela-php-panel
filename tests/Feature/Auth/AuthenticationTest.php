@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Models\LoginLog;
 use App\Models\User;
+use App\Models\KnowDevice;
 use App\Notifications\LoggedFromUnknownDevice;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -97,7 +98,7 @@ class AuthenticationTest extends TestCase
         $this->assertFalse($user->isEnabled());
     }
 
-    public function test_it_log_the_login_attempt_when_user_are_authenticated(): void
+    public function test_it_log_the_login_attempt_when_user_is_authenticated(): void
     {
         $user = User::factory()->enabled()->create();
 
@@ -114,6 +115,25 @@ class AuthenticationTest extends TestCase
         $this->assertDatabaseHas('login_logs', [
             'user_id' => $user->id,
             'ip_address' => self::IP_ADDRESS,
+        ]);
+    }
+
+    public function test_it_store_the_device_when_user_is_authenticated(): void
+    {
+        $user = User::factory()->enabled()->create();
+
+        $this->serverVariables = [
+            'REMOTE_ADDR' => self::IP_ADDRESS,
+            'HTTP_USER_AGENT' => self::USER_AGENT,
+        ];
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertDatabaseHas('know_devices', [
+            'user_id' => $user->id,
             'user_agent' => self::USER_AGENT,
         ]);
     }
@@ -137,19 +157,25 @@ class AuthenticationTest extends TestCase
         );
     }
 
-    /**
-     * @param array $loginLog
-     * @dataProvider loginsProvider
-     */
-    public function test_it_does_not_notify_when_logging_in_from_a_known_device(array $loginLog): void
+    public function test_it_does_not_notify_when_logging_in_from_a_known_device(): void
     {
         Notification::fake();
 
         $user = User::factory()
+            ->has(KnowDevice::factory([
+                'user_agent' => self::USER_AGENT,
+            ]))
             ->enabled()
             ->create();
 
-        LoginLog::factory()->for($user)->create($loginLog);
+        $device = $user->knowDevices()->first();
+
+        LoginLog::factory()->create([
+            'user_id' => $user->id,
+            'device_id' =>$device->id,
+            'ip_address' => self::IP_ADDRESS,
+            'created_at' => '2021-10-19 06:00:00',
+        ]);
 
         $this->serverVariables = [
             'REMOTE_ADDR' => self::IP_ADDRESS,
@@ -165,18 +191,5 @@ class AuthenticationTest extends TestCase
             [$user],
             LoggedFromUnknownDevice::class
         );
-    }
-
-    public function loginsProvider(): array
-    {
-        return [
-            [
-                'data' => [
-                    'created_at' => '2021-10-19 06:00:00',
-                    'ip_address' => self::IP_ADDRESS,
-                    'user_agent' => self::USER_AGENT,
-                ],
-            ],
-        ];
     }
 }
