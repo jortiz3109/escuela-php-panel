@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Logins;
 
+use App\Models\KnowDevice;
 use App\Models\LoginLog;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,9 +29,13 @@ class IndexTest extends TestCase
     public function test_it_has_a_collection_of_logins(): void
     {
         /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
+        $user = User::factory()
+            ->hasKnowDevices(1)
+            ->create();
 
-        LoginLog::factory()->for($user)->count(20)->create();
+        $device = $user->knowDevices()->first();
+
+        LoginLog::factory()->forDevice($device);
 
         $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
@@ -45,9 +50,13 @@ class IndexTest extends TestCase
     public function test_collection_has_logins(): void
     {
         /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
+        $user = User::factory()->hasKnowDevices(1)->create();
+        $device = $user->knowDevices()->first();
 
-        LoginLog::factory()->for($user)->create();
+        LoginLog::factory()
+            ->for($device, 'device')
+            ->for($user)
+            ->create();
 
         $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
@@ -57,34 +66,24 @@ class IndexTest extends TestCase
         );
     }
 
-    /**
-     * @param array $data
-     * @dataProvider loginsProvider
-     */
-    public function test_it_show_logins_data(array $data): void
+    public function test_it_show_logins_data(): void
     {
         /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
+        $user = User::factory()
+            ->has(KnowDevice::factory())
+            ->create();
 
-        $login = LoginLog::factory()->for($user)->create($data);
+        $device = $user->knowDevices()->first();
+
+        $login = LoginLog::factory()
+            ->for($device, 'device')
+            ->for($user)
+            ->create(['ip_address' => '127.0.0.1']);
 
         $response = $this->actingAs($user)->get(self::LOGINS_URL);
 
         $response->assertSee($login->created_at);
         $response->assertSee($login->ip_address);
-        $response->assertSee($login->user_agent);
-    }
-
-    public function loginsProvider(): array
-    {
-        return [
-            [
-                'data' => [
-                    'created_at' => '2021-10-19 06:00:00',
-                    'ip_address' => '127.0.0.1',
-                    'user_agent' => 'Opera/8.26 (X11; Linux x86_64; sl-SI)',
-                ],
-            ],
-        ];
+        $response->assertSee($login->device->user_agent);
     }
 }
