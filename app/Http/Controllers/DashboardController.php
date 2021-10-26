@@ -11,6 +11,7 @@ class DashboardController extends Controller
                 'title' => 'Dashboard',
             ],
             'buttons' => [],
+            'filters' => [],
         ]);
     }
 }
