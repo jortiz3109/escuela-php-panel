@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\LogSuccessfulLogin;
+use App\Listeners\SendUnknowDeviceEmailNotification;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -16,6 +17,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         Login::class => [
+            SendUnknowDeviceEmailNotification::class,
             LogSuccessfulLogin::class,
         ],
     ];
