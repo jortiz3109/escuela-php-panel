@@ -8,11 +8,11 @@ class SendUnknowDeviceEmailNotification
 {
     public function handle($event)
     {
-        $loginDeviceExists = $event->user
+        $loginDeviceExistsAndIsRecent = $event->user
             ->knowDevices()
-            ->currentDeviceExists();
+            ->currentDeviceExistsAndIsRecent();
 
-        if (!$loginDeviceExists) {
+        if (!$loginDeviceExistsAndIsRecent) {
             $event->user->notify(new LoggedFromUnknownDevice());
         }
     }

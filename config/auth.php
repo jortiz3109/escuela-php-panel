@@ -109,4 +109,6 @@ return [
     'password_timeout' => 10800,
 
     'max_attempts' => 3,
+
+    'months_elapsed_to_consider_a_device_as_ancient' => 6,
 ];

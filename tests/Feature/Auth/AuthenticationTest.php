@@ -157,14 +157,41 @@ class AuthenticationTest extends TestCase
         );
     }
 
-    public function test_it_does_not_notify_when_logging_in_from_a_known_device(): void
+    public function test_it_notify_when_login_from_a_know_ancient_device(): void
     {
         Notification::fake();
 
         $user = User::factory()
             ->has(KnowDevice::factory([
                 'user_agent' => self::USER_AGENT,
-            ]))
+            ])->ancient())
+            ->enabled()
+            ->create();
+
+        $this->serverVariables = [
+            'REMOTE_ADDR' => self::IP_ADDRESS,
+            'HTTP_USER_AGENT' => self::USER_AGENT,
+        ];
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        Notification::assertSentTo(
+            [$user],
+            LoggedFromUnknownDevice::class
+        );
+    }
+
+    public function test_it_does_not_notify_when_logging_in_from_a_known_and_recent_device(): void
+    {
+        Notification::fake();
+
+        $user = User::factory()
+            ->has(KnowDevice::factory([
+                'user_agent' => self::USER_AGENT,
+            ])->recent())
             ->enabled()
             ->create();
 
