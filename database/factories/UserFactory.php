@@ -8,19 +8,9 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->name(),
@@ -31,16 +21,29 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
+    public function unverified(): Factory
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'email_verified_at' => null,
+            ];
+        });
+    }
+
+    public function enabled(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'enabled_at' => $this->faker->dateTime(),
+            ];
+        });
+    }
+
+    public function disabled(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'enabled_at' => null,
             ];
         });
     }
