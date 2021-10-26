@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\KnowDevice;
 use App\Models\LoginLog;
 use App\Models\User;
-use App\Models\KnowDevice;
 use App\Notifications\LoggedFromUnknownDevice;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;

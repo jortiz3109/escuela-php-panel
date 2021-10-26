@@ -12,7 +12,7 @@ class KnowDeviceQueryBuilder extends Builder
         $elapsedMonths = config('auth.months_elapsed_to_consider_a_device_as_ancient', 6);
 
         return $this->currentDevice()
-            ->where("last_login_at", ">", Carbon::now()->subMonths($elapsedMonths))
+            ->where('last_login_at', '>', Carbon::now()->subMonths($elapsedMonths))
             ->exists();
     }
 

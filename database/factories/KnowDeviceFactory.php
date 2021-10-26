@@ -33,7 +33,7 @@ class KnowDeviceFactory extends Factory
 
         return $this->state(function () use ($elapsedMonths) {
             return [
-                'last_login_at' => $this->faker->dateTimeBetween('-1 year', '-' . $elapsedMonths .' months'),
+                'last_login_at' => $this->faker->dateTimeBetween('-1 year', '-' . $elapsedMonths . ' months'),
             ];
         });
     }

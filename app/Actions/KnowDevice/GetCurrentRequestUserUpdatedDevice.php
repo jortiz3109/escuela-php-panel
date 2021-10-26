@@ -2,7 +2,6 @@
 
 namespace App\Actions\KnowDevice;
 
-use App\Actions\KnowDevice\CreateKnowDevice;
 use App\Models\KnowDevice;
 
 class GetCurrentRequestUserUpdatedDevice
