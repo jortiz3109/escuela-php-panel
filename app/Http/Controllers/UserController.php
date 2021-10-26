@@ -8,14 +8,27 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Register\UserCreateRequest;
 use App\Providers\RouteServiceProvider;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
+
+    public function create()
+    {
+
+        return view('register.create', [
+            "buttons" => [],
+            "texts"=>[
+                "title" => "Register User"
+            ]
+        ]);
+    }
+
     public function store(UserCreateRequest $request)
     {
         $userId=auth()->id();
 
-        CreateUserAction::execute([
+       $response= CreateUserAction::execute([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -23,6 +36,6 @@ class UserController extends Controller
             'updated_by' =>   $userId,
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return $response;
     }
 }
