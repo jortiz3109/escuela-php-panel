@@ -4,8 +4,9 @@
     <caption>{{ $texts['title'] }}</caption>
     <form action="{{ route('register.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="id_user" value="{{$texts['userId'] }}">
                 <b-field label="{{ __('Name') }}" type="{{ $errors->has('name') ? 'is-danger' : null }}" message="{{ $errors->first('name') }}">
-                    <b-input type="text" name="email" id="name" value="{{ old('name') }}" maxlength="30"  required></b-input>
+                    <b-input type="text" name="name" id="name" value="{{ old('name') }}" maxlength="30"  required></b-input>
                 </b-field>
 
                 <b-field label="{{ __('Email') }}" type="{{ $errors->has('email') ? 'is-danger' : null }}" message="{{ $errors->first('email') }}">

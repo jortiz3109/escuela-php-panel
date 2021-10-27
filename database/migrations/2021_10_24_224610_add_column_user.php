@@ -14,7 +14,6 @@ class AddColumnUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('enabled_at')->nullable()->after('email_verified_at');
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
         });
@@ -28,7 +27,6 @@ class AddColumnUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('enabled_at');
             $table->dropForeign(['created_by']);
             $table->dropForeign(['updated_by']);
         });

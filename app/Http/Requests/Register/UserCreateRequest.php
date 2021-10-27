@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Register;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules;
 
 class UserCreateRequest extends FormRequest
 {
@@ -11,9 +12,9 @@ class UserCreateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +27,7 @@ class UserCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
 

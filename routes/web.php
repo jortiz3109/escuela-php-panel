@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::view('/', 'welcome');
 
@@ -17,6 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
 
     Route::name('logins.index')->get('/logins', LoginLogController::class);
+
+    Route::name('register.create')->get('/register', [UserController::class, 'create']);
+    Route::name('register.store')->post('/register', [UserController::class, 'store']);
 });
 
 Route::get('/email/verify', function () {
