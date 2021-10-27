@@ -13,7 +13,7 @@ class CreateKnowDevicesTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('user_agent', 300);
             $table->timestamp('last_login_at');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
