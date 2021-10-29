@@ -25,7 +25,7 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
@@ -38,6 +38,7 @@ class UserCreateRequest extends FormRequest
             'email.required' => 'El :attribute es obligatorio.',
             'email.unique' => 'El :attribute debe unico',
             'password.required' => 'El :attribute es obligatorio.',
+            'name.regex' => 'El :attribute sólo puede contener letras y espacios',
         ];
     }
 

@@ -28,8 +28,7 @@ class UserController extends Controller
 
     public function store(UserCreateRequest $request)
     {
-        $userId=auth()->id();
-        CreateUserAction::execute();
+        CreateUserAction::execute($request->validated());
 
         return view('dashboard', [
             'texts' => [

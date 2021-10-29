@@ -8,17 +8,16 @@ use App\Models\User;
 
 class CreateUser
 {
-    public static function execute(): User
+    public static function execute(array $userRequest): User
     {
-
         $user = auth()->user()->create([
-            'name' => request()->name,
-            'email' => request()->email,
-            'password' => Hash::make(request()->password),
-            'created_by' =>  request()->id_user,
-            'updated_by' =>   request()->id_user,
+            'name' => $userRequest['name'],
+            'email' => $userRequest['email'],
+            'password' => Hash::make($userRequest['password']),
+            'created_by' =>  auth()->id(),
+            'updated_by' =>   auth()->id(),
         ]);
-        
+
         event(new Registered($user));
 
         return $user;
