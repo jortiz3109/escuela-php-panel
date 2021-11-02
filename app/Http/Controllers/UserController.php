@@ -20,7 +20,6 @@ class UserController extends Controller
             "buttons" => [],
             "texts"=> [
                 "title" => "Register User",
-                "userId" => $userId
             ],
             "filters" => [],
         ]);
