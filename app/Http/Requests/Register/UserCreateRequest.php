@@ -20,24 +20,4 @@ class UserCreateRequest extends FormRequest
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'El :attribute es obligatorio.',
-            'email.required' => 'El :attribute es obligatorio.',
-            'email.unique' => 'El :attribute debe unico',
-            'password.required' => 'El :attribute es obligatorio.',
-            'name.regex' => 'El :attribute sólo puede contener letras y espacios',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'name' => 'nombre del usuario',
-            'email' => 'email del usuario',
-            'password' => 'password del usuario',
-        ];
-    }
 }
