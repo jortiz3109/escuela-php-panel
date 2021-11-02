@@ -21,7 +21,7 @@ class UserController extends Controller
 
     }
 
-    public function store(UserCreateRequest $request): Route
+    public function store(UserCreateRequest $request)
     {
         $user = CreateUserAction::execute();
 

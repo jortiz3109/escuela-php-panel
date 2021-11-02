@@ -2,7 +2,7 @@
 @section('content')
 
     <caption>{{ $texts['title'] }}</caption>
-    <form action="{{ route('register.store') }}" method="POST">
+    <form action="{{ route('users.store') }}" method="POST">
                 @csrf
                 <b-field label=@lang('users.fields.name') type="{{ $errors->has('name') ? 'is-danger' : null }}" message="{{ $errors->first('name') }}">
                     <b-input type="text" name="name" id="name" value="{{ old('name') }}" maxlength="30"  required></b-input>

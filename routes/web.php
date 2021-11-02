@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
 
     Route::name('logins.index')->get('/logins', LoginLogController::class);
 
-    Route::name('register.create')->get('/register', [UserController::class, 'create']);
-    Route::name('register.store')->post('/register', [UserController::class, 'store']);
+    Route::name('users.create')->get('/register', [UserController::class, 'create']);
+    Route::name('users.store')->post('/register', [UserController::class, 'store']);
 });
 
 Route::get('/email/verify', function () {
