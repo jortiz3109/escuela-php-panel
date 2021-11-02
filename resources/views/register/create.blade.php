@@ -21,7 +21,7 @@
                 </b-field>
 
                 <button type="submit" class="button is-primary is-fullwidth"> <b-icon pack="fas" icon="save"></b-icon>&nbsp;
-                    @lang('Register')
+                    @lang('Register')  
                 </button>
             </form>
 

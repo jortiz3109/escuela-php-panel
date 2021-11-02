@@ -3,41 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Register\CreateUser as CreateUserAction;
+use App\Http\Requests\Register\UserCreateRequest;
+use App\ViewModels\Users\CreateViewModel;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use App\Http\Requests\Register\UserCreateRequest;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
 
-    public function create(): View
+    public function create(CreateViewModel $viewModel): View
     {
-        $userId = auth()->id();
-        return view('register.create', [
-            "buttons" => [],
-            "texts"=> [
-                "title" => "Register User",
-            ],
-            "filters" => [],
-        ]);
+        $users = auth()->user()->get();
+        $viewModel->collection($users);
+
+        return view('register.create', $viewModel->toArray());
+
     }
 
-    public function store(UserCreateRequest $request): View
+    public function store(UserCreateRequest $request): Route
     {
         $user = CreateUserAction::execute();
 
         event(new Registered($user));
 
-        return view('dashboard', [
-            'texts' => [
-                'title' => 'Register created successfully.',
-            ],
-            'buttons' => [],
-            'filters' => [],
-        ]);
+        return redirect()->route('dashboard')->with('success', 'Register created successfully.');
                            
     }
 }
