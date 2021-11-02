@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Register\CreateUser as CreateUserAction;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use App\Models\User;
-
-use App\Http\Requests\Register\UserCreateRequest;
 use App\Providers\RouteServiceProvider;
+use App\Models\User;
+use App\Http\Requests\Register\UserCreateRequest;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -24,11 +24,14 @@ class UserController extends Controller
             ],
             "filters" => [],
         ]);
+        
     }
 
-    public function store(UserCreateRequest $request)
+    public function store(UserCreateRequest $request):view
     {
-        CreateUserAction::execute($request->validated());
+        $user=CreateUserAction::execute();
+
+        event(new Registered($user));
 
         return view('dashboard', [
             'texts' => [

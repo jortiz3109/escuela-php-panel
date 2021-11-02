@@ -3,24 +3,19 @@
 namespace App\Actions\Register;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 use App\Models\User;
 
 class CreateUser
 {
-    public static function execute(array $userRequest): User
+    public static function execute(): User
     {
-        $user = auth()->user()->create([
-            'name' => $userRequest['name'],
-            'email' => $userRequest['email'],
-            'password' => Hash::make($userRequest['password']),
+        return auth()->user()->create([
+            'name' =>  request()->name ,
+            'email' => request()->email ,
+            'password' => Hash::make(request()->password ),
             'created_by' =>  auth()->id(),
             'updated_by' =>   auth()->id(),
         ]);
-
-        event(new Registered($user));
-
-        return $user;
 
     }
 }
