@@ -45,4 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
 });
 
-Route::name('users.index')->get('/users', [UserController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::name('users.index')->get('/users', [UserController::class, 'index']);
+});

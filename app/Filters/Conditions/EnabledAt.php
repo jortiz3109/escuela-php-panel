@@ -2,14 +2,14 @@
 
 namespace App\Filters\Conditions;
 
+use App\Filters\Condition;
+use App\Filters\Criteria;
 use Illuminate\Database\Eloquent\Builder;
 
-class EnabledAt
+class EnabledAt extends Condition
 {
-    public static function append(Builder $query, bool $enabled): void
+    public static function append(Builder $query, Criteria $criteria): void
     {
-        (true === $enabled)
-            ? $query->whereNotNull('enabled_at')
-            : $query->whereNull('enabled_at');
+        ($criteria=="1")? $query->whereNotNull('enabled_at') : $query->whereNull('enabled_at');
     }
 }

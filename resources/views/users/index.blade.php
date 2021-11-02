@@ -1,5 +1,11 @@
 @extends('layouts.admin')
 @section('content')
+
+
+    @includeWhen(count($filters), 'filters', compact('filters'))
+    <div class="box block">
+        @yield('content')
+    </div>
     <table class="table is-narrow is-hoverable">
         <caption>{{ $texts['title'] }}</caption>
         <thead>
@@ -27,5 +33,5 @@
         @endforeach
         </tbody>
     </table>
-    {{ $users->render('partials.pagination.paginator') }}
+    {{ $users->appends(request()->only('filters'))->render('partials.pagination.paginator') }}
 @endsection

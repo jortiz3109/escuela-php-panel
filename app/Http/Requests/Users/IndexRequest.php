@@ -15,9 +15,6 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters' => ['filled', 'array'],
-            'filters.email' => ['email'],
-            'filters.name' => ['string', 'max:120'],
-            'filters.enabled_at' => ['boolean'],
         ];
     }
 }
