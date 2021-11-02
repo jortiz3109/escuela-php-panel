@@ -13,23 +13,22 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
 
-    public function create():view
+    public function create(): View
     {
-        $userId=auth()->id();
+        $userId = auth()->id();
         return view('register.create', [
             "buttons" => [],
-            "texts"=>[
+            "texts"=> [
                 "title" => "Register User",
                 "userId" => $userId
             ],
             "filters" => [],
         ]);
-        
     }
 
-    public function store(UserCreateRequest $request):view
+    public function store(UserCreateRequest $request): View
     {
-        $user=CreateUserAction::execute();
+        $user = CreateUserAction::execute();
 
         event(new Registered($user));
 
@@ -40,7 +39,6 @@ class UserController extends Controller
             'buttons' => [],
             'filters' => [],
         ]);
-                 
-                    
+                           
     }
 }
