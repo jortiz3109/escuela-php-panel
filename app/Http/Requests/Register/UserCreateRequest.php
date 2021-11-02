@@ -7,17 +7,12 @@ use Illuminate\Validation\Rules;
 
 class UserCreateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/u',
@@ -40,7 +35,7 @@ class UserCreateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'nombre del usuari0',
+            'name' => 'nombre del usuario',
             'email' => 'email del usuario',
             'password' => 'password del usuario',
         ];
