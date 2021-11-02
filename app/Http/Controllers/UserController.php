@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
 
-    public function create()
+    public function create():view
     {
         $userId=auth()->id();
         return view('register.create', [
