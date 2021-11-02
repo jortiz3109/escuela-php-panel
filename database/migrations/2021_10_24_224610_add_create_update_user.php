@@ -6,12 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class AddColumnUser extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('created_by')->nullable()->constrained('users');
@@ -19,12 +15,7 @@ class AddColumnUser extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['created_by']);
