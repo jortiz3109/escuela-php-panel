@@ -10,6 +10,8 @@ class EnabledAt extends Condition
 {
     public static function append(Builder $query, Criteria $criteria): void
     {
-        ($criteria=="1")? $query->whereNotNull('enabled_at') : $query->whereNull('enabled_at');
+        ('true' == $criteria)
+            ? $query->whereNotNull('enabled_at')
+            : $query->whereNull('enabled_at');
     }
 }
