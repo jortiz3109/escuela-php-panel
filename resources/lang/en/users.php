@@ -11,5 +11,6 @@ return [
         'name' => 'Name',
         'email' => 'Email',
         'created_at' => 'Created at',
+        'status' => 'Status',
     ],
 ];

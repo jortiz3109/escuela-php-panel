@@ -12,14 +12,13 @@ class UserFilters extends Filter
 {
     protected string $model = User::class;
     protected array $applicableConditions = [
-        'name' => Name::class,
         'email' => Email::class,
         'enabled_at' => EnabledAt::class,
     ];
 
     protected function select(): Filter
     {
-        $this->query->select(['id', 'name', 'email', 'created_at', 'updated_at', 'enabled_at']);
+        $this->query->select(['name', 'email', 'created_at', 'enabled_at']);
         return $this;
     }
 }

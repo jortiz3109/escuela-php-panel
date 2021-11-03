@@ -7,13 +7,13 @@
         @yield('content')
     </div>
     <table class="table is-narrow is-hoverable">
-        <caption>{{ $texts['title'] }}</caption>
+
         <thead>
         <tr>
             <th scope="col">@lang('users.fields.name')</th>
             <th scope="col">@lang('users.fields.email')</th>
             <th scope="col">@lang('users.fields.created_at')</th>
-
+            <th scope="col">@lang('users.fields.status')</th>
         </tr>
         </thead>
         <tfoot>
@@ -21,14 +21,17 @@
             <th scope="col">@lang('users.fields.name')</th>
             <th scope="col">@lang('users.fields.email')</th>
             <th scope="col">@lang('users.fields.created_at')</th>
+            <th scope="col">@lang('users.fields.status')</th>
         </tr>
         </tfoot>
         <tbody>
+
         @foreach($users as $user)
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->created_at->toDateString() }}</td>
+                <td>@if($user->enabled_at == null)Deshabilitado @else Habilitado @endif</td>
             </tr>
         @endforeach
         </tbody>

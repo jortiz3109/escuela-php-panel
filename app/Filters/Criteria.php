@@ -6,7 +6,7 @@ class Criteria
 {
     private string|array $value;
 
-    public function __construct(string|array|int $value)
+    public function __construct(string|array $value)
     {
         $this->value = $value;
     }
