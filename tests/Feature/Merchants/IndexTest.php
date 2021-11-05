@@ -25,19 +25,13 @@ class IndexTest extends TestCase
 
     public function test_it_can_list_merchants(): void
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_merchants(): void
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
         $response->assertViewHas('merchants');
 
         $this->assertInstanceOf(
@@ -53,10 +47,7 @@ class IndexTest extends TestCase
             ->for(Currency::factory())
             ->create();
 
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
         $this->assertInstanceOf(
             Merchant::class,
@@ -78,10 +69,7 @@ class IndexTest extends TestCase
             ->for($currency)
             ->create($data);
 
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
         $response->assertSee($merchant->name);
         $response->assertSee($merchant->brand);

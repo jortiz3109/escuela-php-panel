@@ -18,10 +18,7 @@ class IndexTest extends TestCase
 
     public function test_it_can_list_logins(): void
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route(self::LOGINS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(route(self::LOGINS_ROUTE_NAME));
 
         $response->assertStatus(Response::HTTP_OK);
     }

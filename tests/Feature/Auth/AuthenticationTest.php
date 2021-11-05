@@ -28,7 +28,7 @@ class AuthenticationTest extends TestCase
 
     public function test_it_redirects_logged_users_to_home(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         $response = $this->post('/login', [
             'email' => $user->email,
@@ -41,7 +41,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
-        $user = User::factory()->create();
+        $user = $this->defaultUser();
 
         $this->post('/login', [
             'email' => $user->email,
@@ -53,7 +53,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_if_they_are_enabled(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         $this->post('/login', [
             'email' => $user->email,
@@ -77,7 +77,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_are_locked_after_three_login_failed_attempts(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         Config::set('auth.max_attempts', 1);
 
@@ -100,7 +100,7 @@ class AuthenticationTest extends TestCase
 
     public function test_it_log_the_login_attempt_when_user_is_authenticated(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         $this->serverVariables = [
             'REMOTE_ADDR' => self::IP_ADDRESS,
@@ -120,7 +120,7 @@ class AuthenticationTest extends TestCase
 
     public function test_it_store_the_device_when_user_is_authenticated(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         $this->serverVariables = [
             'REMOTE_ADDR' => self::IP_ADDRESS,
@@ -142,9 +142,7 @@ class AuthenticationTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()
-            ->enabled()
-            ->create();
+        $user = $this->enabledUser();
 
         $this->post('/login', [
             'email' => $user->email,
