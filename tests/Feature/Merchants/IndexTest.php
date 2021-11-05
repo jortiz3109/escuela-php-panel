@@ -137,7 +137,7 @@ class IndexTest extends TestCase
                     'brand'    => 'PlaceToPay',
                     'document' => '1234567890',
                     'url'      => 'https://placetopay.com',
-                ]
+                ],
             ],
         ];
     }

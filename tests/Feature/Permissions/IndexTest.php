@@ -3,7 +3,6 @@
 namespace Tests\Feature\Permissions;
 
 use App\Models\Permission;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
