@@ -14,21 +14,23 @@ class IndexTest extends TestCase
 {
     use RefreshDatabase;
 
+    public const PERMISSIONS_ROUTE_NAME = 'permissions.index';
+
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->get('/permissions');
+        $response = $this->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertRedirect(route('login'));
     }
 
     public function test_it_can_list_permissions(): void
     {
-        $response = $this->actingAs(User::factory()->create())->get('/permissions');
+        $response = $this->actingAs(User::factory()->create())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_permissions(): void
     {
-        $response = $this->actingAs(User::factory()->create())->get('/permissions');
+        $response = $this->actingAs(User::factory()->create())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertViewHas('permissions');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['permissions']);
     }
@@ -36,7 +38,7 @@ class IndexTest extends TestCase
     public function test_collection_has_permissions(): void
     {
         Permission::factory()->create();
-        $response = $this->actingAs(User::factory()->create())->get('/permissions');
+        $response = $this->actingAs(User::factory()->create())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['permissions']->first());
     }
 
@@ -47,7 +49,7 @@ class IndexTest extends TestCase
     public function test_it_show_permissions_data(array $data): void
     {
         $permission = Permission::factory()->create($data);
-        $response = $this->actingAs(User::factory()->create())->get('/permissions');
+        $response = $this->actingAs(User::factory()->create())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertSee($permission->name);
         $response->assertSee($permission->description);
     }
@@ -58,7 +60,7 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $response = $this->actingAs(User::factory()->create())->get('/permissions?' . $filters);
+        $response = $this->actingAs(User::factory()->create())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
 
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
@@ -73,7 +75,7 @@ class IndexTest extends TestCase
         Permission::factory()->create($data);
 
         $filters = http_build_query(['filters' => ['name' => 'permissions.']]);
-        $response = $this->actingAs(User::factory()->create())->get('/permissions?' . $filters);
+        $response = $this->actingAs(User::factory()->create())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
         $permissions = $response->getOriginalContent()['permissions'];
 
         $this->assertEquals(1, $permissions->count());
