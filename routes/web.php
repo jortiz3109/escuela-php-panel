@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::get('/dashboard', DashboardController::class)
+Route::get('dashboard', DashboardController::class)
     ->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('merchants', [MerchantController::class, 'index'])->name('merchants.index');
 
-    Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
+    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
 
-    Route::name('logins.index')->get('/logins', LoginLogController::class);
+    Route::get('logins', LoginLogController::class)->name('logins.index');
 });
 
 Route::get('/email/verify', function () {
