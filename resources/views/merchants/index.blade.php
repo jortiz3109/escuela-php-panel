@@ -25,7 +25,7 @@
         <tr>
             <td>
                 {{ $merchant->name }}<br>
-                <small>{{ $merchant->brand }}</small>
+                <small class="has-text-grey is-capitalized">{{ $merchant->brand }}</small>
             </td>
             <td>{{ $merchant->document }}</td>
             <td>{{ $merchant->url }}</td>
