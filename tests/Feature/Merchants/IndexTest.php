@@ -5,7 +5,6 @@ namespace Tests\Feature\Merchants;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Merchant;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,6 +76,31 @@ class IndexTest extends TestCase
         $response->assertSee($merchant->url);
         $response->assertSee($merchant->country->name);
         $response->assertSee($merchant->currency->alphabetic_code);
+    }
+
+    /**
+     * @param array $data
+     * @dataProvider merchantProvider
+     */
+    public function test_it_can_filter_merchants(array $data): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->create($data);
+
+        $filters = http_build_query(['filters' => ['name' => 'EVERTEC']]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $merchants = $response->getOriginalContent()['merchants'];
+
+        $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($data['name'], $merchants->first()->name);
     }
 
     public function merchantProvider(): array

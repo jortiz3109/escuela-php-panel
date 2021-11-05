@@ -21,7 +21,9 @@ class IndexViewModel extends ViewModel
 
     public function filters(): array
     {
-        return [];
+        return [
+            'name' => old('filters.name') ?? request()->input('filters.name'),
+        ];
     }
 
     protected function data(): array
