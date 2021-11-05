@@ -178,6 +178,31 @@ class IndexTest extends TestCase
         $this->assertEquals($data['url'], $merchants->first()->url);
     }
 
+    /**
+     * @param array $data
+     * @dataProvider countryProvider
+     */
+    public function test_it_can_filter_merchants_by_country(array $data): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+
+        Merchant::factory()
+            ->for(Country::factory($data))
+            ->for(Currency::factory())
+            ->create();
+
+        $filters = http_build_query(['filters' => ['country' => 'Colombia',]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $merchants = $response->getOriginalContent()['merchants'];
+
+        $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($data['name'], $merchants->first()->country);
+    }
+
     public function merchantProvider(): array
     {
         return [
@@ -189,6 +214,13 @@ class IndexTest extends TestCase
                     'url'      => 'https://placetopay.com',
                 ],
             ],
+        ];
+    }
+
+    public function countryProvider(): array
+    {
+        return [
+            ['data' => ['name' => 'Colombia']],
         ];
     }
 }
