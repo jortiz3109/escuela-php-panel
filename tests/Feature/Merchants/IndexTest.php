@@ -285,5 +285,4 @@ class IndexTest extends TestCase
             'currency max' => ['attribute' => 'currency', 'value' => Str::random(81)],
         ];
     }
-
 }
