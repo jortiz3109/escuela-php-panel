@@ -6,7 +6,7 @@ use App\Filters\Conditions\Brand;
 use App\Filters\Conditions\Country;
 use App\Filters\Conditions\CurrencyAlphabeticCode;
 use App\Filters\Conditions\Document;
-use App\Filters\Conditions\Merchant\Name;
+use App\Filters\Conditions\Merchants\Name;
 use App\Filters\Conditions\Url;
 use App\Filters\Filter;
 use App\Models\Merchant;

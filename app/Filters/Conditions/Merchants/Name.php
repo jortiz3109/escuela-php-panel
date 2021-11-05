@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters\Conditions\Merchant;
+namespace App\Filters\Conditions\Merchants;
 
 use App\Filters\Condition;
 use App\Filters\Criteria;
