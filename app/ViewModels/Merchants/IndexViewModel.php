@@ -22,11 +22,12 @@ class IndexViewModel extends ViewModel
     public function filters(): array
     {
         return [
-            'name' => old('filters.name') ?? request()->input('filters.name'),
-            'brand' => old('filters.brand') ?? request()->input('filters.brand'),
+            'name'     => old('filters.name') ?? request()->input('filters.name'),
+            'brand'    => old('filters.brand') ?? request()->input('filters.brand'),
             'document' => old('filters.document') ?? request()->input('filters.document'),
-            'url' => old('filters.url') ?? request()->input('filters.url'),
-            'country' => old('filters.country') ?? request()->input('filters.country'),
+            'url'      => old('filters.url') ?? request()->input('filters.url'),
+            'country'  => old('filters.country') ?? request()->input('filters.country'),
+            'currency' => old('filters.currency') ?? request()->input('filters.currency'),
         ];
     }
 

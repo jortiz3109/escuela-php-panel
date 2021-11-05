@@ -4,6 +4,7 @@ namespace App\Filters\ModelFilters;
 
 use App\Filters\Conditions\Brand;
 use App\Filters\Conditions\Country;
+use App\Filters\Conditions\CurrencyAlphabeticCode;
 use App\Filters\Conditions\Document;
 use App\Filters\Conditions\Merchant\Name;
 use App\Filters\Conditions\Url;
@@ -20,6 +21,7 @@ class MerchantFilters extends Filter
         'document' => Document::class,
         'url'      => Url::class,
         'country'  => Country::class,
+        'currency' => CurrencyAlphabeticCode::class,
     ];
 
     protected function joins(): Filter

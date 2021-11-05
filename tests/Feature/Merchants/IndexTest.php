@@ -203,6 +203,31 @@ class IndexTest extends TestCase
         $this->assertEquals($data['name'], $merchants->first()->country);
     }
 
+    /**
+     * @param array $data
+     * @dataProvider currencyProvider
+     */
+    public function test_it_can_filter_merchants_by_currency(array $data): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory($data))
+            ->create();
+
+        $filters = http_build_query(['filters' => ['currency' => 'COP',]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $merchants = $response->getOriginalContent()['merchants'];
+
+        $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($data['alphabetic_code'], $merchants->first()->currency);
+    }
+
     public function merchantProvider(): array
     {
         return [
@@ -221,6 +246,13 @@ class IndexTest extends TestCase
     {
         return [
             ['data' => ['name' => 'Colombia']],
+        ];
+    }
+
+    public function currencyProvider(): array
+    {
+        return [
+            ['data' => ['alphabetic_code' => 'COP']],
         ];
     }
 }
