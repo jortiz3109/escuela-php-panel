@@ -85,16 +85,7 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_merchants_by_name(array $data): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
-
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->create($data);
+        $this->createMerchantsWithData($data);
 
         $filters = http_build_query(['filters' => ['name' => 'EVERTEC']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
@@ -110,16 +101,7 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_merchants_by_brand(array $data): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
-
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->create($data);
+        $this->createMerchantsWithData($data);
 
         $filters = http_build_query(['filters' => ['brand' => 'PlaceToPay']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
@@ -135,16 +117,7 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_merchants_by_document(array $data): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
-
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->create($data);
+        $this->createMerchantsWithData($data);
 
         $filters = http_build_query(['filters' => ['document' => '1234567890']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
@@ -160,16 +133,7 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_merchants_by_url(array $data): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
-
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->create($data);
+        $this->createMerchantsWithData($data);
 
         $filters = http_build_query(['filters' => ['url' => 'https://placetopay.com']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
@@ -185,11 +149,7 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_merchants_by_country(array $data): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
+        $this->createMerchants();
 
         Merchant::factory()
             ->for(Country::factory($data))
@@ -210,11 +170,7 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_merchants_by_currency(array $data): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
+        $this->createMerchants();
 
         Merchant::factory()
             ->for(Country::factory())
@@ -284,5 +240,24 @@ class IndexTest extends TestCase
             'currency min' => ['attribute' => 'currency', 'value' => 'a'],
             'currency max' => ['attribute' => 'currency', 'value' => Str::random(81)],
         ];
+    }
+
+    private function createMerchants(): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+    }
+
+    private function createMerchantsWithData(array $data): void
+    {
+        $this->createMerchants();
+
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->create($data);
     }
 }
