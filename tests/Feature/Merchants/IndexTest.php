@@ -128,6 +128,31 @@ class IndexTest extends TestCase
         $this->assertEquals($data['brand'], $merchants->first()->brand);
     }
 
+    /**
+     * @param array $data
+     * @dataProvider merchantProvider
+     */
+    public function test_it_can_filter_merchants_by_document(array $data): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->create($data);
+
+        $filters = http_build_query(['filters' => ['document' => '1234567890']]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $merchants = $response->getOriginalContent()['merchants'];
+
+        $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($data['document'], $merchants->first()->document);
+    }
+
     public function merchantProvider(): array
     {
         return [
