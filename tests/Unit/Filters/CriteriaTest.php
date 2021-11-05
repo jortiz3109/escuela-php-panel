@@ -21,7 +21,7 @@ class CriteriaTest extends TestCase
 
     public function test_it_returns_a_comma_separate_string_when_received_an_array()
     {
-        $criteria = new Criteria(['A' , 'B', 'C']);
+        $criteria = new Criteria(['A', 'B', 'C']);
         $this->assertSame('A,B,C', (string)$criteria);
     }
 }
