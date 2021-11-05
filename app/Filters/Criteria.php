@@ -4,20 +4,24 @@ namespace App\Filters;
 
 class Criteria
 {
-    private string|array $value;
+    private mixed $value;
 
-    public function __construct(string|array $value)
+    public function __construct(mixed $value)
     {
         $this->value = $value;
     }
 
-    public function value(): string|array
+    public function value(): mixed
     {
         return $this->value;
     }
 
     public function __toString(): string
     {
+        if (!isset($this->value) || empty($this->value)) {
+            return '';
+        }
+
         if (is_array($this->value)) {
             return implode(',', $this->value);
         }

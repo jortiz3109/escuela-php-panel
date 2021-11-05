@@ -15,7 +15,8 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters' => ['filled', 'array'],
-            'filters.name' => ['filled', 'string', 'min:2', 'max:120'],
+            'filters.name' => ['nullable', 'string', 'min:2', 'max:120'],
+            'filters.brand' => ['nullable', 'string', 'min:2', 'max:120'],
         ];
     }
 }

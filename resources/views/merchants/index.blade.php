@@ -35,5 +35,5 @@
     @endforeach
     </tbody>
 </table>
-{{ $merchants->render('partials.pagination.paginator') }}
+{{ $merchants->appends(request()->only('filters'))->render('partials.pagination.paginator') }}
 @endsection

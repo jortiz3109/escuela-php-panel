@@ -82,7 +82,7 @@ class IndexTest extends TestCase
      * @param array $data
      * @dataProvider merchantProvider
      */
-    public function test_it_can_filter_merchants(array $data): void
+    public function test_it_can_filter_merchants_by_name(array $data): void
     {
         Merchant::factory()
             ->for(Country::factory())
@@ -101,6 +101,31 @@ class IndexTest extends TestCase
 
         $this->assertEquals(1, $merchants->count());
         $this->assertEquals($data['name'], $merchants->first()->name);
+    }
+
+    /**
+     * @param array $data
+     * @dataProvider merchantProvider
+     */
+    public function test_it_can_filter_merchants_by_brand(array $data): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->create($data);
+
+        $filters = http_build_query(['filters' => ['brand' => 'PlaceToPay']]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $merchants = $response->getOriginalContent()['merchants'];
+
+        $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($data['brand'], $merchants->first()->brand);
     }
 
     public function merchantProvider(): array
