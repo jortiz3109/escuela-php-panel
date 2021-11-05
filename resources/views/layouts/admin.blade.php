@@ -12,8 +12,8 @@
                         <ul class="menu-list">
                             <li><a href="#"><em class="pr-2 mdi mdi-cash"></em>@lang('Transactions')</a></li>
                             <li>
-                                <a href="#">
-                                    <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>@lang('Merchants')
+                                <a href="{{ route('merchants.index') }}">
+                                    <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>@lang('merchants.navbar.title')
                                 </a>
                                 <ul>
                                     <li><a>Payment methods</a></li>

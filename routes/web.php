@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\PermissionController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -14,6 +15,8 @@ Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('merchants', [MerchantController::class, 'index'])->name('merchants.index');
+
     Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
 
     Route::name('logins.index')->get('/logins', LoginLogController::class);
