@@ -14,9 +14,7 @@ class MerchantController extends Controller
      */
     public function index(IndexRequest $request, IndexViewModel $viewModel): View
     {
-        $merchants = Merchant::filter($request->input('filters', []))
-            ->with('country', 'currency')
-            ->paginate();
+        $merchants = Merchant::filter($request->input('filters', []))->paginate();
 
         $viewModel->collection($merchants);
 

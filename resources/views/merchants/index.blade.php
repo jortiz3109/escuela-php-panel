@@ -29,8 +29,8 @@
             </td>
             <td>{{ $merchant->document }}</td>
             <td>{{ $merchant->url }}</td>
-            <td>{{ $merchant->country->name }}</td>
-            <td>{{ $merchant->currency->alphabetic_code }}</td>
+            <td>{{ $merchant->country }}</td>
+            <td>{{ $merchant->currency }}</td>
         </tr>
     @endforeach
     </tbody>
