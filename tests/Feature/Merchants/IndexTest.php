@@ -153,6 +153,31 @@ class IndexTest extends TestCase
         $this->assertEquals($data['document'], $merchants->first()->document);
     }
 
+    /**
+     * @param array $data
+     * @dataProvider merchantProvider
+     */
+    public function test_it_can_filter_merchants_by_url(array $data): void
+    {
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->count(3)
+            ->create();
+
+        Merchant::factory()
+            ->for(Country::factory())
+            ->for(Currency::factory())
+            ->create($data);
+
+        $filters = http_build_query(['filters' => ['url' => 'https://placetopay.com',]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $merchants = $response->getOriginalContent()['merchants'];
+
+        $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($data['url'], $merchants->first()->url);
+    }
+
     public function merchantProvider(): array
     {
         return [

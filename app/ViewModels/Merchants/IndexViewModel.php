@@ -25,6 +25,7 @@ class IndexViewModel extends ViewModel
             'name' => old('filters.name') ?? request()->input('filters.name'),
             'brand' => old('filters.brand') ?? request()->input('filters.brand'),
             'document' => old('filters.document') ?? request()->input('filters.document'),
+            'url' => old('filters.url') ?? request()->input('filters.url'),
         ];
     }
 

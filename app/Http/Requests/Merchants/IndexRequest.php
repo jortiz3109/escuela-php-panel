@@ -18,6 +18,7 @@ class IndexRequest extends FormRequest
             'filters.name' => ['nullable', 'string', 'min:2', 'max:120'],
             'filters.brand' => ['nullable', 'string', 'min:2', 'max:120'],
             'filters.document' => ['nullable', 'string', 'min:2', 'max:30'],
+            'filters.url' => ['nullable', 'string', 'min:2', 'max:200'],
         ];
     }
 }
