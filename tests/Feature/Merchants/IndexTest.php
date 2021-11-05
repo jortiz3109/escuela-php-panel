@@ -171,7 +171,7 @@ class IndexTest extends TestCase
             ->for(Currency::factory())
             ->create($data);
 
-        $filters = http_build_query(['filters' => ['url' => 'https://placetopay.com',]]);
+        $filters = http_build_query(['filters' => ['url' => 'https://placetopay.com']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
@@ -196,7 +196,7 @@ class IndexTest extends TestCase
             ->for(Currency::factory())
             ->create();
 
-        $filters = http_build_query(['filters' => ['country' => 'Colombia',]]);
+        $filters = http_build_query(['filters' => ['country' => 'Colombia']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
@@ -221,7 +221,7 @@ class IndexTest extends TestCase
             ->for(Currency::factory($data))
             ->create();
 
-        $filters = http_build_query(['filters' => ['currency' => 'COP',]]);
+        $filters = http_build_query(['filters' => ['currency' => 'COP']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
