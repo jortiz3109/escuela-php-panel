@@ -16,6 +16,7 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public const LOGIN_URL = 'login';
     public const IP_ADDRESS = '127.0.0.1';
     public const USER_AGENT = 'Opera/8.26 (X11; Linux x86_64; sl-SI)';
 
@@ -30,7 +31,7 @@ class AuthenticationTest extends TestCase
     {
         $user = $this->enabledUser();
 
-        $response = $this->post('/login', [
+        $response = $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -43,7 +44,7 @@ class AuthenticationTest extends TestCase
     {
         $user = $this->defaultUser();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
@@ -55,7 +56,7 @@ class AuthenticationTest extends TestCase
     {
         $user = $this->enabledUser();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -67,7 +68,7 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->disabled()->create();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -81,14 +82,14 @@ class AuthenticationTest extends TestCase
 
         Config::set('auth.max_attempts', 1);
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
 
         $this->assertTrue($user->isEnabled());
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -107,7 +108,7 @@ class AuthenticationTest extends TestCase
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -127,7 +128,7 @@ class AuthenticationTest extends TestCase
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -144,7 +145,7 @@ class AuthenticationTest extends TestCase
 
         $user = $this->enabledUser();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -171,7 +172,7 @@ class AuthenticationTest extends TestCase
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -207,7 +208,7 @@ class AuthenticationTest extends TestCase
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
