@@ -7,6 +7,7 @@ use App\Models\Currency;
 use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -228,6 +229,17 @@ class IndexTest extends TestCase
         $this->assertEquals($data['alphabetic_code'], $merchants->first()->currency);
     }
 
+    /**
+     * @dataProvider validationProvider
+     */
+    public function test_it_validates_filters(string $attribute, $value): void
+    {
+        $filters = http_build_query(['filters' => [$attribute => $value]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+
+        $response->assertSessionHasErrors("filters.{$attribute}");
+    }
+
     public function merchantProvider(): array
     {
         return [
@@ -255,4 +267,23 @@ class IndexTest extends TestCase
             ['data' => ['alphabetic_code' => 'COP']],
         ];
     }
+
+    public function validationProvider(): array
+    {
+        return [
+            'name min'     => ['attribute' => 'name', 'value' => '1'],
+            'name max'     => ['attribute' => 'name', 'value' => Str::random(121)],
+            'brand min'    => ['attribute' => 'brand', 'value' => 'a'],
+            'brand max'    => ['attribute' => 'brand', 'value' => Str::random(121)],
+            'document min' => ['attribute' => 'document', 'value' => 'a'],
+            'document max' => ['attribute' => 'document', 'value' => Str::random(31)],
+            'url min'      => ['attribute' => 'url', 'value' => 'a'],
+            'url max'      => ['attribute' => 'url', 'value' => Str::random(201)],
+            'country min'  => ['attribute' => 'country', 'value' => 'a'],
+            'country max'  => ['attribute' => 'country', 'value' => Str::random(81)],
+            'currency min' => ['attribute' => 'currency', 'value' => 'a'],
+            'currency max' => ['attribute' => 'currency', 'value' => Str::random(81)],
+        ];
+    }
+
 }
