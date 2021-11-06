@@ -16,6 +16,6 @@ return [
         'currency' => 'Currency',
     ],
     'placeholders' => [
-        'select_currency' => 'Select a currency'
+        'select_currency' => 'Select a currency',
     ],
 ];
