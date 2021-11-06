@@ -2,6 +2,7 @@
 
 namespace App\ViewModels\Merchants;
 
+use Illuminate\Support\Facades\DB;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
 
@@ -34,7 +35,8 @@ class IndexViewModel extends ViewModel
     protected function data(): array
     {
         return [
-            'merchants' => $this->collection,
+            'merchants'  => $this->collection,
+            'currencies' => DB::table('currencies')->select('alphabetic_code', 'name')->orderBy('alphabetic_code')->get(),
         ];
     }
 }

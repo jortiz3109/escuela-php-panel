@@ -15,4 +15,7 @@ return [
         'country'  => 'Country',
         'currency' => 'Currency',
     ],
+    'placeholders' => [
+        'select_currency' => 'Select a currency'
+    ],
 ];

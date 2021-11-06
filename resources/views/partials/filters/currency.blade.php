@@ -2,8 +2,14 @@
     label="@lang('merchants.fields.currency')"
     type="{{ $errors->has('filters.currency') ? 'is-danger' : '' }}"
     message="{{ $errors->first('filters.currency') }}">
-    <b-input
+    <b-select
+        placeholder="@lang('merchants.placeholders.select_currency')" expanded
         name="filters[currency]"
-        value="{{ $value  }}"
-    ></b-input>
+    >
+        @foreach ($currencies as $currency)
+            <option value="{{ $currency->alphabetic_code }}">
+                {{ $currency->alphabetic_code }} - {{ $currency->name }}
+            </option>
+        @endforeach
+    </b-select>
 </b-field>
