@@ -30,8 +30,8 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->created_at->toDateString() }}</td>
-                <td>@if($user->enabled_at == null)Deshabilitado @else Habilitado @endif</td>
+                <td>{{ $user->created_at }}</td>
+                <td>{{ $user->enabled_at }}</td>
             </tr>
         @endforeach
         </tbody>

@@ -49,4 +49,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return null !== $this->enabled_at;
     }
+
+    public function getCreatedAtAttribute(string $value): string
+    {
+        return date('d-m-Y', strtotime($value));
+    }
+
+    public function getEnabledAtAttribute(string|null $value): string
+    {
+        return (is_null($value)) ? 'Deshabilitado' : 'Habilitado';
+    }
 }
