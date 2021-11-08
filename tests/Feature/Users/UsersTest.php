@@ -62,21 +62,4 @@ class UsersTest extends TestCase
             ['data' => ['name' => 'Roberto Jimenez', 'email' => 'rcjimenez35@gmail.com', 'enabled_at' => now()->subMonth()->toDateString()]],
         ];
     }
-
-    public function filtersProvider(): array
-    {
-        return [
-            'find by email' => ['filters' => ['email' => 'rcjimenez35@gmail.com']],
-            'find by name' => ['filters' => ['name' => 'Roberto Jimenez']],
-            'find by enabled_at' => ['filters' => ['enabled_at' => now()->subMonth()->toDateString()]],
-        ];
-    }
-
-    public function enabledAtProvider(): array
-    {
-        return [
-            'user is enabled' => ['enabled_at' => now()->subMonth()->toDateString()],
-            'user is not enabled' => ['enabled_at' => null],
-        ];
-    }
 }
