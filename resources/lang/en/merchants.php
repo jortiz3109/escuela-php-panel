@@ -15,7 +15,10 @@ return [
         'country'  => 'Country',
         'currency' => 'Currency',
     ],
+    'labels' => [
+        'multiple' => 'Filter merchants',
+    ],
     'placeholders' => [
-        'select_currency' => 'Select a currency',
+        'multiple' => 'Search by name, brand, document, url, country or currency',
     ],
 ];
