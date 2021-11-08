@@ -55,11 +55,7 @@ class IndexTest extends TestCase
         );
     }
 
-    /**
-     * @param array $data
-     * @dataProvider merchantProvider
-     */
-    public function test_it_show_merchants_data(array $data): void
+    public function test_it_show_merchants_data(): void
     {
         $country = Country::factory()->create();
         $currency = Currency::factory()->create();
@@ -67,7 +63,7 @@ class IndexTest extends TestCase
         $merchant = Merchant::factory()
             ->for($country)
             ->for($currency)
-            ->create($data);
+            ->create();
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
@@ -81,108 +77,52 @@ class IndexTest extends TestCase
 
     /**
      * @param array $data
-     * @dataProvider merchantProvider
+     * @dataProvider filtersProvider
      */
-    public function test_it_can_filter_merchants_by_name(array $data): void
+    public function test_it_can_filter_merchants(array $data): void
     {
-        $this->createMerchantsWithData($data);
+        $this->createMerchantsWithData();
 
-        $filters = http_build_query(['filters' => ['name' => 'EVERTEC']]);
+        $filters = http_build_query(['filters' => ['multiple' => $data['filterValue']]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
         $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($data['name'], $merchants->first()->name);
+        $this->assertEquals($data['filterValue'], $merchants->first()->attributesToArray()[$data['attribute']]);
     }
 
-    /**
-     * @param array $data
-     * @dataProvider merchantProvider
-     */
-    public function test_it_can_filter_merchants_by_brand(array $data): void
-    {
-        $this->createMerchantsWithData($data);
-
-        $filters = http_build_query(['filters' => ['brand' => 'PlaceToPay']]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-        $merchants = $response->getOriginalContent()['merchants'];
-
-        $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($data['brand'], $merchants->first()->brand);
-    }
-
-    /**
-     * @param array $data
-     * @dataProvider merchantProvider
-     */
-    public function test_it_can_filter_merchants_by_document(array $data): void
-    {
-        $this->createMerchantsWithData($data);
-
-        $filters = http_build_query(['filters' => ['document' => '1234567890']]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-        $merchants = $response->getOriginalContent()['merchants'];
-
-        $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($data['document'], $merchants->first()->document);
-    }
-
-    /**
-     * @param array $data
-     * @dataProvider merchantProvider
-     */
-    public function test_it_can_filter_merchants_by_url(array $data): void
-    {
-        $this->createMerchantsWithData($data);
-
-        $filters = http_build_query(['filters' => ['url' => 'https://placetopay.com']]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-        $merchants = $response->getOriginalContent()['merchants'];
-
-        $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($data['url'], $merchants->first()->url);
-    }
-
-    /**
-     * @param array $data
-     * @dataProvider countryProvider
-     */
-    public function test_it_can_filter_merchants_by_country(array $data): void
+    public function test_it_can_filter_merchants_by_country(): void
     {
         $this->createMerchants();
 
-        Merchant::factory()
-            ->for(Country::factory($data))
+        $merchant = Merchant::factory()
+            ->for(Country::factory(['name' => 'Colombia']))
             ->for(Currency::factory())
             ->create();
 
-        $filters = http_build_query(['filters' => ['country' => 'Colombia']]);
+        $filters = http_build_query(['filters' => ['multiple' => 'Colombia']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
         $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($data['name'], $merchants->first()->country);
+        $this->assertEquals($merchant->country->name, $merchants->first()->country);
     }
 
-    /**
-     * @param array $data
-     * @dataProvider currencyProvider
-     */
-    public function test_it_can_filter_merchants_by_currency(array $data): void
+    public function test_it_can_filter_merchants_by_currency(): void
     {
         $this->createMerchants();
 
-        Merchant::factory()
+        $merchant = Merchant::factory()
             ->for(Country::factory())
-            ->for(Currency::factory($data))
+            ->for(Currency::factory(['alphabetic_code' => 'COP']))
             ->create();
 
-        $filters = http_build_query(['filters' => ['currency' => 'COP']]);
+        $filters = http_build_query(['filters' => ['multiple' => 'COP']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
         $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($data['alphabetic_code'], $merchants->first()->currency);
+        $this->assertEquals($merchant->currency->alphabetic_code, $merchants->first()->currency);
     }
 
     /**
@@ -196,49 +136,21 @@ class IndexTest extends TestCase
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
 
-    public function merchantProvider(): array
+    public function filtersProvider(): array
     {
         return [
-            [
-                'data' => [
-                    'name'     => 'EVERTEC',
-                    'brand'    => 'PlaceToPay',
-                    'document' => '1234567890',
-                    'url'      => 'https://placetopay.com',
-                ],
-            ],
-        ];
-    }
-
-    public function countryProvider(): array
-    {
-        return [
-            ['data' => ['name' => 'Colombia']],
-        ];
-    }
-
-    public function currencyProvider(): array
-    {
-        return [
-            ['data' => ['alphabetic_code' => 'COP']],
+            ['data' => ['attribute' => 'name', 'filterValue' => 'EVERTEC']],
+            ['data' => ['attribute' => 'brand', 'filterValue' => 'PlaceToPay']],
+            ['data' => ['attribute' => 'document', 'filterValue' => '1234567890']],
+            ['data' => ['attribute' => 'url', 'filterValue' => 'https://placetopay.com']],
         ];
     }
 
     public function validationProvider(): array
     {
         return [
-            'name min'     => ['attribute' => 'name', 'value' => '1'],
-            'name max'     => ['attribute' => 'name', 'value' => Str::random(121)],
-            'brand min'    => ['attribute' => 'brand', 'value' => 'a'],
-            'brand max'    => ['attribute' => 'brand', 'value' => Str::random(121)],
-            'document min' => ['attribute' => 'document', 'value' => 'a'],
-            'document max' => ['attribute' => 'document', 'value' => Str::random(31)],
-            'url min'      => ['attribute' => 'url', 'value' => 'a'],
-            'url max'      => ['attribute' => 'url', 'value' => Str::random(201)],
-            'country min'  => ['attribute' => 'country', 'value' => 'a'],
-            'country max'  => ['attribute' => 'country', 'value' => Str::random(81)],
-            'currency min' => ['attribute' => 'currency', 'value' => 'a'],
-            'currency max' => ['attribute' => 'currency', 'value' => Str::random(81)],
+            'multiple min' => ['attribute' => 'multiple', 'value' => 'a'],
+            'multiple max' => ['attribute' => 'multiple', 'value' => Str::random(256)],
         ];
     }
 
@@ -251,13 +163,18 @@ class IndexTest extends TestCase
             ->create();
     }
 
-    private function createMerchantsWithData(array $data): void
+    private function createMerchantsWithData(): void
     {
         $this->createMerchants();
 
         Merchant::factory()
             ->for(Country::factory())
             ->for(Currency::factory())
-            ->create($data);
+            ->create([
+                'name'     => 'EVERTEC',
+                'brand'    => 'PlaceToPay',
+                'document' => '1234567890',
+                'url'      => 'https://placetopay.com',
+            ]);
     }
 }
