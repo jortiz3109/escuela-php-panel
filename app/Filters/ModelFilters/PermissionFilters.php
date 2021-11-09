@@ -12,4 +12,10 @@ class PermissionFilters extends Filter
     protected array $applicableConditions = [
         'name' => Name::class,
     ];
+
+    protected function select(): Filter
+    {
+        $this->query->select(['name', 'description', 'created_at']);
+        return $this;
+    }
 }

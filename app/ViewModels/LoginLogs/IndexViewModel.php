@@ -1,13 +1,13 @@
 <?php
 
-namespace App\ViewModels\Permissions;
+namespace App\ViewModels\LoginLogs;
 
-use App\ViewModels\Concerns\HasPaginator;
+use App\ViewModels\Concerns\HasCollection;
 use App\ViewModels\ViewModel;
 
 class IndexViewModel extends ViewModel
 {
-    use HasPaginator;
+    use HasCollection;
 
     protected function buttons(): array
     {
@@ -16,20 +16,18 @@ class IndexViewModel extends ViewModel
 
     protected function title(): string
     {
-        return trans('permissions.titles.index');
+        return trans('logins.titles.index');
     }
 
     public function filters(): array
     {
-        return [
-            'name' => old('filters.name') ?? request()->input('filters.name'),
-        ];
+        return [];
     }
 
     protected function data(): array
     {
         return [
-            'permissions' => $this->collection,
+            'logins' => $this->collection,
         ];
     }
 }

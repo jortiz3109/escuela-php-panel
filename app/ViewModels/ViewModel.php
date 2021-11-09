@@ -28,6 +28,11 @@ abstract class ViewModel implements Arrayable
         return [];
     }
 
+    public function filters(): array
+    {
+        return [];
+    }
+
     abstract protected function title(): string;
 
     abstract protected function data(): array;

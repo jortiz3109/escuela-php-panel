@@ -16,9 +16,11 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light">
-                            @lang('auth.login')
-                        </a>
+                        @guest
+                            <a class="button is-light">
+                                @lang('auth.login')
+                            </a>
+                        @endguest
                     </div>
                 </div>
             </div>
