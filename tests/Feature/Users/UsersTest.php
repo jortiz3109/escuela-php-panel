@@ -4,23 +4,37 @@ namespace Tests\Feature\Users;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
     use RefreshDatabase;
-
-    public function test_it_return_response(): void
+    public function test_it_can_list_permissions(): void
     {
-        $response = $this->get('/users');
+        $response = $this->actingAs(User::factory()->create())->get('/users');
         $response->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_it_has_a_collection_of_users(): void
+    {
+        $response = $this->actingAs(User::factory()->create())->get('/users');
+        $response->assertViewHas('users');
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['users']);
     }
 
     public function test_a_guest_user_cannot_access(): void
     {
         $response = $this->get('/users');
         $response->assertRedirect(route('login'));
+    }
+
+    public function test_collection_has_users(): void
+    {
+        User::factory()->create();
+        $response = $this->actingAs(User::factory()->create())->get('/users');
+        $this->assertInstanceOf(User::class, $response->getOriginalContent()['users']->first());
     }
 
     public function test_it_can_list_users(): void
@@ -55,6 +69,8 @@ class UsersTest extends TestCase
         $this->assertEquals(1, $users->count());
         $this->assertEquals($data['email'], $users->first()->email);
     }
+
+
 
     public function userProvider(): array
     {
