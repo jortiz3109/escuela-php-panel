@@ -63,7 +63,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return (is_null($value)) ? 'Deshabilitado' : 'Habilitado';
     }
-
 }
-
-

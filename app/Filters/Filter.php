@@ -69,4 +69,5 @@ abstract class Filter
     {
         return $this;
     }
+
 }

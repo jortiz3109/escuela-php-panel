@@ -61,16 +61,12 @@ class UsersTest extends TestCase
     {
         User::factory()->count(3)->create();
         User::factory()->create($data);
-
         $filters = http_build_query(['filters' => ['email' => 'rcjimenez35@gmail.com']]);
         $response = $this->actingAs(User::factory()->create())->get('/users?' . $filters);
         $users = $response->getOriginalContent()['users'];
-
         $this->assertEquals(1, $users->count());
         $this->assertEquals($data['email'], $users->first()->email);
     }
-
-
 
     public function userProvider(): array
     {

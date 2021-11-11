@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Email extends Condition
 {
-    public static function append(Builder $query,  Criteria $criteria): void
+    public static function append(Builder $query, Criteria $criteria): void
     {
         $query->where('email', 'like', "%{$criteria}%");
     }
