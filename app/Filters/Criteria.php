@@ -24,5 +24,4 @@ class Criteria
 
         return $this->value;
     }
-
 }
