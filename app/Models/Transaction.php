@@ -26,4 +26,14 @@ class Transaction extends Model
     {
         return $this->belongsTo(Person::class, 'payer_id');
     }
+
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
 }
