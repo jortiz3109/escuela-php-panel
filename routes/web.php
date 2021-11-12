@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\TransactionController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -20,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
+
+    Route::get('transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
 });
 
 Route::get('/email/verify', function () {
