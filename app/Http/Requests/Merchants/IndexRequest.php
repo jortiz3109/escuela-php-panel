@@ -15,7 +15,7 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters'          => ['filled', 'array'],
-            'filters.multiple' => ['nullable', 'min:2', 'max:255'],
+            'filters.multiple' => ['nullable', 'min:2', 'max:120'],
             'filters.country'  => ['nullable'],
             'filters.currency'  => ['nullable'],
         ];

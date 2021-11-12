@@ -149,7 +149,7 @@ class IndexTest extends TestCase
     {
         return [
             'multiple min' => ['attribute' => 'multiple', 'value' => 'a'],
-            'multiple max' => ['attribute' => 'multiple', 'value' => Str::random(256)],
+            'multiple max' => ['attribute' => 'multiple', 'value' => Str::random(121)],
         ];
     }
 
