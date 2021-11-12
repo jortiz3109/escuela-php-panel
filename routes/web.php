@@ -38,8 +38,5 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
     Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
-});
-
-Route::middleware('auth')->group(function () {
     Route::name('users.index')->get('/users', [UserController::class, 'index']);
 });
