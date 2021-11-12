@@ -13,7 +13,6 @@ class UserController extends Controller
     {
         $users = User::filter($request->input('filters', []))->paginate();
         $viewModel->collection($users);
-
         return view('users.index', $viewModel->toArray());
     }
 }

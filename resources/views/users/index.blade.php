@@ -1,13 +1,7 @@
 @extends('layouts.admin')
 @section('content')
-
-
-    @includeWhen(count($filters), 'filters', compact('filters'))
-    <div class="box block">
-        @yield('content')
-    </div>
-    <table class="table is-narrow is-hoverable">
-
+    <table class="table is-narrow is-hoverable is-fullwidth">
+        <caption class="is-hidden">{{ $texts['title'] }}</caption>
         <thead>
         <tr>
             <th scope="col">@lang('users.fields.name')</th>
@@ -30,8 +24,8 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->created_at }}</td>
-                <td>{{ $user->enabled_at }}</td>
+                <td>{{ $user->date_formatted }}</td>
+                <td>{{ $user->status }}</td>
             </tr>
         @endforeach
         </tbody>

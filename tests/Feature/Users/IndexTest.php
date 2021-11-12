@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class UsersTest extends TestCase
+class IndexTest extends TestCase
 {
     use RefreshDatabase;
     public function test_it_can_list_permissions(): void
