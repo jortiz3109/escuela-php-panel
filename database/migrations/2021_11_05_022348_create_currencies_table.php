@@ -14,6 +14,7 @@ class CreateCurrenciesTable extends Migration
             $table->tinyInteger('minor_unit');
             $table->string('alphabetic_code', 3);
             $table->string('numeric_code', 3);
+            $table->string('symbol', 3)->default('$');
         });
     }
 
