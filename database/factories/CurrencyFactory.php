@@ -22,6 +22,7 @@ class CurrencyFactory extends Factory
             'minor_unit' => 2,
             'alphabetic_code' => $this->faker->currencyCode(),
             'numeric_code' => $this->faker->bothify('###'),
+            'symbol' => '$',
         ];
     }
 }
