@@ -14,7 +14,6 @@ class CreateCountriesTable extends Migration
             $table->string('alpha_two_code', 2);
             $table->string('alpha_three_code', 3);
             $table->string('numeric_code', 3);
-            $table->index('alpha_two_code');
         });
     }
 
