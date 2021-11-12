@@ -13,6 +13,8 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
+            'merchant_id' => Merchant::factory()->create()->id,
+
             'reference' => $this->faker->numberBetween(1000000000, 9999999999),
 
             'card_number' => $this->faker->numerify('************####'),
@@ -31,7 +33,7 @@ class TransactionFactory extends Factory
 
             'status' => $this->faker->randomElement(TransactionStatusEnum::STATUSES),
 
-            'ip_address' => $this->faker->ipv6(),
+            'ip_address' => $this->faker->ipv4(),
 
             'payer' => json_encode([
                 'name' => $this->faker->name(),
