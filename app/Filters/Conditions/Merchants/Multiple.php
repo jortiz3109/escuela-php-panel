@@ -10,11 +10,12 @@ class Multiple extends Condition
 {
     public static function append(Builder $query, Criteria $criteria): void
     {
-        $query->where('merchants.name', 'like', "%{$criteria}%")
-            ->orWhere('merchants.brand', 'like', "%{$criteria}%")
-            ->orWhere('merchants.document', 'like', "%{$criteria}%")
-            ->orWhere('merchants.url', 'like', "%{$criteria}%")
-            ->orWhere('countries.name', 'like', "%{$criteria}%")
-            ->orWhere('currencies.alphabetic_code', 'like', "%{$criteria}%");
+        $query->where(function ($q) use ($criteria) {
+            $q->where('merchants.name', 'like', "%{$criteria}%")
+                ->orWhere('merchants.brand', 'like', "%{$criteria}%")
+                ->orWhere('merchants.document', 'like', "%{$criteria}%")
+                ->orWhere('merchants.url', 'like', "%{$criteria}%")
+                ->orWhere('currencies.alphabetic_code', 'like', "%{$criteria}%");
+        });
     }
 }

@@ -24,6 +24,7 @@ class IndexViewModel extends ViewModel
     {
         return [
             'multiple' => old('filters.multiple') ?? request()->input('filters.multiple'),
+            'country' => old('filters.country') ?? request()->input('filters.country'),
         ];
     }
 
@@ -31,7 +32,7 @@ class IndexViewModel extends ViewModel
     {
         return [
             'merchants'  => $this->collection,
-            'currencies' => DB::table('currencies')->select('alphabetic_code', 'name')->orderBy('alphabetic_code')->get(),
+            'countries' => DB::table('countries')->select('name', 'alpha_two_code')->orderBy('name')->get(),
         ];
     }
 }

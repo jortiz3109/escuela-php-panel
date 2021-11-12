@@ -96,11 +96,11 @@ class IndexTest extends TestCase
         $this->createMerchants();
 
         $merchant = Merchant::factory()
-            ->for(Country::factory(['name' => 'Colombia']))
+            ->for(Country::factory(['alpha_two_code' => 'CO']))
             ->for(Currency::factory())
             ->create();
 
-        $filters = http_build_query(['filters' => ['multiple' => 'Colombia']]);
+        $filters = http_build_query(['filters' => ['country' => 'CO']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
