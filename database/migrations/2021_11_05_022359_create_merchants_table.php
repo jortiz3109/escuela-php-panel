@@ -16,8 +16,8 @@ class CreateMerchantsTable extends Migration
             $table->string('document', 30)->unique();
             $table->string('name', 120);
             $table->string('brand', 120);
-            $table->string('url', 255)->nullable();
-            $table->string('logo', 255)->nullable();
+            $table->string('url')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
 
             $table->index('name');
