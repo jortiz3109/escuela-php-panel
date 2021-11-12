@@ -142,7 +142,6 @@ class IndexTest extends TestCase
             ['data' => ['attribute' => 'name', 'filterValue' => 'EVERTEC']],
             ['data' => ['attribute' => 'brand', 'filterValue' => 'PlaceToPay']],
             ['data' => ['attribute' => 'document', 'filterValue' => '1234567890']],
-            ['data' => ['attribute' => 'url', 'filterValue' => 'https://placetopay.com']],
         ];
     }
 

@@ -13,8 +13,7 @@ class Multiple extends Condition
         $query->where(function ($q) use ($criteria) {
             $q->where('merchants.name', 'like', "%{$criteria}%")
                 ->orWhere('merchants.brand', 'like', "%{$criteria}%")
-                ->orWhere('merchants.document', 'like', "%{$criteria}%")
-                ->orWhere('merchants.url', 'like', "%{$criteria}%");
+                ->orWhere('merchants.document', 'like', "%{$criteria}%");
         });
     }
 }

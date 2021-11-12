@@ -19,7 +19,7 @@ return [
         'multiple' => 'Find merchant',
     ],
     'placeholders' => [
-        'multiple' => 'Search by name, brand, document or url',
+        'multiple' => 'Search by name, brand or document',
         'select_country' => 'Select a country',
         'select_currency' => 'Select a currency',
     ],
