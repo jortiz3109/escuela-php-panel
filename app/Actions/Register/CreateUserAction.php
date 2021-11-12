@@ -5,14 +5,14 @@ namespace App\Actions\Register;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class CreateUser
+class CreateUserAction
 {
-    public static function execute(): User
+    public static function execute(array $user): User
     {
         return auth()->user()->create([
-            'name' =>  request()->name ,
-            'email' => request()->email ,
-            'password' => Hash::make(request()->password ),
+            'name' =>  $user['name'],
+            'email' => $user['email'] ,
+            'password' => Hash::make($user['password']),
             'created_by' =>  auth()->id(),
             'updated_by' =>   auth()->id(),
         ]);
