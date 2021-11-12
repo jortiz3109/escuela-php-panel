@@ -15,7 +15,7 @@ class TransactionFactory extends Factory
         return [
             'reference' => $this->faker->numberBetween(1000000000, 9999999999),
 
-            'card_number' => $this->faker->creditCardNumber(),
+            'card_number' => $this->faker->numerify('************####'),
 
             'payment_method_id' => PaymentMethod::firstOrCreate(
                 ['name' => 'VISA DEBIT'],
