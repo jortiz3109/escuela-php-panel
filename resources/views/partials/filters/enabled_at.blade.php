@@ -1,6 +1,6 @@
 <div class="column is-4">
     <b-field
-        label="@lang('Enabled_at')"
+        label="@lang('Enabled at')"
         type="{{ $errors->has('filters.enabled_at') ? 'is-danger' : '' }}"
         message="{{ $errors->first('filters.enabled_at') }}">
         <b-select

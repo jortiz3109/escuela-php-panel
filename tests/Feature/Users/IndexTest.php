@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Users;
+namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,12 +11,12 @@ use Tests\TestCase;
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_it_can_list_permissions(): void
+
+    public function test_it_can_list_users(): void
     {
         $response = $this->actingAs(User::factory()->create())->get('/users');
         $response->assertStatus(Response::HTTP_OK);
     }
-
     public function test_it_has_a_collection_of_users(): void
     {
         $response = $this->actingAs(User::factory()->create())->get('/users');
@@ -37,11 +37,6 @@ class IndexTest extends TestCase
         $this->assertInstanceOf(User::class, $response->getOriginalContent()['users']->first());
     }
 
-    public function test_it_can_list_users(): void
-    {
-        $response = $this->actingAs(User::factory()->create())->get('/users');
-        $response->assertStatus(Response::HTTP_OK);
-    }
     /**
      * @param array $data
      * @dataProvider userProvider
@@ -59,19 +54,51 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_users(array $data): void
     {
-        User::factory()->count(3)->create();
+        $this->withoutExceptionHandling();
+        User::factory()->count(2)->create();
         User::factory()->create($data);
-        $filters = http_build_query(['filters' => ['email' => 'rcjimenez35@gmail.com']]);
+        $filters = http_build_query(['filters' => ['email' => 'rcjimenez35@gmail.com', 'created_at' => '2021-11-12',
+            'enabled_at'=> false, ]]);
         $response = $this->actingAs(User::factory()->create())->get('/users?' . $filters);
         $users = $response->getOriginalContent()['users'];
+
         $this->assertEquals(1, $users->count());
+        $this->assertEquals($data['created_at'], date('d-m-Y', strtotime($users->first()->created_at)));
+        $this->assertEquals($data['enabled_at'], $users->first()->enabled_at);
         $this->assertEquals($data['email'], $users->first()->email);
+    }
+
+    /**
+     * @param string|null $enabledAt
+     * @dataProvider enabledAtProvider
+     */
+    public function testItCanFilterByStatus(?string $enabledAt): void
+    {
+        is_null($enabledAt)
+            ? User::factory()->disabled()->create()
+            : User::factory()->enabled($enabledAt)->create();
+
+        $filters = http_build_query(['filters' => ['enabled_at' => $enabledAt ? '0' : '1']]);
+
+        $response = $this->actingAs(User::factory()->create())->get('/users?' . $filters);
+        $users = $response->getOriginalContent()['users'];
+
+        $this->assertEquals(false, $users->first()->enabled_at);
+    }
+
+    public function enabledAtProvider(): array
+    {
+        return [
+            'user is enabled' => ['enabled_at' => now()->subMonth()->toDateString()],
+            'user is not enabled' => ['enabled_at' => null],
+        ];
     }
 
     public function userProvider(): array
     {
         return [
-            ['data' => ['name' => 'Roberto Jimenez', 'email' => 'rcjimenez35@gmail.com', 'enabled_at' => now()->subMonth()->toDateString()]],
+            ['data' => ['name' => 'Roberto Jimenez', 'email' => 'rcjimenez35@gmail.com', 'enabled_at' => null,
+                'created_at'=> '12-11-2021', ]],
         ];
     }
 }

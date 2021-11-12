@@ -1,6 +1,6 @@
 <div class="column is-4">
     <b-field
-        label="@lang('Created_at')"
+        label="@lang('Created at')"
         type="{{ $errors->has('filters.enabled_at') ? 'is-danger' : '' }}"
         message="{{ $errors->first('filters.enabled_at') }}">
         <b-datepicker

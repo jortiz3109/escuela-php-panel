@@ -23,10 +23,6 @@ abstract class ViewModel implements Arrayable
             'title' => $this->title(),
         ];
     }
-    public function filters(): array
-    {
-        return [];
-    }
 
     public function filters(): array
     {

@@ -69,7 +69,7 @@ class AuthenticationTest extends TestCase
 
         $this->post('/login', [
             'email' => $user->email,
-            'password' =>  $user->password,
+            'password' => 'password',
         ]);
 
         $this->assertGuest();
