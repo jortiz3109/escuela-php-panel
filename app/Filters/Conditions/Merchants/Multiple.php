@@ -14,8 +14,7 @@ class Multiple extends Condition
             $q->where('merchants.name', 'like', "%{$criteria}%")
                 ->orWhere('merchants.brand', 'like', "%{$criteria}%")
                 ->orWhere('merchants.document', 'like', "%{$criteria}%")
-                ->orWhere('merchants.url', 'like', "%{$criteria}%")
-                ->orWhere('currencies.alphabetic_code', 'like', "%{$criteria}%");
+                ->orWhere('merchants.url', 'like', "%{$criteria}%");
         });
     }
 }

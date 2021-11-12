@@ -117,7 +117,7 @@ class IndexTest extends TestCase
             ->for(Currency::factory(['alphabetic_code' => 'COP']))
             ->create();
 
-        $filters = http_build_query(['filters' => ['multiple' => 'COP']]);
+        $filters = http_build_query(['filters' => ['currency' => 'COP']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 

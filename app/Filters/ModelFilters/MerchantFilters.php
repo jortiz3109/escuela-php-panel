@@ -2,8 +2,9 @@
 
 namespace App\Filters\ModelFilters;
 
-use App\Filters\Conditions\Merchants\Multiple;
 use App\Filters\Conditions\Countries\TwoCode as CountryTwoCode;
+use App\Filters\Conditions\Currencies\AlphabeticCode as Currency;
+use App\Filters\Conditions\Merchants\Multiple;
 use App\Filters\Filter;
 use App\Models\Merchant;
 
@@ -14,6 +15,7 @@ class MerchantFilters extends Filter
     protected array $applicableConditions = [
         'multiple' => Multiple::class,
         'country' => CountryTwoCode::class,
+        'currency' => Currency::class,
     ];
 
     protected function joins(): Filter
