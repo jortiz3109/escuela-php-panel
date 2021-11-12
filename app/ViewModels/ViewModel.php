@@ -21,12 +21,12 @@ abstract class ViewModel implements Arrayable
             'title' => $this->title(),
         ];
     }
-    
+
     public function filters(): array
     {
         return [];
     }
-    
+
     abstract protected function buttons(): array;
     abstract protected function title(): string;
     abstract protected function data(): array;

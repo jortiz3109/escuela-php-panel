@@ -65,7 +65,7 @@ class DetailsTest extends TestCase
             'payer' => json_encode([
                 'name' => 'payer-name',
                 'email' => 'payer@example.com',
-            ])
+            ]),
         ]);
 
         $response = $this->actingAs($this->defaultUser())
@@ -88,7 +88,7 @@ class DetailsTest extends TestCase
             'buyer' => json_encode([
                 'name' => 'buyer-name',
                 'email' => 'buyer@example.com',
-            ])
+            ]),
         ]);
 
         $response = $this->actingAs($this->defaultUser())
