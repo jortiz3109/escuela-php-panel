@@ -6,10 +6,13 @@ use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Merchant;
 use App\Models\Transaction;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class MerchantTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_belongs_to_a_country(): void
     {
         $merchant = Merchant::factory()->create();
