@@ -33,7 +33,6 @@ class IndexViewModel extends ViewModel
     {
         return [
             'merchants'  => $this->collection,
-            'currencies' => DB::table('currencies')->select('name', 'alphabetic_code')->orderBy('name')->get(),
         ];
     }
 }
