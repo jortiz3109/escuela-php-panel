@@ -24,11 +24,10 @@ class RegisterUserTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
-       // $this->withoutExceptionHandling();
         $user=User::factory()->create();
         $data = $this->developerData();
         $response = $this->actingAs($user)->post('register',$data);
-        // $response->dump();
+
         $response->assertRedirect('dashboard');
 
     }

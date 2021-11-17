@@ -14,7 +14,6 @@ class UserController extends Controller
 
     public function create(CreateViewModel $viewModel): View
     {
-        $users = auth()->user()->get();
         $viewModel->collection($users);
 
         return view('register.create', $viewModel->toArray());
