@@ -41,7 +41,7 @@ class TransactionFactory extends Factory
 
             'reference' => $this->faker->numberBetween(1000000000, 9999999999),
 
-            'card_number' => $this->faker->numerify('************####'),
+            'card_number' => $this->faker->numerify('######******####'),
 
             'total_amount' => $this->faker->numberBetween(1, 999999),
 
