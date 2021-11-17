@@ -10,8 +10,6 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public const UPDATED_AT = null;
-
     public function merchant(): BelongsTo
     {
         return $this->belongsTo(Merchant::class);
