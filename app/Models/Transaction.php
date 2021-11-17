@@ -17,12 +17,12 @@ class Transaction extends Model
 
     public function buyer(): BelongsTo
     {
-        return $this->belongsTo(Person::class, 'buyer_id');
+        return $this->belongsTo(Person::class);
     }
 
     public function payer(): BelongsTo
     {
-        return $this->belongsTo(Person::class, 'payer_id');
+        return $this->belongsTo(Person::class);
     }
 
     public function paymentMethod(): BelongsTo
