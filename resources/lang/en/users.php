@@ -13,4 +13,8 @@ return [
         'created_at' => 'Created at',
         'status' => 'Status',
     ],
+    'status' => [
+        'disabled' => 'Disabled',
+        'enabled' => 'Enabled',
+    ],
 ];

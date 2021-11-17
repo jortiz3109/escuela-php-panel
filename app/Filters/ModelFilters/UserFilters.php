@@ -2,7 +2,7 @@
 
 namespace App\Filters\ModelFilters;
 
-use App\Filters\Conditions\Created_at;
+use App\Filters\Conditions\CreatedAt;
 use App\Filters\Conditions\Email;
 use App\Filters\Conditions\EnabledAt;
 use App\Filters\Filter;
@@ -14,7 +14,7 @@ class UserFilters extends Filter
     protected array $applicableConditions = [
         'email' => Email::class,
         'enabled_at' => EnabledAt::class,
-        'created_at' => Created_at::class,
+        'created_at' => CreatedAt::class,
     ];
 
     protected function select(): Filter

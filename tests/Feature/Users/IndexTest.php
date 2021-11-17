@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -68,30 +69,23 @@ class IndexTest extends TestCase
         $this->assertEquals($data['email'], $users->first()->email);
     }
 
-    /**
-     * @param string|null $enabledAt
-     * @dataProvider enabledAtProvider
-     */
-    public function testItCanFilterByStatus(?string $enabledAt): void
+    public function testItCanFilterByStatusDisabled(): void
     {
-        is_null($enabledAt)
-            ? User::factory()->disabled()->create()
-            : User::factory()->enabled($enabledAt)->create();
+        User::factory()->disabled()->create();
 
-        $filters = http_build_query(['filters' => ['enabled_at' => $enabledAt ? '0' : '1']]);
-
-        $response = $this->actingAs(User::factory()->create())->get('/users?' . $filters);
+        $response = $this->actingAs(User::factory()->create())->get('/users?' . http_build_query(['filters' => ['enabled_at' =>  '0']]));
         $users = $response->getOriginalContent()['users'];
-
-        $this->assertEquals(false, $users->first()->enabled_at);
+        $this->assertEquals(false, $users->last()->enabled_at);
     }
 
-    public function enabledAtProvider(): array
+    public function testItCanFilterByStatusEnabled(): void
     {
-        return [
-            'user is enabled' => ['enabled_at' => now()->subMonth()->toDateString()],
-            'user is not enabled' => ['enabled_at' => null],
-        ];
+        User::factory()->enabled()->create();
+
+        $response = $this->actingAs(User::factory()->create())->get('/users?' . http_build_query(['filters' => ['enabled_at' =>   'true']]));
+        $users = $response->getOriginalContent()['users'];
+
+        $this->assertInstanceOf(Carbon::class, $users->first()->enabled_at);
     }
 
     public function userProvider(): array

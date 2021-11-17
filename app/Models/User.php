@@ -21,10 +21,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'enabled_at',
     ];
 
-    protected $appends = ['date_formatted',
+    protected $appends = [
+        'date_formatted',
         'status',
     ];
 
@@ -35,6 +35,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dates = [
+        'enabled_at',
     ];
 
     public function logins(): HasMany
@@ -66,6 +70,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getStatusAttribute(): string
     {
-        return (is_null($this->attributes['enabled_at'])) ? 'Disabled' : 'Enabled';
+        return (is_null($this->attributes['enabled_at'])) ? trans('users.status.disabled') : trans('users.status.enabled');
     }
 }
