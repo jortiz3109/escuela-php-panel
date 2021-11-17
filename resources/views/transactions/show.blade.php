@@ -45,6 +45,12 @@
             {{ $transaction->ip_address }}
         </b-field>
     </b-field>
+
+    <b-field horizontal label="@lang('Executed')">
+        <b-field>
+            {{ $transaction->executed_at }}
+        </b-field>
+    </b-field>
 </section>
 
 <hr>

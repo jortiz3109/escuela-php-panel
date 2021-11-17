@@ -49,7 +49,7 @@ class TransactionFactory extends Factory
 
             'ip_address' => $this->faker->ipv4(),
 
-            'created_at' => $this->faker->dateTime(),
+            'executed_at' => $this->faker->dateTime(),
         ];
     }
 }
