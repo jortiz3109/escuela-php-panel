@@ -4,7 +4,6 @@ namespace App\ViewModels\Merchants;
 
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
-use Illuminate\Support\Facades\DB;
 
 class IndexViewModel extends ViewModel
 {
