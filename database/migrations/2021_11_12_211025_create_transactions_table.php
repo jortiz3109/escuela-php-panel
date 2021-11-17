@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('payment_method_id')->constrained();
             $table->foreignId('currency_id')->constrained();
             $table->string('reference', 20);
-            $table->string('card_number', 16);
+            $table->string('card_number', 19);
             $table->unsignedBigInteger('total_amount');
             $table->enum('status', TransactionStatus::STATUSES);
             $table->string('ip_address', 40);
