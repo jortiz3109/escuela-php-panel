@@ -25,7 +25,7 @@ class RegisterUserTest extends TestCase
     public function test_new_users_can_register(): void
     {
         $user=User::factory()->create();
-        $data = $this->developerData();
+        $data = $this->userData();
         $response = $this->actingAs($user)->post('register',$data);
 
         $response->assertRedirect('dashboard');
@@ -65,7 +65,7 @@ class RegisterUserTest extends TestCase
     public function test_uniqued_email_user_register(): void
     {
         $user=User::factory()->create(['email' => 'jeante08@gmail.com']);
-        $data = $this->developerData();
+        $data = $this->userData();
         $response = $this->actingAs($user)->post('/register',$data);
 
         $response->assertInvalid(['email']);
@@ -90,7 +90,7 @@ class RegisterUserTest extends TestCase
     public function test_disabled_user_register(): void
     {
         $user=User::factory()->create();
-        $data = $this->developerData();
+        $data = $this->userData();
         $response = $this->actingAs($user)->post('/register',$data);
 
         $response->assertRedirect('dashboard');
@@ -103,7 +103,7 @@ class RegisterUserTest extends TestCase
     public function test_create_date_user_register(): void
     {
         $user=User::factory()->create();
-        $data = $this->developerData();
+        $data = $this->userData();
         $response = $this->actingAs($user)->post('/register',$data);
 
         $response->assertRedirect('dashboard');
@@ -116,7 +116,7 @@ class RegisterUserTest extends TestCase
     public function test_create_id_user_register(): void
     {
         $user=User::factory()->create();
-        $data = $this->developerData();
+        $data = $this->userData();
         $response = $this->actingAs($user)->post('/register',$data);
 
         $response->assertRedirect('dashboard');
@@ -125,7 +125,7 @@ class RegisterUserTest extends TestCase
         ]);        
     }
 
-    public function developerData(): array
+    public function userData(): array
     {
         return [
             'name' => 'Andrea',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Register\CreateUserAction;
+use App\Actions\User\CreateUserAction;
 use App\Http\Requests\Register\UserCreateRequest;
 use App\ViewModels\Users\CreateViewModel;
 use Illuminate\Auth\Events\Registered;
@@ -14,10 +14,7 @@ class UserController extends Controller
 
     public function create(CreateViewModel $viewModel): View
     {
-        $viewModel->collection($users);
-
         return view('register.create', $viewModel->toArray());
-
     }
 
     public function store(UserCreateRequest $request)
