@@ -15,6 +15,10 @@ return [
         'register' 
     ],
     'buttons' => [
-        'register' => 'Register User',
+        'create' => 'Create User',
+        'cancel' => 'Cancel User',
+    ],
+    'message' => [
+        'success' => 'created successfully.',
     ],
 ];

@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function create(CreateViewModel $viewModel): View
     {
-        return view('register.create', $viewModel->toArray());
+        return view('users.create', $viewModel->toArray());
     }
 
     public function store(UserCreateRequest $request)
@@ -23,7 +23,7 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('dashboard')->with('success', 'Register created successfully.');
+        return redirect()->route('dashboard')->with('success', trans('users.message.success'));
                            
     }
 }
