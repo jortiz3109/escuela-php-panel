@@ -10,9 +10,9 @@ class CreateUserAction
     public static function execute(array $data): User
     {
         return User::create([
-            'name' =>  $user['name'],
-            'email' => $user['email'] ,
-            'password' => Hash::make($user['password']),
+            'name' =>  $data['name'],
+            'email' => $data['email'] ,
+            'password' => Hash::make($data['password']),
             'created_by' =>  auth()->id(),
             'updated_by' =>   auth()->id(),
         ]);
