@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\User\CreateUserAction;
-use App\Http\Requests\Register\UserCreateRequest;
+use App\Http\Requests\Users\UserCreateRequest;
 use App\ViewModels\Users\CreateViewModel;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
