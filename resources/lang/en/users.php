@@ -15,7 +15,7 @@ return [
         'register' 
     ],
     'buttons' => [
-        'create' => 'Create User',
+        'save' => 'Create User',
         'cancel' => 'Cancel User',
     ],
     'message' => [
