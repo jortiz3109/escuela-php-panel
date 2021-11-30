@@ -14,6 +14,7 @@ class CreateCurrenciesTable extends Migration
             $table->tinyInteger('minor_unit')->nullable();
             $table->string('alphabetic_code', 3)->unique();
             $table->string('numeric_code', 3)->unique();
+            $table->string('symbol', 3)->default('$');
             $table->timestamp('enabled_at')->nullable();
         });
     }

@@ -96,11 +96,11 @@ class IndexTest extends TestCase
         $this->createMerchants();
 
         $merchant = Merchant::factory()
-            ->for(Country::factory(['alpha_two_code' => 'CO']))
+            ->for(Country::factory(['alpha_two_code' => '12']))
             ->for(Currency::factory())
             ->create();
 
-        $filters = http_build_query(['filters' => ['country' => 'CO']]);
+        $filters = http_build_query(['filters' => ['country' => '12']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
@@ -114,10 +114,10 @@ class IndexTest extends TestCase
 
         $merchant = Merchant::factory()
             ->for(Country::factory())
-            ->for(Currency::factory(['alphabetic_code' => 'COP']))
+            ->for(Currency::factory(['alphabetic_code' => '123']))
             ->create();
 
-        $filters = http_build_query(['filters' => ['currency' => 'COP']]);
+        $filters = http_build_query(['filters' => ['currency' => '123']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 

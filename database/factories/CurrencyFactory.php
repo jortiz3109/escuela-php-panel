@@ -20,8 +20,9 @@ class CurrencyFactory extends Factory
         return [
             'name' => $this->faker->randomElement($this->names),
             'minor_unit' => 2,
-            'alphabetic_code' => $this->faker->currencyCode(),
-            'numeric_code' => $this->faker->bothify('###'),
+            'alphabetic_code' => $this->faker->unique()->currencyCode(),
+            'numeric_code' => $this->faker->unique()->bothify('###'),
+            'symbol' => '$',
         ];
     }
 }
