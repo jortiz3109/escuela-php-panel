@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Register;
+namespace Tests\Feature\Users;
 
 use Tests\Feature\Auth;
 use App\Providers\RouteServiceProvider;
@@ -10,26 +10,30 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 
 
-class RegisterUserTest extends TestCase
+class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
 
     public function test_registration_screen_can_be_rendered(): void
     {
-        $user=User::factory()->create();
-        $response = $this->actingAs($user)->get('/register');
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get('/users/create');
 
         $response->assertStatus(200);
     }
 
     public function test_new_users_can_register(): void
     {
-        $user=User::factory()->create();
+        $user = User::factory()->create();
         $data = $this->userData();
-        $response = $this->actingAs($user)->post('register',$data);
-
-        $response->assertRedirect('dashboard');
-
+        $response = $this->actingAs($user)->post('/users', $data);
+        
+        $this->assertDatabaseHas('users',[
+            'name' => 'Andrea',
+            'email' => 'jeante18@gmail.com',
+            "created_by" => $user->id,
+        ]);  
+        
     }
 
     public function test_required_name_user_register(): void
@@ -129,9 +133,9 @@ class RegisterUserTest extends TestCase
     {
         return [
             'name' => 'Andrea',
-            'email' => 'jeante08@gmail.com',
-            'password' =>'jeante08',
-            'password_confirmation' => 'jeante08',
+            'email' => 'jeante18@gmail.com',
+            'password' =>'jeante18',
+            'password_confirmation' => 'jeante18',
         ];
     }
 }

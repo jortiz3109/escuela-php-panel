@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::name('logins.index')->get('/logins', LoginLogController::class);
 
     Route::name('users.create')->get('/users/create', [UserController::class, 'create']);
-    Route::name('users.store')->post('/users/create', [UserController::class, 'store']);
+    Route::name('users.store')->post('/users', [UserController::class, 'store']);
 });
 
 Route::get('/email/verify', function () {
