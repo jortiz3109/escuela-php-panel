@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransactionController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -11,13 +13,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::get('/dashboard', DashboardController::class)
+Route::get('dashboard', DashboardController::class)
     ->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
-
-    Route::name('logins.index')->get('/logins', LoginLogController::class);
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('merchants', [MerchantController::class, 'index'])->name('merchants.index');
+    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::get('logins', LoginLogController::class)->name('logins.index');
+    Route::get('transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
 });
 
 Route::get('/email/verify', function () {
@@ -35,8 +40,3 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::middleware('auth')->group(function () {
-    Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
-    Route::name('users.index')->get('/users', [UserController::class, 'index']);
-});

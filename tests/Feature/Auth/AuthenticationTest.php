@@ -16,21 +16,22 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public const LOGIN_URL = 'login';
     public const IP_ADDRESS = '127.0.0.1';
     public const USER_AGENT = 'Opera/8.26 (X11; Linux x86_64; sl-SI)';
 
     public function test_login_screen_can_be_rendered(): void
     {
-        $response = $this->get('/login');
+        $response = $this->get(route('login'));
 
         $response->assertStatus(200);
     }
 
     public function test_it_redirects_logged_users_to_home(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
-        $response = $this->post('/login', [
+        $response = $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -41,9 +42,9 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
-        $user = User::factory()->create();
+        $user = $this->defaultUser();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
@@ -53,9 +54,9 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_if_they_are_enabled(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -67,7 +68,7 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->disabled()->create();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -77,18 +78,18 @@ class AuthenticationTest extends TestCase
 
     public function test_users_are_locked_after_three_login_failed_attempts(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         Config::set('auth.max_attempts', 1);
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
 
         $this->assertTrue($user->isEnabled());
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -100,14 +101,14 @@ class AuthenticationTest extends TestCase
 
     public function test_it_log_the_login_attempt_when_user_is_authenticated(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         $this->serverVariables = [
             'REMOTE_ADDR' => self::IP_ADDRESS,
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -120,14 +121,14 @@ class AuthenticationTest extends TestCase
 
     public function test_it_store_the_device_when_user_is_authenticated(): void
     {
-        $user = User::factory()->enabled()->create();
+        $user = $this->enabledUser();
 
         $this->serverVariables = [
             'REMOTE_ADDR' => self::IP_ADDRESS,
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -142,11 +143,9 @@ class AuthenticationTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()
-            ->enabled()
-            ->create();
+        $user = $this->enabledUser();
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -173,7 +172,7 @@ class AuthenticationTest extends TestCase
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -209,7 +208,7 @@ class AuthenticationTest extends TestCase
             'HTTP_USER_AGENT' => self::USER_AGENT,
         ];
 
-        $this->post('/login', [
+        $this->post(self::LOGIN_URL, [
             'email' => $user->email,
             'password' => 'password',
         ]);
