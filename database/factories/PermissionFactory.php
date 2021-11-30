@@ -13,7 +13,7 @@ class PermissionFactory extends Factory
     {
         return [
             'name' => implode('.', $this->faker->words()),
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->paragraph(2),
         ];
     }
 }
