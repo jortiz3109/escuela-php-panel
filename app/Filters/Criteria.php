@@ -18,7 +18,7 @@ class Criteria
 
     public function __toString(): string
     {
-        if (null === $this->value || empty($this->value)) {
+        if (empty($this->value)) {
             return '';
         }
 

@@ -11,9 +11,10 @@ class CreateCountriesTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name', 80);
-            $table->string('alpha_two_code', 2);
-            $table->string('alpha_three_code', 3);
-            $table->string('numeric_code', 3);
+            $table->string('alpha_two_code', 2)->unique();
+            $table->string('alpha_three_code', 3)->unique();
+            $table->string('numeric_code', 3)->unique();
+            $table->timestamp('enabled_at')->nullable();
         });
     }
 

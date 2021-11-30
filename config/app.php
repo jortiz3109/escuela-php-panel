@@ -177,6 +177,7 @@ return [
         App\Providers\ModelFilterProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\FortifyViewServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
     ],
 

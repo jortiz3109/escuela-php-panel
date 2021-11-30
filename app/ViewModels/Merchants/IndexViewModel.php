@@ -4,7 +4,6 @@ namespace App\ViewModels\Merchants;
 
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
-use Illuminate\Support\Facades\DB;
 
 class IndexViewModel extends ViewModel
 {
@@ -33,8 +32,6 @@ class IndexViewModel extends ViewModel
     {
         return [
             'merchants'  => $this->collection,
-            'countries' => DB::table('countries')->select('name', 'alpha_two_code')->orderBy('name')->get(),
-            'currencies' => DB::table('currencies')->select('name', 'alphabetic_code')->orderBy('name')->get(),
         ];
     }
 }
