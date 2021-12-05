@@ -13,16 +13,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::get('dashboard', DashboardController::class)
-    ->middleware(['auth'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
     Route::get('merchants', [MerchantController::class, 'index'])->name('merchants.index');
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('logins', LoginLogController::class)->name('logins.index');
-    Route::get('transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
 });
 
 Route::get('/email/verify', function () {
