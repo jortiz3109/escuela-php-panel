@@ -13,10 +13,12 @@ class IndexViewModel extends ViewModel
     {
         return [];
     }
+
     protected function title(): string
     {
         return trans('users.titles.index');
     }
+
     public function filters(): array
     {
         return [
@@ -25,6 +27,7 @@ class IndexViewModel extends ViewModel
             'status' => old('filters.status') ?? request()->input('filters.status'),
         ];
     }
+
     protected function data(): array
     {
         return [
