@@ -22,7 +22,7 @@ class IndexViewModel extends ViewModel
         return [
             'email' => old('filters.email') ?? request()->input('filters.email'),
             'created_at' => old('filters.created_at') ?? request()->input('filters.created_at'),
-            'enabled_at' => old('filters.enabled_at') ?? request()->input('filters.enabled_at'),
+            'status' => old('filters.status') ?? request()->input('filters.status'),
         ];
     }
     protected function data(): array

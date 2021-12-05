@@ -14,7 +14,7 @@ return [
         'status' => 'Status',
     ],
     'status' => [
-        'disabled' => 'Disabled',
         'enabled' => 'Enabled',
+        'disabled' => 'Disabled',
     ],
 ];
