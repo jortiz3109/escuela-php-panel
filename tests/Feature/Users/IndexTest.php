@@ -13,39 +13,38 @@ class IndexTest extends TestCase
 {
     use RefreshDatabase;
 
+    private const USERS_ROUTE_NAME = 'users.index';
+
     public function test_it_can_list_users(): void
     {
-        $response = $this->actingAs(User::factory()->create())->get('/users');
-        $response->assertStatus(Response::HTTP_OK);
+        $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_OK);
     }
+
     public function test_it_has_a_collection_of_users(): void
     {
-        $response = $this->actingAs(User::factory()->create())->get('/users');
+        $response = $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME));
+
         $response->assertViewHas('users');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['users']);
     }
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->get('/users');
-        $response->assertRedirect(route('login'));
+        $this->get(route(self::USERS_ROUTE_NAME))
+            ->assertRedirect(route('login'));
     }
 
     public function test_collection_has_users(): void
     {
-        User::factory()->create();
-        $response = $this->actingAs(User::factory()->create())->get('/users');
+        $response = $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME));
         $this->assertInstanceOf(User::class, $response->getOriginalContent()['users']->first());
     }
 
-    /**
-     * @param array $data
-     * @dataProvider userProvider
-     */
-    public function test_it_show_users_data(array $data): void
+    public function test_it_show_users_data(): void
     {
-        $user = User::factory()->create($data);
-        $response = $this->actingAs(User::factory()->create())->get('/users');
+        $user = $this->defaultUser();
+        $response = $this->actingAs($user)->get(route(self::USERS_ROUTE_NAME));
         $response->assertSee($user->name);
         $response->assertSee($user->email);
     }
@@ -69,16 +68,16 @@ class IndexTest extends TestCase
         $this->assertEquals($data['email'], $users->first()->email);
     }
 
-    public function testItCanFilterByStatusDisabled(): void
+    public function test_it_can_filter_by_status_disabled(): void
     {
         User::factory()->disabled()->create();
 
-        $response = $this->actingAs(User::factory()->create())->get('/users?' . http_build_query(['filters' => ['enabled_at' =>  '0']]));
+        $response = $this->actingAs(User::factory()->create())->get('/users?' . http_build_query(['filters' => ['status' =>  'disabled']]));
         $users = $response->getOriginalContent()['users'];
         $this->assertEquals(false, $users->last()->enabled_at);
     }
 
-    public function testItCanFilterByStatusEnabled(): void
+    public function test_it_can_filter_by_status_enabled(): void
     {
         User::factory()->enabled()->create();
 
@@ -91,8 +90,22 @@ class IndexTest extends TestCase
     public function userProvider(): array
     {
         return [
-            ['data' => ['name' => 'Roberto Jimenez', 'email' => 'rcjimenez35@gmail.com', 'enabled_at' => null,
-                'created_at'=> '12-11-2021', ]],
+            [
+                'data' => [
+                    'name' => 'Roberto Jimenez',
+                    'email' => 'rcjimenez35@gmail.com',
+                    'enabled_at' => null,
+                    'created_at'=> '12-11-2021',
+                ],
+            ],
+        ];
+    }
+
+    public function filtersProvider(): array
+    {
+        return [
+            ['data' => ['attribute' => 'name', 'filterValue' => 'Roberto Jimenez']],
+            ['data' => ['attribute' => 'email', 'filterValue' => 'rcjimenez35@gmail.com']],
         ];
     }
 }
