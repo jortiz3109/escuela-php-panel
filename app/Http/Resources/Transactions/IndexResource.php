@@ -14,7 +14,7 @@ class IndexResource extends JsonResource
             'currency' => $this->currency->alphabetic_code,
             'total_amount' => $this->total_amount,
             'payment_method' => $this->paymentMethod->name,
-            'status' => $this->status
+            'status' => $this->status,
         ];
     }
 }

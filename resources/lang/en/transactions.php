@@ -14,6 +14,6 @@ return [
         'currency' => 'Currency',
         'total_amount' => 'Total Amount',
         'payment_method' => 'PaymentMethod',
-        'status' => 'Status'
-    ]
+        'status' => 'Status',
+    ],
 ];
