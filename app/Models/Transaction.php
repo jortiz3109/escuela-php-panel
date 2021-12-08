@@ -10,6 +10,10 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'executed_at' => 'datetime',
+    ];
+
     public function merchant(): BelongsTo
     {
         return $this->belongsTo(Merchant::class);

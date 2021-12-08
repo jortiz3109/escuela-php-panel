@@ -3,6 +3,7 @@
 namespace Tests\Feature\Transactions;
 
 use App\Http\Resources\Transactions\IndexResource;
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,5 +34,25 @@ class IndexTest extends TestCase
         $response->assertViewHas('collection');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
         $this->assertEquals(IndexResource::class, $response->getOriginalContent()['collection']->collects);
+    }
+
+    public function test_collection_has_transactions(): void
+    {
+        Transaction::factory()->create();
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
+        $this->assertInstanceOf(Transaction::class, $response->getOriginalContent()['collection']->first()->resource);
+    }
+
+    public function test_it_show_permissions_data(): void
+    {
+        $transaction = Transaction::factory()->create();
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
+
+        $response->assertSee($transaction->executed_at->toDateString());
+        $response->assertSee($transaction->merchant->name);
+        $response->assertSee($transaction->currency->alphabetic_code);
+        $response->assertSee($transaction->total_amount);
+        $response->assertSee($transaction->payment_method);
+        $response->assertSee($transaction->status);
     }
 }
