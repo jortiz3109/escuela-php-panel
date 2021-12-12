@@ -1,1 +1,1 @@
-<button class="button is-success" type="submit" form="submit"><i class="fas fa-save mr-2"></i>{{ $text }}</button>
+<button class="button is-success" type="submit" form="submit"><em class="fas fa-save mr-2"></em>{{ $text }}</button>

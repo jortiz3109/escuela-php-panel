@@ -1,6 +1,6 @@
+@charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 /*! Buefy v0.9.10 | MIT License | github.com/buefy/buefy */
-@charset "UTF-8";
 .is-noscroll {
   position: fixed;
   overflow-y: hidden;
@@ -21895,4 +21895,7 @@ readers do not read off random characters that represent icons */
 
 [v-cloak] {
   display: none;
+}
+th {
+    white-space: nowrap;
 }

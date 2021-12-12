@@ -5,14 +5,14 @@
     <thead>
         <tr>
             @foreach($headers as $header)
-                <th scope="col" nowrap>{{ $header }}</th>
+                <th scope="col">{{ $header }}</th>
             @endforeach
         </tr>
     </thead>
     <tfoot>
     <tr>
         @foreach($headers as $header)
-            <th scope="col" nowrap>{{ $header }}</th>
+            <th scope="col">{{ $header }}</th>
         @endforeach
     </tr>
     </tfoot>
