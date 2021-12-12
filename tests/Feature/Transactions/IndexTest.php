@@ -8,6 +8,7 @@ use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -113,5 +114,26 @@ class IndexTest extends TestCase
 
         $this->assertCount(1, $transactions);
         $this->assertEquals('new payment method', $transactions->first()->payment_method);
+    }
+
+    /**
+     * @dataProvider validationProvider
+     */
+    public function test_it_validates_filters(string $attribute, $value): void
+    {
+        $filters = http_build_query(['filters' => [$attribute => $value]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+
+        $response->assertSessionHasErrors("filters.{$attribute}");
+    }
+
+    public function validationProvider(): array
+    {
+        return [
+            'merchant min' => ['attribute' => 'merchant', 'value' => 'a'],
+            'merchant max' => ['attribute' => 'merchant', 'value' => Str::random(121)],
+            'reference min' => ['attribute' => 'reference', 'value' => '1'],
+            'reference max' => ['attribute' => 'reference', 'value' => Str::random(121)],
+        ];
     }
 }

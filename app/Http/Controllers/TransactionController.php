@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transactions\IndexRequest;
 use App\Models\Transaction;
 use App\ViewModels\Transactions\DetailsViewModel;
 use App\ViewModels\Transactions\IndexViewModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TransactionController extends Controller
@@ -14,7 +14,7 @@ class TransactionController extends Controller
     /**
      * @throws BindingResolutionException
      */
-    public function index(Request $request, IndexViewModel $viewModel): View
+    public function index(IndexRequest $request, IndexViewModel $viewModel): View
     {
         $transactions = Transaction::filter($request->input('filters', []))->paginate();
         $viewModel->collection($transactions);
