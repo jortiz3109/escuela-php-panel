@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
-use App\ViewModels\Transactions\DetailsViewModel;
+use App\ViewModels\Transactions\DetailsIndexViewModel;
 use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
-    public function show(Transaction $transaction, DetailsViewModel $viewModel): View
+    public function show(Transaction $transaction, DetailsIndexViewModel $viewModel): View
     {
         $viewModel->model($transaction);
 

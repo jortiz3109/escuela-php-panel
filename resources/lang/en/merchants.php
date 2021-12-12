@@ -3,13 +3,14 @@
 return [
     'titles' => [
         'index' => 'Merchants',
+        'create' => 'Create merchant',
+        'edit' => 'Edit merchant',
     ],
     'navbar' => [
         'title' => 'Merchants',
     ],
     'fields' => [
         'name'     => 'Name',
-        'brand'    => 'Brand',
         'document' => 'Document',
         'url'      => 'Url',
         'country'  => 'Country',

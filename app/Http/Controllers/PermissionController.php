@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Permissions\IndexRequest;
 use App\Models\Permission;
-use App\ViewModels\Permissions\IndexViewModel;
+use App\ViewModels\Permissions\PermissionsIndexViewModel;
 use Illuminate\View\View;
 
 class PermissionController extends Controller
@@ -12,7 +12,7 @@ class PermissionController extends Controller
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function index(IndexRequest $request, IndexViewModel $viewModel): View
+    public function index(IndexRequest $request, PermissionsIndexViewModel $viewModel): View
     {
         $permissions = Permission::filter($request->input('filters', []))->paginate();
         $viewModel->collection($permissions);

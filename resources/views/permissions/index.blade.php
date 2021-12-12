@@ -4,16 +4,16 @@
     <caption class="is-hidden">{{ $texts['title'] }}</caption>
     <thead>
         <tr>
-            <th scope="col">@lang('permissions.fields.name')</th>
-            <th scope="col">@lang('permissions.fields.description')</th>
-            <th scope="col" style="min-width: 8em">@lang('permissions.fields.created_at')</th>
+            @foreach($headers as $header)
+                <th scope="col" nowrap>{{ $header }}</th>
+            @endforeach
         </tr>
     </thead>
     <tfoot>
     <tr>
-        <th scope="col">@lang('permissions.fields.name')</th>
-        <th scope="col">@lang('permissions.fields.description')</th>
-        <th scope="col">@lang('permissions.fields.created_at')</th>
+        @foreach($headers as $header)
+            <th scope="col" nowrap>{{ $header }}</th>
+        @endforeach
     </tr>
     </tfoot>
     <tbody>

@@ -5,13 +5,18 @@ namespace App\ViewModels\Merchants;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
 
-class IndexViewModel extends ViewModel
+class MerchantsIndexViewModel extends ViewModel
 {
     use HasPaginator;
 
     protected function buttons(): array
     {
-        return [];
+        return [
+            'create' => [
+                'text' => trans('merchants.titles.create'),
+                'route' => route('merchants.create'),
+            ],
+        ];
     }
 
     protected function title(): string
@@ -19,7 +24,12 @@ class IndexViewModel extends ViewModel
         return trans('merchants.titles.index');
     }
 
-    public function filters(): array
+    protected function headers(): array
+    {
+        return array_merge(trans('merchants.fields'), parent::headers());
+    }
+
+    protected function filters(): array
     {
         return [
             'multiple' => old('filters.multiple') ?? request()->input('filters.multiple'),

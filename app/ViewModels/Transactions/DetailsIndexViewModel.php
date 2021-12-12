@@ -5,14 +5,9 @@ namespace App\ViewModels\Transactions;
 use App\ViewModels\Concerns\HasModel;
 use App\ViewModels\ViewModel;
 
-class DetailsViewModel extends ViewModel
+class DetailsIndexViewModel extends ViewModel
 {
     use HasModel;
-
-    protected function buttons(): array
-    {
-        return [];
-    }
 
     protected function title(): string
     {

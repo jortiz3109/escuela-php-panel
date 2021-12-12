@@ -4,20 +4,16 @@
     <caption class="is-hidden">{{ $texts['title'] }}</caption>
     <thead>
         <tr>
-            <th scope="col">@lang('merchants.fields.name')</th>
-            <th scope="col">@lang('merchants.fields.document')</th>
-            <th scope="col">@lang('merchants.fields.url')</th>
-            <th scope="col">@lang('merchants.fields.country')</th>
-            <th scope="col">@lang('merchants.fields.currency')</th>
+            @foreach($headers as $header)
+                <th scope="col" nowrap>{{ $header }}</th>
+            @endforeach
         </tr>
     </thead>
     <tfoot>
     <tr>
-        <th scope="col">@lang('merchants.fields.name')</th>
-        <th scope="col">@lang('merchants.fields.document')</th>
-        <th scope="col">@lang('merchants.fields.url')</th>
-        <th scope="col">@lang('merchants.fields.country')</th>
-        <th scope="col">@lang('merchants.fields.currency')</th>
+        @foreach($headers as $header)
+            <th scope="col" nowrap>{{ $header }}</th>
+        @endforeach
     </tr>
     </tfoot>
     <tbody>
@@ -31,6 +27,11 @@
             <td>{{ $merchant->url }}</td>
             <td>{{ $merchant->country }}</td>
             <td>{{ $merchant->currency }}</td>
+            <td class="has-text-centered">
+                <a href="{{ route('merchants.edit', ['merchant' => $merchant]) }}">
+                    <b-icon size="is-small" type="is-info" icon="pencil"/>
+                </a>
+            </td>
         </tr>
     @endforeach
     </tbody>

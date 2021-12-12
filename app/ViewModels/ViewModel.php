@@ -2,6 +2,7 @@
 
 namespace App\ViewModels;
 
+use App\Inputs\Input;
 use Illuminate\Contracts\Support\Arrayable;
 
 abstract class ViewModel implements Arrayable
@@ -12,6 +13,8 @@ abstract class ViewModel implements Arrayable
             'buttons' => $this->buttons(),
             'texts' => $this->texts(),
             'filters' => $this->filters(),
+            'fields' => $this->fields(),
+            'headers' => $this->headers(),
         ] + $this->data();
     }
 
@@ -22,12 +25,33 @@ abstract class ViewModel implements Arrayable
         ];
     }
 
-    public function filters(): array
+    protected function filters(): array
     {
         return [];
     }
 
-    abstract protected function buttons(): array;
+    protected function buttons(): array
+    {
+        return [];
+    }
+
+    protected function headers(): array
+    {
+        return ['actions' => trans('common.actions')];
+    }
+
+    protected function data(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return Input[]
+     */
+    protected function fields(): array
+    {
+        return [];
+    }
+
     abstract protected function title(): string;
-    abstract protected function data(): array;
 }
