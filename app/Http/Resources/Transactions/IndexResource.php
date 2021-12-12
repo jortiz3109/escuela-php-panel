@@ -10,10 +10,11 @@ class IndexResource extends JsonResource
     {
         return [
             'date' => $this->executed_at->toDateString(),
-            'merchant' => $this->merchant->name,
-            'currency' => $this->currency->alphabetic_code,
+            'merchant' => $this->merchant,
+            'reference' => $this->reference,
+            'currency' => $this->currency,
             'total_amount' => $this->total_amount,
-            'payment_method' => $this->paymentMethod->name,
+            'payment_method' => $this->payment_method,
             'status' => $this->status,
         ];
     }

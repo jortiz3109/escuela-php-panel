@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Constants\TransactionStatus;
 use App\Http\Resources\Transactions\IndexResource;
+use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -43,7 +45,7 @@ class IndexTest extends TestCase
         $this->assertInstanceOf(Transaction::class, $response->getOriginalContent()['collection']->first()->resource);
     }
 
-    public function test_it_show_permissions_data(): void
+    public function test_it_show_transactions_data(): void
     {
         $transaction = Transaction::factory()->create();
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
@@ -54,5 +56,62 @@ class IndexTest extends TestCase
         $response->assertSee($transaction->total_amount);
         $response->assertSee($transaction->payment_method);
         $response->assertSee($transaction->status);
+    }
+
+    public function test_it_can_filter_transactions_by_status()
+    {
+        Transaction::factory(5)->create(['status' => TransactionStatus::STATUS_FAILED]);
+        $approvedTransaction = Transaction::factory()->create(['status' => TransactionStatus::STATUS_APPROVED]);
+
+        $filters = http_build_query(['filters' => ['status' => TransactionStatus::STATUS_APPROVED]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $transactions = $response->getOriginalContent()['collection'];
+
+        $this->assertCount(1, $transactions);
+        $this->assertEquals(TransactionStatus::STATUS_APPROVED, $transactions->first()->status);
+    }
+
+    public function test_it_can_filter_transactions_by_merchant()
+    {
+        Transaction::factory(5)->create();
+        $transaction = Transaction::factory()->create();
+
+        $filters = http_build_query(['filters' => ['merchant' => $transaction->merchant->name]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $transactions = $response->getOriginalContent()['collection'];
+
+        $this->assertCount(1, $transactions);
+        $this->assertEquals($transaction->merchant->name, $transactions->first()->merchant);
+    }
+
+    public function test_it_can_filter_transactions_by_reference()
+    {
+        Transaction::factory(5)->create();
+        Transaction::factory()->create(['reference' => '123456']);
+
+        $filters = http_build_query(['filters' => ['reference' => '123456']]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $transactions = $response->getOriginalContent()['collection'];
+
+        $this->assertCount(1, $transactions);
+        $this->assertEquals('123456', $transactions->first()->reference);
+    }
+
+    public function test_it_can_filter_transactions_by_payment_method()
+    {
+        $paymentMethod = new PaymentMethod();
+        $paymentMethod->name = 'new payment method';
+        $paymentMethod->logo = 'my logo';
+        $paymentMethod->save();
+
+        Transaction::factory(5)->create();
+        Transaction::factory()->create(['payment_method_id' => $paymentMethod->id]);
+
+        $filters = http_build_query(['filters' => ['payment_method' => $paymentMethod->name]]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $transactions = $response->getOriginalContent()['collection'];
+
+        $this->assertCount(1, $transactions);
+        $this->assertEquals('new payment method', $transactions->first()->payment_method);
     }
 }

@@ -20,6 +20,16 @@ class IndexViewModel extends ViewModel
         return trans('transactions.titles.index');
     }
 
+    public function filters(): array
+    {
+        return [
+            'status' => old('filters.status') ?? request()->input('filters.status'),
+            'merchant' => old('filters.merchant') ?? request()->input('filters.merchant'),
+            'reference' => old('filters.reference') ?? request()->input('filters.reference'),
+            'payment_method' => old('filters.payment_method') ?? request()->input('filters.payment_method'),
+        ];
+    }
+
     public function fields(): array
     {
         return [
@@ -29,6 +39,9 @@ class IndexViewModel extends ViewModel
             ],
             'merchant' => [
                 'translation' => 'transactions.fields.merchant',
+            ],
+            'reference' => [
+                'translation' => 'transactions.fields.reference',
             ],
             'currency' => [
                 'translation' => 'transactions.fields.currency',
