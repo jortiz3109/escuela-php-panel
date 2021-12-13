@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'created_by',
         'updated_by',
+        'enabled_at',
     ];
 
     protected $hidden = [
@@ -52,5 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->enabled_at = null;
 
         $this->save();
+    }
+
+    public function isEmailVerified(self $user): bool
+    {
+        return null !== $user->email_verified_at;
     }
 }
