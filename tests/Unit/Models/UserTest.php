@@ -23,9 +23,7 @@ class UserTest extends TestCase
         $user = User::factory()->{$status}()->make();
 
         $this->assertEquals($value, $user->isEnabled());
-
     }
-
 
     /**
      * @dataProvider userEmailVerifyDataProvider
@@ -35,10 +33,7 @@ class UserTest extends TestCase
      */
     public function a_user_has_verify_email(string $verifyStatus, bool $value)
     {
-
         $user = User::factory()->{$verifyStatus}()->create();
         $this->assertEquals($value, $user->isEmailVerified($user));
-
     }
-
 }
