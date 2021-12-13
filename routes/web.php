@@ -3,11 +3,11 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UserController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 Route::view('/', 'welcome');
 
@@ -19,8 +19,7 @@ Route::middleware('auth')->group(function () {
 
     Route::name('logins.index')->get('/logins', LoginLogController::class);
 
-    Route::name('users.create')->get('/users/create', [UserController::class, 'create']);
-    Route::name('users.store')->post('/users', [UserController::class, 'store']);
+    Route::resource('users', UserController::class);
 });
 
 Route::get('/email/verify', function () {
