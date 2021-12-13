@@ -27,6 +27,6 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
-        "buefy": "^0.9.10"
+        "buefy": "^0.9.13"
     }
 }

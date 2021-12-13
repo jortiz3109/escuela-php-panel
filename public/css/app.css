@@ -1,6 +1,6 @@
-@charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-/*! Buefy v0.9.10 | MIT License | github.com/buefy/buefy */
+/*! Buefy v0.9.13 | MIT License | github.com/buefy/buefy */
+@charset "UTF-8";
 .is-noscroll {
   position: fixed;
   overflow-y: hidden;
@@ -13528,7 +13528,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       -ms-flex-pack: center;
           justify-content: center;
   overflow: hidden;
-  z-index: 999;
+  z-index: 29;
 }
 .loading-overlay.is-active {
   display: -webkit-box;
@@ -13537,6 +13537,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 }
 .loading-overlay.is-full-page {
   position: fixed;
+  z-index: 999;
 }
 .loading-overlay.is-full-page .loading-icon:after {
   top: calc(50% - 2.5em);
@@ -13586,6 +13587,10 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .notification .media {
   padding-top: 0;
   border: 0;
+}
+.message progress,
+.notification progress {
+  height: 5px;
 }
 
 .modal.is-full-screen > .animation-content,
@@ -13849,6 +13854,13 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   }
 }
 
+.notification .progress-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
 .b-numberinput.field {
   margin-bottom: 0;
 }
@@ -13983,6 +13995,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .progress-wrapper .progress.is-more-than-half.is-danger + .progress-value, .progress-wrapper .is-more-than-half.is-danger.progress-wrapper.is-not-native + .progress-value, .progress-wrapper .progress-bar.is-more-than-half.is-danger + .progress-value {
   color: #fff;
 }
+.progress-wrapper .progress.is-squared, .progress-wrapper .is-squared.progress-wrapper.is-not-native, .progress-wrapper .progress-bar.is-squared {
+  border-radius: 0;
+}
 .progress-wrapper.is-not-native {
   white-space: nowrap;
   background-color: #ededed;
@@ -14057,6 +14072,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 }
 .progress-wrapper.is-not-native .progress-bar.is-danger .progress-value {
   color: #fff;
+}
+.progress-wrapper.is-squared {
+  border-radius: 0;
 }
 
 .b-radio.radio {
@@ -21895,7 +21913,4 @@ readers do not read off random characters that represent icons */
 
 [v-cloak] {
   display: none;
-}
-th {
-    white-space: nowrap;
 }
