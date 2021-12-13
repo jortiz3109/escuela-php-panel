@@ -25,7 +25,8 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->date_formatted }}</td>
-                <td>{{ $user->status }}</td>
+{{--                <td>{{ $user->status }}</td>--}}
+                <td><status-button user-id="1" user-status="{{ $user->status }}" email-verified="true" /></td>
             </tr>
         @endforeach
         </tbody>

@@ -10,7 +10,7 @@
                     <aside class="menu">
                         <p class="menu-label">@lang('menu.administration')</p>
                         <ul class="menu-list">
-                            <li><a href="#"><em class="pr-2 mdi mdi-cash"></em>@lang('Transactions')</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-cash"></em>@lang('Transactions ')</a></li>
                             <li>
                                 <a href="{{ route('merchants.index') }}">
                                     <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>@lang('merchants.navbar.title')
