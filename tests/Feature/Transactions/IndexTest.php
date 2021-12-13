@@ -6,6 +6,7 @@ use App\Constants\TransactionStatus;
 use App\Http\Resources\Transactions\IndexResource;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
@@ -114,6 +115,19 @@ class IndexTest extends TestCase
 
         $this->assertCount(1, $transactions);
         $this->assertEquals('new payment method', $transactions->first()->payment_method);
+    }
+
+    public function test_it_can_filter_transactions_by_date()
+    {
+        Transaction::factory(5)->create();
+        Transaction::factory()->create(['executed_at' => Carbon::parse('2021-11-29')]);
+
+        $filters = http_build_query(['filters' => ['date' => '11/29/2021 - 11/29/2021']]);
+        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $transactions = $response->getOriginalContent()['collection'];
+
+        $this->assertCount(1, $transactions);
+        $this->assertEquals('2021-11-29', $transactions->first()->executed_at->toDateString());
     }
 
     /**

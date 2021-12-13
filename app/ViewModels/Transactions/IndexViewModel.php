@@ -27,6 +27,7 @@ class IndexViewModel extends ViewModel
             'merchant' => old('filters.merchant') ?? request()->input('filters.merchant'),
             'reference' => old('filters.reference') ?? request()->input('filters.reference'),
             'payment_method' => old('filters.payment_method') ?? request()->input('filters.payment_method'),
+            'date' => old('filters.date') ?? request()->input('filters.date'),
         ];
     }
 

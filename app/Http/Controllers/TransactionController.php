@@ -16,7 +16,7 @@ class TransactionController extends Controller
      */
     public function index(IndexRequest $request, IndexViewModel $viewModel): View
     {
-        $transactions = Transaction::filter($request->input('filters', []))->paginate();
+        $transactions = Transaction::filter($request->safe()->collect()->get('filters', []))->paginate();
         $viewModel->collection($transactions);
 
         return view('modules.index', $viewModel->toArray());

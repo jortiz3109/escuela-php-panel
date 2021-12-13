@@ -2,6 +2,7 @@
 
 namespace App\Filters\ModelFilters;
 
+use App\Filters\Conditions\Transactions\Date;
 use App\Filters\Conditions\Transactions\Merchant;
 use App\Filters\Conditions\Transactions\PaymentMethod;
 use App\Filters\Conditions\Transactions\Reference;
@@ -18,6 +19,7 @@ class TransactionFilters extends Filter
         'payment_method' => PaymentMethod::class,
         'status' => Status::class,
         'reference' => Reference::class,
+        'date' => Date::class,
     ];
 
     protected function joins(): Filter

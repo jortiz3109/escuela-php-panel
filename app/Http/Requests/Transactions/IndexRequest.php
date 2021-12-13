@@ -19,6 +19,21 @@ class IndexRequest extends FormRequest
             'filters.merchant' => ['nullable', 'min:2', 'max:120'],
             'filters.reference' => ['nullable', 'min:2', 'max:120'],
             'filters.payment_method' => ['nullable'],
+            'filters.date' => ['nullable', 'array:0,1'],
+            'filters.date.*' => ['date'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $date = $this->filters['date'] ?? null;
+
+        if ($date) {
+            $this->merge([
+                'filters' => array_replace($this->input('filters'), [
+                    'date' => explode(' - ', $date),
+                ]),
+            ]);
+        }
     }
 }
