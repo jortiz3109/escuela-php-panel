@@ -24,7 +24,13 @@
         @foreach($collection->toArray(request()) as $item)
             <tr>
                 @foreach($fields as $field => $settings)
-                    <td class="{{ $settings['class'] ?? '' }}">{{ $item[$field] ?? null }}</td>
+                    @if(isset($settings['route']))
+                        <td class="{{ $settings['class'] ?? '' }}">
+                            <a href="{{route($settings['route'][0], $item[$settings['route'][1]] )}}">{{ $item[$field] ?? null }}</a>
+                        </td>
+                    @else
+                        <td class="{{ $settings['class'] ?? '' }}">{{ $item[$field] ?? null }}</td>
+                    @endif
                 @endforeach
             </tr>
         @endforeach
