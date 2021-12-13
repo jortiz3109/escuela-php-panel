@@ -30,6 +30,15 @@ class UserFactory extends Factory
         });
     }
 
+    public function verified(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'email_verified_at' => $this->faker->dateTime(),
+            ];
+        });
+    }
+
     public function enabled(): Factory
     {
         return $this->state(function () {
