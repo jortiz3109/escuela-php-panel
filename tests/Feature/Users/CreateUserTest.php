@@ -2,140 +2,135 @@
 
 namespace Tests\Feature\Users;
 
-use Tests\Feature\Auth;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
-
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
+use Tests\Support\UserDataProvider;
+use Tests\TestCase;
 
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
+    use UserDataProvider;
 
-    public function test_registration_screen_can_be_rendered(): void
+    /**
+     * @test
+     */
+    public function authenticated_user_can_view_the_create_view(): void
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/users/create');
-
-        $response->assertStatus(200);
+        $this->actingAs($user)->get('/users/create')
+            ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_new_users_can_register(): void
+    /**
+     * @test
+     */
+    public function unauthenticated_user_can_not_view_the_create_view(): void
+    {
+        $this->get('/users/create')
+            ->assertStatus(Response::HTTP_FOUND);
+    }
+
+    /**
+     * @dataProvider validUserData
+     * @param array $data
+     * @test
+     */
+    public function a_user_can_be_store(array $data): void
     {
         $user = User::factory()->create();
-        $data = $this->userData();
-        $response = $this->actingAs($user)->post('/users', $data);
-        
-        $this->assertDatabaseHas('users',[
-            'name' => 'Andrea',
-            'email' => 'jeante18@gmail.com',
-            "created_by" => $user->id,
-        ]);  
-        
-    }
 
-    public function test_required_name_user_register(): void
-    {
-        $user=User::factory()->create();
-        $response = $this->actingAs($user)->post('/register', [
-            'name' => '',
-            'email' => 'jeante08@gmail.com',
-            'password' => 'jeante08',
-            'password_confirmation' => 'jeante08',
-        ]
-        );
+        $data['created_by'] = $user->id;
+        $data['updated_by'] = $user->id;
 
-        $response->assertInvalid(['name']);
+        $this->actingAs($user)->post('/users', $data)
+            ->assertStatus(302);
 
-    }
-
-    public function test_required_email_user_register(): void
-    {
-        $user=User::factory()->create();
-        $response = $this->actingAs($user)->post('/register', [
-            'name' => 'jennifer',
-            'email' => '',
-            'password' => 'jeante08',
-            'password_confirmation' => 'jeante08',
-        ]
-        );
-
-        $response->assertInvalid(['email']);
-
-    }
-
-    public function test_uniqued_email_user_register(): void
-    {
-        $user=User::factory()->create(['email' => 'jeante08@gmail.com']);
-        $data = $this->userData();
-        $response = $this->actingAs($user)->post('/register',$data);
-
-        $response->assertInvalid(['email']);
-
-    }
-
-    public function test_valid_name_user_register(): void
-    {
-        $user=User::factory()->create();
-        $response = $this->actingAs($user)->post('/register', [
-            'name' => 'jennifer09',
-            'email' => 'jeante09@gmail.com',
-            'password' =>'jeante08',
-            'password_confirmation' => 'jeante08',
-        ]
-        );
-
-        $response->assertInvalid(['name']);
-
-    }
-
-    public function test_disabled_user_register(): void
-    {
-        $user=User::factory()->create();
-        $data = $this->userData();
-        $response = $this->actingAs($user)->post('/register',$data);
-
-        $response->assertRedirect('dashboard');
-        $this->assertDatabaseHas('users',[
-            "enabled_at"=> null,
+        $this->assertDatabaseHas('users', [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
         ]);
-        
     }
 
-    public function test_create_date_user_register(): void
+    /**
+     * @dataProvider invalidUserData
+     * @param array $data
+     * @param string $field
+     * @test
+     */
+    public function a_user_store_required_data(array $data, string $field): void
     {
-        $user=User::factory()->create();
-        $data = $this->userData();
-        $response = $this->actingAs($user)->post('/register',$data);
+        $user = User::factory()->create();
 
-        $response->assertRedirect('dashboard');
-        $this->assertDatabaseHas('users',[
-            "created_at"=> now(),
+        $this->actingAs($user)->post('/users', $data)
+            ->assertStatus(302)
+            ->assertInvalid([$field]);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => $data['name'],
+            'email' => $data['email'],
         ]);
-        
     }
 
-    public function test_create_id_user_register(): void
+    /**
+     * @dataProvider validUserStatusData
+     * @param array $data
+     * @param array $status
+     * @test
+     */
+    public function disabled_user_register(array $data, array $status): void
     {
-        $user=User::factory()->create();
-        $data = $this->userData();
-        $response = $this->actingAs($user)->post('/register',$data);
+        $user = User::factory()->create();
 
-        $response->assertRedirect('dashboard');
-        $this->assertDatabaseHas('users',[
-            "created_by"=> $user->id,
-        ]);        
+        $this->actingAs($user)->post('/users', $data)
+            ->assertRedirect('dashboard');
+
+        $this->assertDatabaseHas('users', [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'enabled_at' =>$status['value'],
+        ]);
     }
 
-    public function userData(): array
+    /**
+     * @dataProvider validUserData
+     * @param array $data
+     * @test
+     */
+    public function create_id_user_register(array $data): void
     {
-        return [
-            'name' => 'Andrea',
-            'email' => 'jeante18@gmail.com',
-            'password' =>'jeante18',
-            'password_confirmation' => 'jeante18',
-        ];
+        $user = User::factory()->create();
+
+        $data['created_by'] = $user->id;
+        $data['updated_by'] = $user->id;
+
+        $this->actingAs($user)->post('/users', $data)
+            ->assertRedirect('/dashboard');
+
+        $this->assertEquals(User::latest('id')->first()->created_by, $user->id);
+    }
+
+    /**
+     * @dataProvider validUserData
+     * @param array $data
+     * @test
+     */
+    public function unique_email_user_register(array $data): void
+    {
+        $user = User::factory()->create(['email' => $data['email']]);
+
+        $this->actingAs($user)->post('/users', $data)
+            ->assertInvalid(['email'])
+            ->assertRedirect('/');
+
+        $this->assertDatabaseMissing('users', [
+            'name' => $data['name'],
+            'email' => $data['email'],
+        ]);
     }
 }
