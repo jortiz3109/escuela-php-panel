@@ -5,9 +5,7 @@
         <section>
             <form id="submit" method="POST" action="{{ $action }}">
                 @csrf
-                @isset($model)
-                    @method('PUT')
-                @endisset
+                @method('PUT')
                 @foreach($fields as $field)
                     {{ $field->render($model) }}
                 @endforeach

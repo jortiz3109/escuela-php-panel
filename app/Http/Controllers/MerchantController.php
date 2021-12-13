@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Merchants\IndexRequest;
 use App\Models\Merchant;
-use App\ViewModels\Merchants\MerchantsCreateOrEditViewModel;
+use App\ViewModels\Merchants\MerchantsCreateViewModel;
+use App\ViewModels\Merchants\MerchantsEditViewModel;
 use App\ViewModels\Merchants\MerchantsIndexViewModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
@@ -25,16 +26,14 @@ class MerchantController extends Controller
         return view('merchants.index', $viewModel);
     }
 
-    public function create(): View
+    public function create(MerchantsCreateViewModel $viewModel): View
     {
-        $viewModel = new MerchantsCreateOrEditViewModel();
-
         return view('layouts.create_or_edit', $viewModel);
     }
 
     public function edit(Merchant $merchant): View
     {
-        $viewModel = new MerchantsCreateOrEditViewModel($merchant);
+        $viewModel = new MerchantsEditViewModel($merchant);
 
         return view('layouts.create_or_edit', $viewModel);
     }

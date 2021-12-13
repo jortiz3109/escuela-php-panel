@@ -2,6 +2,7 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\Inputs\AutocompleteInput;
 use App\Inputs\Input;
 use App\Inputs\NumberInput;
 use App\Inputs\TextInput;
@@ -9,12 +10,8 @@ use App\Inputs\URLInput;
 use App\Models\Merchant;
 use App\ViewModels\ViewModel;
 
-class MerchantsCreateOrEditViewModel extends ViewModel
+class MerchantsCreateViewModel extends ViewModel
 {
-    public function __construct(public ?Merchant $merchant = null)
-    {
-    }
-
     protected function buttons(): array
     {
         return [
@@ -30,7 +27,7 @@ class MerchantsCreateOrEditViewModel extends ViewModel
 
     protected function title(): string
     {
-        return $this->merchant ? trans('merchants.titles.edit') : trans('merchants.titles.create');
+        return trans('merchants.titles.create');
     }
 
     /**
@@ -43,14 +40,16 @@ class MerchantsCreateOrEditViewModel extends ViewModel
             new TextInput('Brand', 'brand', 'Enter merchant brand...', true),
             new NumberInput('Document', 'document', 'Enter merchant document...', true),
             new URLInput('URL', 'url', 'Enter merchant URL...'),
+            new AutocompleteInput('Country', 'country_id', 'Search country...', true),
+            new AutocompleteInput('Currency', 'currency_id', 'Search currencies...', true),
         ];
     }
 
     protected function data(): array
     {
         return [
-            'model' => $this->merchant,
-            'action' => $this->merchant ? route('merchants.update', $this->merchant) : route('merchants.store'),
+            'model' => new Merchant(),
+            'action' => route('merchants.store'),
         ];
     }
 }
