@@ -5,6 +5,7 @@
     <b-select
         placeholder="@lang('merchants.placeholders.select_currency')" expanded
         name="filters[currency]"
+        value="{{ $value }}"
     >
         @foreach ($currencies as $currency)
             <option value="{{ $currency->alphabetic_code }}">
