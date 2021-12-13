@@ -5,13 +5,13 @@ namespace Tests\Feature\Users;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
-use Tests\Support\UserDataProvider;
+use Tests\Support\User\UserFeatureDataProvider;
 use Tests\TestCase;
 
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
-    use UserDataProvider;
+    use UserFeatureDataProvider;
 
     /**
      * @test

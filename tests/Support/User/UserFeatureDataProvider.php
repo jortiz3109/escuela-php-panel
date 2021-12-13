@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Support;
+namespace Tests\Support\User;
 
-trait UserDataProvider
+trait UserFeatureDataProvider
 {
     protected string $name = 'test';
     protected string $email = 'test@test.com';
