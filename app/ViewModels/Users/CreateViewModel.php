@@ -27,7 +27,7 @@ class CreateViewModel extends ViewModel
     protected function data(): array
     {
         return [
-           
+
         ];
     }
 }
