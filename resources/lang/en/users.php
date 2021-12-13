@@ -12,7 +12,7 @@ return [
         'email' => 'Email',
         'password' => 'Password',
         'password_confirmation' => 'Password Confirmation',
-        'register' 
+        'register',
     ],
     'buttons' => [
         'save' => 'Create User',
@@ -20,5 +20,8 @@ return [
     ],
     'message' => [
         'success' => 'created successfully.',
+    ],
+    'logs' => [
+        'store_error' => 'User could not be stored',
     ],
 ];
