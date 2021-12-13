@@ -26,9 +26,7 @@ class IndexRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $date = $this->filters['date'] ?? null;
-
-        if ($date) {
+        if ($date = $this->filters['date'] ?? null) {
             $this->merge([
                 'filters' => array_replace($this->input('filters'), [
                     'date' => explode(' - ', $date),

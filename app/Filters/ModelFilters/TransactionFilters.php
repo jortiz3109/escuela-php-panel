@@ -34,6 +34,7 @@ class TransactionFilters extends Filter
     protected function select(): Filter
     {
         $this->query->select(
+            'transactions.id',
             'transactions.executed_at',
             'merchants.name as merchant',
             'transactions.reference',

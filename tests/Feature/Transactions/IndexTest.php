@@ -49,13 +49,15 @@ class IndexTest extends TestCase
 
     public function test_it_show_transactions_data(): void
     {
-        $transaction = Transaction::factory()->create();
+        $transaction = Transaction::factory()->create([
+            'total_amount' => 12345,
+        ]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
 
         $response->assertSee($transaction->executed_at->toDateString());
         $response->assertSee($transaction->merchant->name);
         $response->assertSee($transaction->currency->alphabetic_code);
-        $response->assertSee($transaction->total_amount);
+        $response->assertSee('$123.45');
         $response->assertSee($transaction->payment_method);
         $response->assertSee($transaction->status);
     }
@@ -63,7 +65,7 @@ class IndexTest extends TestCase
     public function test_it_can_filter_transactions_by_status()
     {
         Transaction::factory(5)->create(['status' => TransactionStatus::STATUS_FAILED]);
-        $approvedTransaction = Transaction::factory()->create(['status' => TransactionStatus::STATUS_APPROVED]);
+        Transaction::factory()->create(['status' => TransactionStatus::STATUS_APPROVED]);
 
         $filters = http_build_query(['filters' => ['status' => TransactionStatus::STATUS_APPROVED]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));

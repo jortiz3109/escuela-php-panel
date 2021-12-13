@@ -43,6 +43,7 @@ class IndexViewModel extends ViewModel
             ],
             'reference' => [
                 'translation' => 'transactions.fields.reference',
+                'route' => ['transactions.show', 'id'],
             ],
             'currency' => [
                 'translation' => 'transactions.fields.currency',

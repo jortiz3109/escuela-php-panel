@@ -30,7 +30,7 @@
 
     <b-field horizontal label="@lang('Total amount')">
         <b-field>
-            {{ $transaction->currency->alphabetic_code }} {{ $transaction->currency->symbol }} {{ $transaction->total_amount }}
+            {{ $transaction->currency->alphabetic_code }} {{ \App\Helpers\AmountHelper::format($transaction->total_amount, $transaction->currency->alphabetic_code) }}
         </b-field>
     </b-field>
 
