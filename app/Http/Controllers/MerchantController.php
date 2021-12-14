@@ -28,14 +28,14 @@ class MerchantController extends Controller
 
     public function create(MerchantsCreateViewModel $viewModel): View
     {
-        return view('layouts.create_or_edit', $viewModel);
+        return view('layouts.create', $viewModel);
     }
 
     public function edit(Merchant $merchant): View
     {
         $viewModel = new MerchantsEditViewModel($merchant);
 
-        return view('layouts.create_or_edit', $viewModel);
+        return view('layouts.edit', $viewModel);
     }
 
     public function store(Request $request): RedirectResponse
