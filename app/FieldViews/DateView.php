@@ -1,10 +1,10 @@
 <?php
 
-namespace App\PropsViews;
+namespace App\FieldViews;
 
 use Illuminate\View\View;
 
-class DateView extends PropView
+class DateView extends FieldView
 {
     public function render(): View
     {

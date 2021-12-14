@@ -1,10 +1,10 @@
 <?php
 
-namespace App\PropsViews;
+namespace App\FieldViews;
 
 use Illuminate\View\View;
 
-abstract class PropView
+abstract class FieldView
 {
     public function __construct(
         public string $label,
