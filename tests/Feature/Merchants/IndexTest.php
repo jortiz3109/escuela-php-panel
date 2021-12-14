@@ -9,11 +9,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Concerns\HasMerchants;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
+    use HasMerchants;
 
     private const MERCHANTS_ROUTE_NAME = 'merchants.index';
 
@@ -151,29 +153,5 @@ class IndexTest extends TestCase
             'multiple min' => ['attribute' => 'multiple', 'value' => 'a'],
             'multiple max' => ['attribute' => 'multiple', 'value' => Str::random(121)],
         ];
-    }
-
-    private function createMerchants(): void
-    {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->count(3)
-            ->create();
-    }
-
-    private function createMerchantsWithData(): void
-    {
-        $this->createMerchants();
-
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->create([
-                'name'     => 'EVERTEC',
-                'brand'    => 'PlaceToPay',
-                'document' => '1234567890',
-                'url'      => 'https://placetopay.com',
-            ]);
     }
 }

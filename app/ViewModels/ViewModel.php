@@ -28,7 +28,11 @@ abstract class ViewModel implements Arrayable
         return [];
     }
 
-    abstract protected function fields(): array;
+    protected function fields(): array
+    {
+        return [];
+    }
+
     abstract protected function buttons(): array;
     abstract protected function title(): string;
     abstract protected function data(): array;

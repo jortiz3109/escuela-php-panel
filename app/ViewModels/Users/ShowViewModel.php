@@ -2,15 +2,15 @@
 
 namespace App\ViewModels\Users;
 
-use App\PropsViews\EnabledView;
-use App\PropsViews\PropView;
-use App\PropsViews\TextView;
+use App\FieldViews\EnabledView;
+use App\FieldViews\FieldView;
+use App\FieldViews\TextView;
 use App\ViewModels\ShowViewModelBase;
 
 class ShowViewModel extends ShowViewModelBase
 {
     /**
-     * @return PropView[]
+     * @return FieldView[]
      */
     protected function fields(): array
     {
