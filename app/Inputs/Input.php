@@ -11,9 +11,11 @@ abstract class Input
         public string $label,
         public string $name,
         public string $placeholder = '',
-        public bool $required = false
+        public bool $required = false,
+        public array $data = []
     ) {
     }
+
 
     abstract public function render(?Model $model): View;
 }
