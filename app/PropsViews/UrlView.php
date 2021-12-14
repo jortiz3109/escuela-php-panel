@@ -2,7 +2,6 @@
 
 namespace App\PropsViews;
 
-use App\PropsViews\Contracts\ShowPropsViews;
 use Illuminate\View\View;
 
 class UrlView extends PropView
