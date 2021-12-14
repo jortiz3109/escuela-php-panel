@@ -5,7 +5,7 @@ namespace App\ViewModels\LoginLogs;
 use App\ViewModels\Concerns\HasCollection;
 use App\ViewModels\ViewModel;
 
-class IndexViewModel extends ViewModel
+class LoginLogsIndexViewModel extends ViewModel
 {
     use HasCollection;
 

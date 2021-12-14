@@ -5,7 +5,7 @@ namespace App\ViewModels\Transactions;
 use App\ViewModels\Concerns\HasModel;
 use App\ViewModels\ViewModel;
 
-class DetailsViewModel extends ViewModel
+class TransactionDetailsViewModel extends ViewModel
 {
     use HasModel;
 

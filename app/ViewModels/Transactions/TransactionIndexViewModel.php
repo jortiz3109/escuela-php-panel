@@ -6,7 +6,7 @@ use App\Http\Resources\Transactions\IndexResource;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
 
-class IndexViewModel extends ViewModel
+class TransactionIndexViewModel extends ViewModel
 {
     use HasPaginator;
 

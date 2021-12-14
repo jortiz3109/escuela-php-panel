@@ -5,7 +5,7 @@ namespace App\ViewModels\Merchants;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
 
-class IndexViewModel extends ViewModel
+class MerchantIndexViewModel extends ViewModel
 {
     use HasPaginator;
 
