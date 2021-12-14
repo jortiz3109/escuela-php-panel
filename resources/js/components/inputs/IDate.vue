@@ -1,0 +1,12 @@
+<b-field
+    :label="label"
+    horizontal>
+    <b-datepicker
+        v-model="selected"
+        :id="name"
+        :name="name"
+        icon="calendar-today"
+        trap-focus
+        required>
+    </b-datepicker>
+</b-field>
