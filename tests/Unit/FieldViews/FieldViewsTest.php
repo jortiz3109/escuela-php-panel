@@ -4,8 +4,8 @@ namespace Tests\Unit\FieldViews;
 
 use App\FieldViews\DateView;
 use App\FieldViews\EnabledView;
-use App\FieldViews\ImageView;
 use App\FieldViews\FieldView;
+use App\FieldViews\ImageView;
 use App\FieldViews\TextView;
 use App\FieldViews\UrlView;
 use Tests\TestCase;
