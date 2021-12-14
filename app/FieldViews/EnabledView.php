@@ -8,7 +8,7 @@ class EnabledView extends FieldView
 {
     public function render(): View
     {
-        return view('partials.prop_views.__enabled', [
+        return view('partials.fields_views.__enabled', [
             'label' => $this->label,
             'value' => $this->value,
         ]);

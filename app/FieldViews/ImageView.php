@@ -8,7 +8,7 @@ class ImageView extends FieldView
 {
     public function render(): View
     {
-        return view('partials.prop_views.__image', [
+        return view('partials.fields_views.__image', [
             'title' => $this->label,
             'url' => $this->value,
         ]);

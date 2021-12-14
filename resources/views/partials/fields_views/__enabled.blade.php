@@ -1,5 +1,5 @@
 <tr>
-    <th>{{ $label }}</th>
+    <th scope="row">{{ $label }}</th>
     <td>
         @if($value)
             <b-tag rounded class="is-success"><span><i class="fas fa-check-circle"></i><span>{{ trans('common.fields.enabled') }}</b-tag>

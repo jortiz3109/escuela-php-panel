@@ -5,6 +5,7 @@
         <section>
             <div class="table-container">
                 <table class="table is-bordered is-fullwidth">
+                    <caption></caption>
                     <thead>
                     @foreach($fields as $field)
                         {{ $field->render() }}
