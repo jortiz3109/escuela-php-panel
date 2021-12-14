@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\ViewModels\ShowViewModel;
+use App\ViewModels\Users\ShowViewModel;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -12,6 +12,6 @@ class UserController extends Controller
     {
         $viewModel->show($user);
 
-        return view('layouts.show', $viewModel->toArray());
+        return view('layouts.show', $viewModel);
     }
 }

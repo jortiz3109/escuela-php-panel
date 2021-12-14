@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Merchants\IndexRequest;
 use App\Models\Merchant;
 use App\ViewModels\Merchants\IndexViewModel;
+use App\ViewModels\Merchants\ShowViewModel;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\View\View;
 
 class MerchantController extends Controller
 {
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function index(IndexRequest $request, IndexViewModel $viewModel): View
     {
@@ -19,5 +21,12 @@ class MerchantController extends Controller
         $viewModel->collection($merchants);
 
         return view('merchants.index', $viewModel->toArray());
+    }
+
+    public function show(Merchant $merchant, ShowViewModel $viewModel): View
+    {
+        $viewModel->show($merchant);
+
+        return view('layouts.show', $viewModel);
     }
 }

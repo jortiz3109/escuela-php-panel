@@ -5,13 +5,13 @@ namespace App\PropsViews;
 use App\PropsViews\Contracts\ShowPropsViews;
 use Illuminate\View\View;
 
-class DateView extends PropView
+class UrlView extends PropView
 {
     public function render(): View
     {
-        return view('partials.prop_views.__date', [
+        return view('partials.prop_views.__url', [
             'label' => $this->label,
-            'date' => $this->value,
+            'url' => $this->value,
         ]);
     }
 }

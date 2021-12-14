@@ -2,13 +2,13 @@
 
 namespace App\ViewModels\Concerns;
 
-use App\PropsViews\Contracts\ShowPropsViews;
+use Illuminate\Database\Eloquent\Model;
 
 trait HasDisplayable
 {
-    protected ShowPropsViews $model;
+    protected Model $model;
 
-    public function show(ShowPropsViews $model): self
+    public function show(Model $model): self
     {
         $this->model = $model;
 

@@ -17,7 +17,7 @@ Route::get('dashboard', DashboardController::class)
     ->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('merchants', [MerchantController::class, 'index'])->name('merchants.index');
+    Route::resource('merchants', MerchantController::class)->only('show', 'index', 'edit');
 
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
 

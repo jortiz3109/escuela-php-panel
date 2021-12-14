@@ -2,7 +2,6 @@
 
 namespace App\PropsViews;
 
-use App\PropsViews\Contracts\ShowPropsViews;
 use Illuminate\View\View;
 
 abstract class PropView
@@ -13,5 +12,5 @@ abstract class PropView
     ) {
     }
 
-    abstract public function render(ShowPropsViews $model): View;
+    abstract public function render(): View;
 }

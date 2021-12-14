@@ -7,7 +7,7 @@ use Illuminate\View\View;
 
 class ImageView extends PropView
 {
-    public function render(ShowPropsViews $model): View
+    public function render(): View
     {
         return view('partials.prop_views.__image', [
             'title' => $this->label,

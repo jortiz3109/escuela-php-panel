@@ -26,7 +26,7 @@
                         <p class="menu-label">@lang('menu.security')</p>
                         <ul class="menu-list">
                             <li><a href="{{ route('permissions.index') }}"><em class="pr-2 mdi mdi-shield-lock"></em>@lang('permissions.navbar.title')</a></li>
-                            <li><a href="{{ route('users.show', 4) }}"><em class="pr-2 mdi mdi-account-multiple"></em>@lang('Users')</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-account-multiple"></em>@lang('Users')</a></li>
                             <li><a href="{{ route('logins.index') }}"><em class="pr-2 mdi mdi-login"></em>@lang('Last logins')</a></li>
                         </ul>
 
@@ -60,7 +60,6 @@
                             </div>
                         </div>
                     </div>
-                    @includeWhen(count($filters), 'filters', compact('filters'))
                     <div class="box block">
                         @yield('content')
                     </div>

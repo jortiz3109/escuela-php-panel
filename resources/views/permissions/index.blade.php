@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
-<table class="table is-narrow is-hoverable is-fullwidth">
+    @includeWhen(count($filters), 'filters', compact('filters'))
+    <table class="table is-narrow is-hoverable is-fullwidth">
     <caption class="is-hidden">{{ $texts['title'] }}</caption>
     <thead>
         <tr>

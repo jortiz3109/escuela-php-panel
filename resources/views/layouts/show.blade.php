@@ -6,8 +6,8 @@
             <div class="table-container">
                 <table class="table is-bordered is-fullwidth">
                     <thead>
-                    @foreach($propsViews as $propsView)
-                        {{ $propsView->render($model) }}
+                    @foreach($fields as $field)
+                        {{ $field->render() }}
                     @endforeach
                     </thead>
                 </table>
