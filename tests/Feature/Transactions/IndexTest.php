@@ -90,15 +90,16 @@ class IndexTest extends TestCase
 
     public function test_it_can_filter_transactions_by_reference()
     {
+        $reference = '123456';
         Transaction::factory(5)->create();
-        Transaction::factory()->create(['reference' => '123456']);
+        Transaction::factory()->create(['reference' => $reference]);
 
-        $filters = http_build_query(['filters' => ['reference' => '123456']]);
+        $filters = http_build_query(['filters' => ['reference' => $reference]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
-        $this->assertEquals('123456', $transactions->first()->reference);
+        $this->assertEquals($reference, $transactions->first()->reference);
     }
 
     public function test_it_can_filter_transactions_by_payment_method()
