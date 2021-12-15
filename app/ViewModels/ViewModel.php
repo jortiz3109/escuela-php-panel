@@ -11,6 +11,7 @@ abstract class ViewModel implements Arrayable
         return [
             'buttons' => $this->buttons(),
             'texts' => $this->texts(),
+            'filters' => $this->filters(),
             'fields' => $this->fields(),
         ] + $this->data();
     }

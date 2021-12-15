@@ -9,15 +9,6 @@ class IndexViewModel extends ViewModel
 {
     use HasCollection;
 
-    public function toArray(): array
-    {
-        return [
-                'buttons' => $this->buttons(),
-                'texts' => $this->texts(),
-                'filters' => $this->filters(),
-            ] + $this->data();
-    }
-
     protected function buttons(): array
     {
         return [];
