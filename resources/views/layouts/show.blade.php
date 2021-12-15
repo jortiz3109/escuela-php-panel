@@ -1,4 +1,4 @@
-@php /** @var \App\PropsViews\PropsViews[] $propsViews */ @endphp
+@php /** @var \App\FieldViews\FieldView[] $fields */ @endphp
 @extends('layouts.admin')
 @section('content')
     <template>
@@ -6,11 +6,9 @@
             <div class="table-container">
                 <table class="table is-bordered is-fullwidth">
                     <caption></caption>
-                    <thead>
                     @foreach($fields as $field)
                         {{ $field->render() }}
                     @endforeach
-                    </thead>
                 </table>
             </div>
         </section>
