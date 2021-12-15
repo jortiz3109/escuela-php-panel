@@ -13,7 +13,7 @@ abstract class ViewModel implements Arrayable
             'buttons' => $this->buttons(),
             'texts' => $this->texts(),
             'filters' => $this->filters(),
-            'fields' => $this->fields(),
+            'fields' => $this->inputs(),
             'headers' => $this->headers(),
         ] + $this->data();
     }
@@ -48,7 +48,7 @@ abstract class ViewModel implements Arrayable
     /**
      * @return Input[]
      */
-    protected function fields(): array
+    protected function inputs(): array
     {
         return [];
     }

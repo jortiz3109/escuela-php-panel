@@ -33,15 +33,45 @@ class MerchantsCreateViewModel extends ViewModel
     /**
      * @return Input[]
      */
-    protected function fields(): array
+    protected function inputs(): array
     {
         return [
-            new TextInput('Name', 'name', 'Enter merchant name...', true),
-            new TextInput('Brand', 'brand', 'Enter merchant brand...', true),
-            new NumberInput('Document', 'document', 'Enter merchant document...', true),
-            new URLInput('URL', 'url', 'Enter merchant URL...'),
-            new AutocompleteInput('Country', 'country_id', 'Search country...', true),
-            new AutocompleteInput('Currency', 'currency_id', 'Search currencies...', true),
+            new TextInput(
+                trans('merchants.labels.name'),
+                trans('merchants.inputs.name'),
+                trans('merchants.placeholders.name'),
+                true
+            ),
+            new TextInput(
+                trans('merchants.labels.brand'),
+                trans('merchants.inputs.brand'),
+                trans('merchants.placeholders.brand'),
+                true
+            ),
+            new NumberInput(
+                trans('merchants.labels.document'),
+                trans('merchants.inputs.document'),
+                trans('merchants.placeholders.document'),
+                true
+            ),
+            new URLInput(
+                trans('merchants.labels.url'),
+                trans('merchants.inputs.url'),
+                trans('merchants.placeholders.url'),
+                true
+            ),
+            new AutocompleteInput(
+                trans('merchants.labels.country'),
+                trans('merchants.inputs.country'),
+                trans('merchants.placeholders.country'),
+                true
+            ),
+            new AutocompleteInput(
+                trans('merchants.labels.currency'),
+                trans('merchants.inputs.currency'),
+                trans('merchants.placeholders.currency'),
+                true
+            ),
         ];
     }
 
