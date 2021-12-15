@@ -25,7 +25,7 @@ class MerchantController extends Controller
 
     public function show(Merchant $merchant, ShowViewModel $viewModel): View
     {
-        $viewModel->show($merchant);
+        $viewModel->model($merchant);
 
         return view('layouts.show', $viewModel);
     }

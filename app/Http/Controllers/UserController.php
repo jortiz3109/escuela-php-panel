@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function show(User $user, ShowViewModel $viewModel): View
     {
-        $viewModel->show($user);
+        $viewModel->model($user);
 
         return view('layouts.show', $viewModel);
     }

@@ -5,10 +5,13 @@ namespace App\ViewModels\Merchants;
 use App\FieldViews\FieldView;
 use App\FieldViews\TextView;
 use App\FieldViews\UrlView;
-use App\ViewModels\ShowViewModelBase;
+use App\ViewModels\Concerns\HasModel;
+use App\ViewModels\ViewModel;
 
-class ShowViewModel extends ShowViewModelBase
+class ShowViewModel extends ViewModel
 {
+    use HasModel;
+
     /**
      * @return FieldView[]
      */
@@ -38,5 +41,15 @@ class ShowViewModel extends ShowViewModelBase
                 'route' => route('merchants.edit', $this->model->getKey()),
             ],
         ];
+    }
+
+    protected function title(): string
+    {
+        return $this->model->name;
+    }
+
+    protected function data(): array
+    {
+        return ['model' => $this->model];
     }
 }
