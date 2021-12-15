@@ -2,7 +2,6 @@
 
 namespace App\Filters\ModelFilters;
 
-
 use App\Filters\Conditions\Merchants\Country;
 use App\Filters\Conditions\Merchants\Currency;
 use App\Filters\Conditions\Merchants\Multiple;
