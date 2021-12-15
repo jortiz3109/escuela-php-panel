@@ -69,23 +69,24 @@ class IndexTest extends TestCase
 
     /**
      * @dataProvider userFilterDataProvider
-     * @param array $data
+     * @param array $filters
+     * @param array $userData
      * @test
      */
-    public function it_can_filter_users(array $data): void
+    public function it_can_filter_users(array $filters, array $userData): void
     {
         $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
-        User::factory()->create($data);
-        $filters = http_build_query(['filters' => ['email' => 'rcjimenez35@gmail.com', 'created_at' => '2021-11-12',
+        User::factory()->create($userData);
+        $filters = http_build_query(['filters' =>['email' => 'test@test.com', 'created_at' => '2021-11-12',
             'enabled_at'=> false, ]]);
         $response = $this->actingAs(User::factory()->create())->get(self::FILTER_URI . $filters);
         $users = $response->getOriginalContent()['users'];
 
-        $this->assertEquals(1, $users->count());
-        $this->assertEquals($data['created_at'], date('d-m-Y', strtotime($users->first()->created_at)));
-        $this->assertEquals($data['enabled_at'], $users->first()->enabled_at);
-        $this->assertEquals($data['email'], $users->first()->email);
+        $this->assertCount(1, $users);
+        $this->assertEquals($userData['created_at'], date('d-m-Y', strtotime($users->first()->created_at)));
+        $this->assertEquals($userData['enabled_at'], $users->first()->enabled_at);
+        $this->assertEquals($userData['email'], $users->first()->email);
     }
 
     /**

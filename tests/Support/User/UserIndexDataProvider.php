@@ -35,7 +35,13 @@ trait UserIndexDataProvider
         return [
             'filter user by created at' => [
                 'filters' => [
-                    'email' => 'rcjimenez35@gmail.com',
+                    'email' => 'test@test.com',
+                    'created_at' => '2021-11-12',
+                    'enabled_at' => false,
+                ],
+                'user_data_creation' => [
+                    'name' => 'test',
+                    'email' => 'test@test.com',
                     'created_at' => '12-11-2021',
                     'enabled_at' => null,
                 ],
