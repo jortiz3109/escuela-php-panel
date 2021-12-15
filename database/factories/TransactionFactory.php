@@ -17,38 +17,16 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'merchant_id' => Merchant::firstOrCreate(
-                Merchant::factory()->make()->toArray()
-            )->id,
-
-            'payer_id' => Person::firstOrCreate(
-                Person::factory(['document_number' => '1234567890'])->make()->toArray(),
-            )->id,
-
-            'buyer_id' => Person::firstOrCreate(
-                Person::factory(['document_number' => '1234567890'])->make()->toArray(),
-            )->id,
-
-            'payment_method_id' => PaymentMethod::firstOrCreate(
-                ['name' => 'VISA DEBIT'],
-                ['logo' => 'https://seeklogo.com/images/V/visa-electron-logo-71BEC57E8F-seeklogo.com.png'],
-            ),
-
-            'currency_id' => Currency::firstOrCreate(
-                ['name' => 'US dollar'],
-                ['minor_unit' => 2, 'alphabetic_code' => 'USD', 'numeric_code' => '840'],
-            ),
-
+            'merchant_id' => Merchant::factory(),
+            'payer_id' => Person::factory(),
+            'buyer_id' => Person::factory(),
+            'payment_method_id' => PaymentMethod::all()->random()->id,
+            'currency_id' => Currency::all()->random()->id,
             'reference' => $this->faker->numberBetween(1000000000, 9999999999),
-
             'card_number' => $this->faker->numerify('######******####'),
-
             'total_amount' => $this->faker->numberBetween(1, 999999),
-
             'status' => $this->faker->randomElement(TransactionStatus::STATUSES),
-
             'ip_address' => $this->faker->ipv4(),
-
             'executed_at' => $this->faker->dateTime(),
         ];
     }

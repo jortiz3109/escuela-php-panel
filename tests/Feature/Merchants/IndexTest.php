@@ -42,10 +42,7 @@ class IndexTest extends TestCase
 
     public function test_collection_has_merchants(): void
     {
-        Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
-            ->create();
+        Merchant::factory()->create();
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
@@ -57,13 +54,7 @@ class IndexTest extends TestCase
 
     public function test_it_show_merchants_data(): void
     {
-        $country = Country::factory()->create();
-        $currency = Currency::factory()->create();
-
-        $merchant = Merchant::factory()
-            ->for($country)
-            ->for($currency)
-            ->create();
+        $merchant = Merchant::factory()->create();
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
@@ -95,16 +86,23 @@ class IndexTest extends TestCase
     {
         $this->createMerchants();
 
+        $country = Country::create([
+            'name' => 'My country',
+            'alpha_two_code' => 'ZZ',
+            'alpha_three_code' => 'ZZZ',
+            'numeric_code' => '000',
+        ]);
+
         $merchant = Merchant::factory()
-            ->for(Country::factory(['alpha_two_code' => '12']))
-            ->for(Currency::factory())
+            ->for($country)
             ->create();
 
-        $filters = http_build_query(['filters' => ['country' => '12']]);
+        $filters = http_build_query(['filters' => ['country' => 'ZZ']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
         $this->assertEquals(1, $merchants->count());
+        $this->assertEquals($country->name, $merchants->first()->country);
         $this->assertEquals($merchant->country->name, $merchants->first()->country);
     }
 
@@ -112,12 +110,19 @@ class IndexTest extends TestCase
     {
         $this->createMerchants();
 
+        $currency = Currency::create([
+            'name' => 'Fake currency',
+            'minor_unit' => 0,
+            'alphabetic_code' => 'FCY',
+            'numeric_code' => '123',
+            'symbol' => '$',
+        ]);
+
         $merchant = Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory(['alphabetic_code' => '123']))
+            ->for($currency)
             ->create();
 
-        $filters = http_build_query(['filters' => ['currency' => '123']]);
+        $filters = http_build_query(['filters' => ['currency' => 'FCY']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
@@ -156,8 +161,6 @@ class IndexTest extends TestCase
     private function createMerchants(): void
     {
         Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
             ->count(3)
             ->create();
     }
@@ -167,8 +170,6 @@ class IndexTest extends TestCase
         $this->createMerchants();
 
         Merchant::factory()
-            ->for(Country::factory())
-            ->for(Currency::factory())
             ->create([
                 'name'     => 'EVERTEC',
                 'brand'    => 'PlaceToPay',

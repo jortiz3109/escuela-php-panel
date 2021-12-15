@@ -103,13 +103,14 @@ class IndexTest extends TestCase
 
     public function test_it_can_filter_transactions_by_payment_method()
     {
-        $paymentMethod = new PaymentMethod();
-        $paymentMethod->name = 'new payment method';
-        $paymentMethod->logo = 'my logo';
-        $paymentMethod->save();
-
         Transaction::factory(5)->create();
-        Transaction::factory()->create(['payment_method_id' => $paymentMethod->id]);
+
+        $paymentMethod = PaymentMethod::create([
+            'name' => 'new payment method',
+            'logo' => 'my logo',
+        ]);
+
+        Transaction::factory()->for($paymentMethod)->create();
 
         $filters = http_build_query(['filters' => ['payment_method' => $paymentMethod->name]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
@@ -121,7 +122,6 @@ class IndexTest extends TestCase
 
     public function test_it_can_filter_transactions_by_date()
     {
-        Transaction::factory(5)->create();
         Transaction::factory()->create(['executed_at' => Carbon::parse('2021-11-29')]);
 
         $filters = http_build_query(['filters' => ['date' => '11/29/2021 - 11/29/2021']]);
