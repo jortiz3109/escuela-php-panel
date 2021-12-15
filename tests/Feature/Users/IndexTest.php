@@ -68,8 +68,7 @@ class IndexTest extends TestCase
     }
 
     /**
-     *
-     * @dataProvider userProvider
+     * @dataProvider userFilterDataProvider
      * @param array $data
      * @test
      */
@@ -106,8 +105,7 @@ class IndexTest extends TestCase
         $response = $this->actingAs($user)->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
         $users = $response->getOriginalContent()['users'];
 
-        $response->assertStatus(Response::HTTP_OK );
+        $response->assertStatus(Response::HTTP_OK);
         $this->assertCount($filtered, $users);
     }
-
 }

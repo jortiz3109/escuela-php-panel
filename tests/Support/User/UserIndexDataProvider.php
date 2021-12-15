@@ -30,15 +30,15 @@ trait UserIndexDataProvider
         ];
     }
 
-
-    public function userProvider(): array
+    public function userFilterDataProvider(): array
     {
         return [
-            'user_data' => [
-                'name' => 'Roberto Jimenez',
-                'email' => 'rcjimenez35@gmail.com',
-                'enabled_at' => null,
-                'created_at' => '12-11-2021',
+            'filter user by created at' => [
+                'filters' => [
+                    'email' => 'rcjimenez35@gmail.com',
+                    'created_at' => '12-11-2021',
+                    'enabled_at' => null,
+                ],
             ],
         ];
     }
@@ -50,5 +50,4 @@ trait UserIndexDataProvider
             ['data' => ['attribute' => 'email', 'filterValue' => 'rcjimenez35@gmail.com']],
         ];
     }
-
 }
