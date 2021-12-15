@@ -3,6 +3,8 @@
 namespace App\ViewModels\Transactions;
 
 use App\Http\Resources\Transactions\IndexResource;
+use App\ViewComponents\Display\DisplayLinkComponent;
+use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\IndexViewModel;
 
@@ -34,33 +36,13 @@ class TransactionIndexViewModel extends IndexViewModel
     public function fields(): array
     {
         return [
-            'date' => [
-                'translation' => 'transactions.fields.date',
-                'class' => 'has-text-centered',
-            ],
-            'merchant' => [
-                'translation' => 'transactions.fields.merchant',
-            ],
-            'reference' => [
-                'translation' => 'transactions.fields.reference',
-                'route' => ['transactions.show', 'id'],
-            ],
-            'currency' => [
-                'translation' => 'transactions.fields.currency',
-                'class' => 'has-text-centered',
-            ],
-            'total_amount' => [
-                'translation' => 'transactions.fields.total_amount',
-                'class' => 'has-text-centered',
-            ],
-            'payment_method' => [
-                'translation' => 'transactions.fields.payment_method',
-                'class' => 'has-text-centered',
-            ],
-            'status' => [
-                'translation' => 'transactions.fields.status',
-                'class' => 'has-text-centered',
-            ],
+            'date' => new DisplayTextComponent('transactions.fields.date', 'has-text-centered'),
+            'merchant' => new DisplayTextComponent('transactions.fields.merchant'),
+            'reference' => new DisplayLinkComponent('transactions.fields.reference', 'transactions.show', 'id'),
+            'currency' => new DisplayTextComponent('transactions.fields.currency', 'has-text-centered'),
+            'total_amount' => new DisplayTextComponent('transactions.fields.total_amount', 'has-text-centered'),
+            'payment_method' => new DisplayTextComponent('transactions.fields.payment_method', 'has-text-centered'),
+            'status' => new DisplayTextComponent('transactions.fields.status', 'has-text-centered'),
         ];
     }
 
