@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    @includeWhen(count($filters), 'filters', compact('filters'))
+                    @includeWhen(isset($filters) && count($filters), 'filters', ['filters' => $filters ?? []])
                     <div class="box block">
                         @yield('content')
                     </div>

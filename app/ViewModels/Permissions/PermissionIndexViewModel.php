@@ -3,9 +3,9 @@
 namespace App\ViewModels\Permissions;
 
 use App\ViewModels\Concerns\HasPaginator;
-use App\ViewModels\ViewModel;
+use App\ViewModels\IndexViewModel;
 
-class PermissionIndexViewModel extends ViewModel
+class PermissionIndexViewModel extends IndexViewModel
 {
     use HasPaginator;
 

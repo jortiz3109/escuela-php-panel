@@ -4,9 +4,9 @@ namespace App\ViewModels\Transactions;
 
 use App\Http\Resources\Transactions\IndexResource;
 use App\ViewModels\Concerns\HasPaginator;
-use App\ViewModels\ViewModel;
+use App\ViewModels\IndexViewModel;
 
-class TransactionIndexViewModel extends ViewModel
+class TransactionIndexViewModel extends IndexViewModel
 {
     use HasPaginator;
 
