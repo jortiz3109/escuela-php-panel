@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -54,6 +55,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isEnabled(): bool
     {
         return null !== $this->enabled_at;
+    }
+
+    public function markAsEnabled(): void
+    {
+        $this->enabled_at = Carbon::now()->toDateTimeString();
+
+        $this->save();
     }
 
     public function markAsDisabled(): void

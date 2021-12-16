@@ -20,7 +20,7 @@ class UserFilters extends Filter
 
     protected function select(): Filter
     {
-        $this->query->select(['name', 'email', 'created_at', 'enabled_at']);
+        $this->query->select(['id', 'name', 'email', 'created_at', 'enabled_at']);
         return $this;
     }
 }
