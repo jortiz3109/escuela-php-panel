@@ -1,15 +1,17 @@
 <template>
     <section>
-        <p class="content"><b>Selected:</b> {{ selected }}</p>
-        <b-field label="Find a JS framework">
+        <b-field
+            :label="label"
+            horizontal>
             <b-autocomplete
-                rounded
-                v-model="name"
-                :data="filteredDataArray"
-                placeholder="e.g. jQuery"
+                :id="id"
+                :name="name"
+                :placeholder="placeholder"
+                :keep-first="keepFirst"
+                :open-on-focus="openOnFocus"
+                :data="data"
                 icon="magnify"
-                clearable
-                @select="option => selected = option">
+                clearable>
                 <template #empty>No results found</template>
             </b-autocomplete>
         </b-field>
@@ -18,35 +20,30 @@
 
 <script>
 export default {
+    props: {
+        label: {
+            type: String,
+        },
+        id: {
+            type: String,
+        },
+        name: {
+            type: String,
+        },
+        placeholder: {
+            type: String,
+        },
+        data: {
+            type: Array,
+        },
+    },
     data() {
+        console.log(this.data);
         return {
-            data: [
-                'Angular',
-                'Angular 2',
-                'Aurelia',
-                'Backbone',
-                'Ember',
-                'jQuery',
-                'Meteor',
-                'Node.js',
-                'Polymer',
-                'React',
-                'RxJS',
-                'Vue.js'
-            ],
-            name: '',
-            selected: null
+            keepFirst: true,
+            openOnFocus: true,
+            clearable: false
         }
     },
-    computed: {
-        filteredDataArray() {
-            return this.data.filter((option) => {
-                return option
-                    .toString()
-                    .toLowerCase()
-                    .indexOf(this.name.toLowerCase()) >= 0
-            })
-        }
-    }
 }
 </script>

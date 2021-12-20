@@ -42,6 +42,6 @@ return [
         'document' => 'Enter merchant document...',
         'url' => 'Enter merchant URL...',
         'country' => 'Search country...',
-        'currency' => 'Enter currency...',
+        'currency' => 'Search currency...',
     ],
 ];

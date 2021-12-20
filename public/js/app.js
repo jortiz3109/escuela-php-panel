@@ -29,22 +29,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      data: ['Angular', 'Angular 2', 'Aurelia', 'Backbone', 'Ember', 'jQuery', 'Meteor', 'Node.js', 'Polymer', 'React', 'RxJS', 'Vue.js'],
-      name: '',
-      selected: null
-    };
-  },
-  computed: {
-    filteredDataArray: function filteredDataArray() {
-      var _this = this;
-
-      return this.data.filter(function (option) {
-        return option.toString().toLowerCase().indexOf(_this.name.toLowerCase()) >= 0;
-      });
+  props: {
+    label: {
+      type: String
+    },
+    id: {
+      type: String
+    },
+    name: {
+      type: String
+    },
+    placeholder: {
+      type: String
+    },
+    data: {
+      type: Array
     }
+  },
+  data: function data() {
+    console.log(this.data);
+    return {
+      keepFirst: true,
+      openOnFocus: true,
+      clearable: false
+    };
   }
 });
 
@@ -265,27 +276,20 @@ var render = function () {
   return _c(
     "section",
     [
-      _c("p", { staticClass: "content" }, [
-        _c("b", [_vm._v("Selected:")]),
-        _vm._v(" " + _vm._s(_vm.selected)),
-      ]),
-      _vm._v(" "),
       _c(
         "b-field",
-        { attrs: { label: "Find a JS framework" } },
+        { attrs: { label: _vm.label, horizontal: "" } },
         [
           _c("b-autocomplete", {
             attrs: {
-              rounded: "",
-              data: _vm.filteredDataArray,
-              placeholder: "e.g. jQuery",
+              id: _vm.id,
+              name: _vm.name,
+              placeholder: _vm.placeholder,
+              "keep-first": _vm.keepFirst,
+              "open-on-focus": _vm.openOnFocus,
+              data: _vm.data,
               icon: "magnify",
               clearable: "",
-            },
-            on: {
-              select: function (option) {
-                return (_vm.selected = option)
-              },
             },
             scopedSlots: _vm._u([
               {
@@ -296,13 +300,6 @@ var render = function () {
                 proxy: true,
               },
             ]),
-            model: {
-              value: _vm.name,
-              callback: function ($$v) {
-                _vm.name = $$v
-              },
-              expression: "name",
-            },
           }),
         ],
         1

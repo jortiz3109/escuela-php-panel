@@ -7,6 +7,8 @@ use App\Inputs\Input;
 use App\Inputs\NumberInput;
 use App\Inputs\TextInput;
 use App\Inputs\URLInput;
+use App\Models\Country;
+use App\Models\Currency;
 use App\Models\Merchant;
 use App\ViewModels\ViewModel;
 
@@ -64,13 +66,15 @@ class MerchantsCreateViewModel extends ViewModel
                 trans('merchants.labels.country'),
                 trans('merchants.inputs.country'),
                 trans('merchants.placeholders.country'),
-                true
+                true,
+                json_encode(Country::pluck('name', 'id')->toArray()),
             ),
             new AutocompleteInput(
                 trans('merchants.labels.currency'),
                 trans('merchants.inputs.currency'),
                 trans('merchants.placeholders.currency'),
-                true
+                true,
+                json_encode(Currency::pluck('name', 'id')->toArray()),
             ),
         ];
     }

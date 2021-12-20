@@ -12,7 +12,7 @@ abstract class Input
         public string $name,
         public string $placeholder = '',
         public bool $required = false,
-        public array $data = []
+        public string $data = ''
     ) {
     }
 
