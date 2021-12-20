@@ -16,6 +16,5 @@ abstract class Input
     ) {
     }
 
-
     abstract public function render(?Model $model): View;
 }
