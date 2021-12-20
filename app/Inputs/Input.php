@@ -16,5 +16,8 @@ abstract class Input
     ) {
     }
 
-    abstract public function render(?Model $model): View;
+    public function render(?Model $model): View
+    {
+        return view('partials.inputs.' . $this->partial, ['field' => $this, 'model' => $model]);
+    }
 }
