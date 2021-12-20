@@ -19,7 +19,7 @@ class MerchantsEditViewModel extends MerchantsCreateViewModel
     {
         return [
             'model' => $this->merchant,
-            'action' => route('merchants.update', $this->merchant),
+            'action' => '',
         ];
     }
 }

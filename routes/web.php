@@ -15,7 +15,7 @@ Route::view('/', 'welcome');
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('merchants', MerchantController::class)->except(['show', 'destroy']);
+    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit']);
 
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
 

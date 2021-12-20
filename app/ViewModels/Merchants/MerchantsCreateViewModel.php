@@ -83,7 +83,7 @@ class MerchantsCreateViewModel extends ViewModel
     {
         return [
             'model' => new Merchant(),
-            'action' => route('merchants.store'),
+            'action' => '',
         ];
     }
 }

@@ -8,8 +8,6 @@ use App\ViewModels\Merchants\MerchantsCreateViewModel;
 use App\ViewModels\Merchants\MerchantsEditViewModel;
 use App\ViewModels\Merchants\MerchantsIndexViewModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MerchantController extends Controller
@@ -36,19 +34,5 @@ class MerchantController extends Controller
         $viewModel = new MerchantsEditViewModel($merchant);
 
         return view('layouts.edit', $viewModel);
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        // TODO: Create logic to store merchant.
-
-        return redirect()->route('merchants.index');
-    }
-
-    public function update(Merchant $merchant, Request $request): RedirectResponse
-    {
-        // TODO: Create logic to edit merchant.
-
-        return redirect()->route('merchants.index');
     }
 }
