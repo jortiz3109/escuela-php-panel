@@ -40,11 +40,6 @@ abstract class ViewModel implements Arrayable
         return ['actions' => trans('common.actions')];
     }
 
-    protected function data(): array
-    {
-        return [];
-    }
-
     /**
      * @return Input[]
      */
@@ -54,4 +49,6 @@ abstract class ViewModel implements Arrayable
     }
 
     abstract protected function title(): string;
+
+    abstract protected function data(): array;
 }
