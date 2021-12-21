@@ -29,7 +29,7 @@ class TransactionIndexViewModel extends IndexViewModel
             'merchant' => old('filters.merchant') ?? request()->input('filters.merchant'),
             'reference' => old('filters.reference') ?? request()->input('filters.reference'),
             'payment_method' => old('filters.payment_method') ?? request()->input('filters.payment_method'),
-            'date' => old('filters.date') ?? request()->input('filters.date'),
+            'dates' => old('filters.dates') ?? request()->input('filters.dates'),
         ];
     }
 

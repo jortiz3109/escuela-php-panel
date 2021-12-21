@@ -14,24 +14,13 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filters'          => ['filled', 'array'],
-            'filters.status'  => ['nullable'],
+            'filters' => ['filled', 'array'],
+            'filters.status' => ['nullable'],
             'filters.merchant' => ['nullable', 'min:2', 'max:120'],
             'filters.reference' => ['nullable', 'min:2', 'max:120'],
             'filters.payment_method' => ['nullable'],
-            'filters.date' => ['nullable', 'array:0,1'],
-            'filters.date.*' => ['date'],
+            'filters.dates' => ['nullable', 'array:0,1'],
+            'filters.dates.*' => ['date'],
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        if ($date = $this->filters['date'] ?? null) {
-            $this->merge([
-                'filters' => array_replace($this->input('filters'), [
-                    'date' => explode(' - ', $date),
-                ]),
-            ]);
-        }
     }
 }

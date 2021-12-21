@@ -11,7 +11,7 @@ class IndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'date' => $this->executed_at->toDateString(),
+            'date' => $this->date->toDateString(),
             'merchant' => $this->merchant,
             'reference' => $this->reference,
             'currency' => $this->currency,

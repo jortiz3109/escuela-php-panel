@@ -6,7 +6,7 @@ use App\Filters\Condition;
 use App\Filters\Criteria;
 use Illuminate\Database\Eloquent\Builder;
 
-class Multiple extends Condition
+class MerchantQuery extends Condition
 {
     public static function append(Builder $query, Criteria $criteria): void
     {

@@ -74,7 +74,7 @@ class IndexTest extends TestCase
     {
         $this->createMerchantsWithData();
 
-        $filters = http_build_query(['filters' => ['multiple' => $data['filterValue']]]);
+        $filters = http_build_query(['filters' => ['merchant_query' => $data['filterValue']]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
@@ -153,8 +153,8 @@ class IndexTest extends TestCase
     public function validationProvider(): array
     {
         return [
-            'multiple min' => ['attribute' => 'multiple', 'value' => 'a'],
-            'multiple max' => ['attribute' => 'multiple', 'value' => Str::random(121)],
+            'merchant_query min' => ['attribute' => 'merchant_query', 'value' => 'a'],
+            'merchant_query max' => ['attribute' => 'merchant_query', 'value' => Str::random(121)],
         ];
     }
 

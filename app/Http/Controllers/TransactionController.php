@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('date_between')->only('index');
+    }
+
     /**
      * @throws BindingResolutionException
      */

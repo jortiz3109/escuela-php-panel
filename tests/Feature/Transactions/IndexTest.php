@@ -54,7 +54,7 @@ class IndexTest extends TestCase
         ]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
 
-        $response->assertSee($transaction->executed_at->toDateString());
+        $response->assertSee($transaction->date->toDateString());
         $response->assertSee($transaction->merchant->name);
         $response->assertSee($transaction->currency->alphabetic_code);
         $response->assertSee('$123.45');
@@ -123,14 +123,15 @@ class IndexTest extends TestCase
 
     public function test_it_can_filter_transactions_by_date()
     {
-        Transaction::factory()->create(['executed_at' => Carbon::parse('2021-11-29')]);
+        $this->withoutExceptionHandling();
+        Transaction::factory()->create(['date' => Carbon::parse('2021-11-29')]);
 
-        $filters = http_build_query(['filters' => ['date' => '11/29/2021 - 11/29/2021']]);
+        $filters = http_build_query(['filters' => ['dates' => '11/29/2021 - 11/29/2021']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
-        $this->assertEquals('2021-11-29', $transactions->first()->executed_at->toDateString());
+        $this->assertEquals('2021-11-29', $transactions->first()->date->toDateString());
     }
 
     /**

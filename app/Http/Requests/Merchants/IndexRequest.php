@@ -14,10 +14,10 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filters'          => ['filled', 'array'],
-            'filters.multiple' => ['nullable', 'min:2', 'max:120'],
-            'filters.country'  => ['nullable'],
-            'filters.currency'  => ['nullable'],
+            'filters' => ['filled', 'array'],
+            'filters.merchant_query' => ['nullable', 'min:2', 'max:120'],
+            'filters.country' => ['nullable'],
+            'filters.currency' => ['nullable'],
         ];
     }
 }
