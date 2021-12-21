@@ -14,8 +14,8 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filters' => ['bailed', 'filled', 'array'],
-            'filters.name' => ['bailed', 'filled', 'string', 'min:2', 'max:125'],
+            'filters' => ['bail', 'filled', 'array'],
+            'filters.name' => ['bail', 'filled', 'string', 'min:2', 'max:125'],
         ];
     }
 }
