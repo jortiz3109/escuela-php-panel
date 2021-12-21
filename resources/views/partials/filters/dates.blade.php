@@ -1,5 +1,5 @@
 <b-field
-    label="@lang('Date')"
+    label="{{ trans('Date') }}"
     type="{{ $errors->has('filters.dates') ? 'is-danger' : '' }}"
     message="{{ $errors->first('filters.dates') }}">
     <b-datepicker
