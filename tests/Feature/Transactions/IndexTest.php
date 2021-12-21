@@ -62,7 +62,7 @@ class IndexTest extends TestCase
         $response->assertSee($transaction->status);
     }
 
-    public function test_it_can_filter_transactions_by_status()
+    public function test_it_can_filter_transactions_by_status(): void
     {
         Transaction::factory(5)->create(['status' => TransactionStatus::STATUS_FAILED]);
         Transaction::factory()->create(['status' => TransactionStatus::STATUS_APPROVED]);
@@ -75,7 +75,7 @@ class IndexTest extends TestCase
         $this->assertEquals(TransactionStatus::STATUS_APPROVED, $transactions->first()->status);
     }
 
-    public function test_it_can_filter_transactions_by_merchant()
+    public function test_it_can_filter_transactions_by_merchant(): void
     {
         Transaction::factory(5)->create();
         $transaction = Transaction::factory()->create();
@@ -88,7 +88,7 @@ class IndexTest extends TestCase
         $this->assertEquals($transaction->merchant->name, $transactions->first()->merchant);
     }
 
-    public function test_it_can_filter_transactions_by_reference()
+    public function test_it_can_filter_transactions_by_reference(): void
     {
         $reference = '123456';
         Transaction::factory(5)->create();
@@ -102,7 +102,7 @@ class IndexTest extends TestCase
         $this->assertEquals($reference, $transactions->first()->reference);
     }
 
-    public function test_it_can_filter_transactions_by_payment_method()
+    public function test_it_can_filter_transactions_by_payment_method(): void
     {
         Transaction::factory(5)->create();
 
@@ -121,7 +121,7 @@ class IndexTest extends TestCase
         $this->assertEquals('new payment method', $transactions->first()->payment_method);
     }
 
-    public function test_it_can_filter_transactions_by_date()
+    public function test_it_can_filter_transactions_by_date(): void
     {
         Transaction::factory()->create(['date' => Carbon::parse('2021-11-29')]);
 
