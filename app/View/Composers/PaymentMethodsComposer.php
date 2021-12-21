@@ -11,7 +11,7 @@ class PaymentMethodsComposer
     {
         $view->with(
             'payment_methods',
-            DB::table('payment_methods')->select('name')->orderBy('name')->get(),
+            DB::table('payment_methods')->select(['id', 'name'])->orderBy('name')->get(),
         );
     }
 }

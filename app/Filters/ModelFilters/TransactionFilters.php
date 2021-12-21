@@ -4,7 +4,7 @@ namespace App\Filters\ModelFilters;
 
 use App\Filters\Conditions\Transactions\DateBetween;
 use App\Filters\Conditions\Transactions\MerchantName;
-use App\Filters\Conditions\Transactions\PaymentMethodName;
+use App\Filters\Conditions\Transactions\PaymentMethodId;
 use App\Filters\Conditions\Transactions\Reference;
 use App\Filters\Conditions\Transactions\Status;
 use App\Filters\Filter;
@@ -16,7 +16,7 @@ class TransactionFilters extends Filter
 
     protected array $applicableConditions = [
         'merchant' => MerchantName::class,
-        'payment_method' => PaymentMethodName::class,
+        'payment_method' => PaymentMethodId::class,
         'status' => Status::class,
         'reference' => Reference::class,
         'dates' => DateBetween::class,

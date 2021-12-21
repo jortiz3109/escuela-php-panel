@@ -8,7 +8,7 @@
         value="{{ $value }}"
     >
         @foreach ($payment_methods as $payment_method)
-            <option value="{{ $payment_method->name }}">
+            <option value="{{ $payment_method->id }}">
                 {{ $payment_method->name }}
             </option>
         @endforeach
