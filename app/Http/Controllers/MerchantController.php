@@ -17,8 +17,6 @@ class MerchantController extends Controller
     {
         $merchants = Merchant::filter($request->input('filters', []))->paginate();
 
-        $viewModel->collection($merchants);
-
-        return view('merchants.index', $viewModel->toArray());
+        return view('merchants.index', $viewModel->collection($merchants));
     }
 }

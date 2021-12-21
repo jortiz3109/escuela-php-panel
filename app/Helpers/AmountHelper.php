@@ -9,7 +9,7 @@ use Money\Money;
 
 class AmountHelper
 {
-    public static function format(int $amount, string $currency)
+    public static function format(int $amount, string $currency): string
     {
         $money = new Money($amount, new MoneyCurrency($currency));
         $symbol = optional(Currency::firstWhere('alphabetic_code', $currency))->symbol;
