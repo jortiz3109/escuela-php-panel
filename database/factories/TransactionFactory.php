@@ -20,7 +20,7 @@ class TransactionFactory extends Factory
             'merchant_id' => Merchant::factory(),
             'payer_id' => Person::factory(),
             'buyer_id' => Person::factory(),
-            'payment_method_id' => PaymentMethod::all()->random()->id,
+            'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
             'currency_id' => Currency::all()->random()->id,
             'reference' => $this->faker->numberBetween(1000000000, 9999999999),
             'card_number' => $this->faker->numerify('######******####'),
