@@ -5,14 +5,14 @@
         <thead>
             <tr>
                 @foreach($fields as $viewComponent)
-                    {{ $viewComponent->renderLabel() }}
+                    {{ $viewComponent->renderTableHeader() }}
                 @endforeach
             </tr>
         </thead>
         <tfoot>
             <tr>
                 @foreach($fields as $viewComponent)
-                    {{ $viewComponent->renderLabel() }}
+                    {{ $viewComponent->renderTableHeader() }}
                 @endforeach
             </tr>
         </tfoot>

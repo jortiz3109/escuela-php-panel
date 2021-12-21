@@ -36,13 +36,13 @@ class TransactionIndexViewModel extends IndexViewModel
     public function fields(): array
     {
         return [
-            'date' => new DisplayTextComponent('transactions.fields.date', 'has-text-centered'),
-            'merchant' => new DisplayTextComponent('transactions.fields.merchant'),
-            'reference' => new DisplayLinkComponent('transactions.fields.reference', 'transactions.show', 'id'),
-            'currency' => new DisplayTextComponent('transactions.fields.currency', 'has-text-centered'),
-            'total_amount' => new DisplayTextComponent('transactions.fields.total_amount', 'has-text-centered'),
-            'payment_method' => new DisplayTextComponent('transactions.fields.payment_method', 'has-text-centered'),
-            'status' => new DisplayTextComponent('transactions.fields.status', 'has-text-centered'),
+            'date' => DisplayTextComponent::create('transactions.fields.date')->setPositions('center'),
+            'merchant' => DisplayTextComponent::create('transactions.fields.merchant'),
+            'reference' => DisplayLinkComponent::create('transactions.fields.reference', 'transactions.show', 'id'),
+            'currency' => DisplayTextComponent::create('transactions.fields.currency')->setPositions('center'),
+            'total_amount' => DisplayTextComponent::create('transactions.fields.total_amount')->setPositions('center'),
+            'payment_method' => DisplayTextComponent::create('transactions.fields.payment_method')->setPositions('center'),
+            'status' => DisplayTextComponent::create('transactions.fields.status')->setPositions('center'),
         ];
     }
 
