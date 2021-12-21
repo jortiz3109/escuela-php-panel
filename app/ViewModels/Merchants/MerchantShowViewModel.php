@@ -2,8 +2,8 @@
 
 namespace App\ViewModels\Merchants;
 
-use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewComponents\Display\DisplayExternalURLComponent;
+use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\ShowViewModel;
 
 class MerchantShowViewModel extends ShowViewModel
