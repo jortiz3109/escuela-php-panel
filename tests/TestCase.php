@@ -12,16 +12,6 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function defaultUser(): Model
-    {
-        return User::factory()->create();
-    }
-
-    protected function enabledUser(): User
-    {
-        return User::factory()->enabled()->create();
-    }
-
     /**
      * @throws ReflectionException
      */
