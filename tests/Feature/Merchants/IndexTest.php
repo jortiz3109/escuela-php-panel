@@ -86,8 +86,8 @@ class IndexTest extends TestCase
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
         $merchants = $response->getOriginalContent()['merchants'];
 
-        $this->assertEquals(1, $merchants->count());
-        $this->assertEquals($showedValue, $merchants->first()->attributesToArray()[$attribute]);
+        $this->assertCount(1, $merchants);
+        $response->assertSee($showedValue);
     }
 
     /**
