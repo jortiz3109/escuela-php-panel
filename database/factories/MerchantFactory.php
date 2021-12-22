@@ -13,14 +13,23 @@ class MerchantFactory extends Factory
     {
         return [
             'uuid'     => $this->faker->uuid(),
-            'document_type_id' => DocumentType::inRandomOrder()->first()->id,
+            'document_type_id' => DocumentType::firstOrCreate(
+                ['code' => 'ni'],
+                ['name' => 'número de identificación tributaria (NIT)'],
+            ),
             'document' => $this->faker->unique()->bothify('###########'),
             'name' => $this->faker->company(),
             'brand' => $this->faker->bs(),
             'url' => $this->faker->url(),
             'logo' => $this->faker->image(null, 100, 100),
-            'country_id'  => Country::inRandomOrder()->first()->id,
-            'currency_id' => Currency::inRandomOrder()->first()->id,
+
+            'country_id'  => Country::firstOrCreate(
+                Country::factory()->make()->toArray()
+            )->id,
+
+            'currency_id' => Currency::firstOrCreate(
+                Currency::factory()->make()->toArray()
+            )->id,
         ];
     }
 }
