@@ -2,8 +2,6 @@
 
 namespace Tests;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use ReflectionClass;
 use ReflectionException;

@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpIncompatibleReturnTypeInspection */
+<?php
 
 namespace Tests\Feature\Concerns;
 
