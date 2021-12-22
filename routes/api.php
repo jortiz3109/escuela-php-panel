@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/toggle-user-enable/{user}', [UserController::class, 'toggleUserEnable']);
+Route::get('/toggle-user-status/{user}', [UserController::class, 'toggleUserStatus'])->name('users.toggleStatus');

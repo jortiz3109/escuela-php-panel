@@ -26,8 +26,9 @@ export default {
     },
     methods: {
         switchUserStatus: async function () {
-            const response = await axios.get(`${this.$props.url}/api/toggle-user-enable/${this.$props.userId}`);
-            this.status = response.data.status
+            if (!this.$props.emailVerified) return;
+            const response = await axios.get(`${this.$props.url}/api/toggle-user-status/${this.$props.userId}`);
+            this.status = response.data.status;
         }
     }
 }

@@ -7,7 +7,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function toggleUserEnable(User $user): User
+    public function toggleUserStatus(User $user): User
     {
         if ($user->isEnabled()) {
             $user->markAsDisabled();
