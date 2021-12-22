@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Merchants;
 
-use App\Models\Country;
-use App\Models\Currency;
 use App\Models\Merchant;
 use Tests\TestCase;
 
@@ -13,13 +11,7 @@ class ShowTest extends TestCase
 
     public function test_an_user_authenticated_can_show_merchant_view(): void
     {
-        $country = Country::factory()->create();
-        $currency = Currency::factory()->create();
-
-        $merchant = Merchant::factory()
-            ->for($country)
-            ->for($currency)
-            ->create();
+        $merchant = Merchant::factory()->create();
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $merchant->getKey()));
 
