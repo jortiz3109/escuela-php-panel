@@ -5,7 +5,7 @@ namespace App\ViewModels\Users;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\ViewModel;
 
-class IndexViewModel extends ViewModel
+class UserIndexViewModel extends ViewModel
 {
     use HasPaginator;
 
