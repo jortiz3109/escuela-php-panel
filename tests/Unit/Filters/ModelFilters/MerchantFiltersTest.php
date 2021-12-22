@@ -4,7 +4,7 @@ namespace Tests\Unit\Filters\ModelFilters;
 
 use App\Filters\Conditions\Countries\TwoCode as CountryTwoCode;
 use App\Filters\Conditions\Currencies\AlphabeticCode as Currency;
-use App\Filters\Conditions\Merchants\Multiple;
+use App\Filters\Conditions\Merchants\MerchantQuery;
 use App\Filters\ModelFilters\MerchantFilters;
 use App\Models\Merchant;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +32,7 @@ class MerchantFiltersTest extends TestCase
     public function test_applicable_conditions(): void
     {
         $expected = [
-            'multiple' => Multiple::class,
+            'merchantQuery' => MerchantQuery::class,
             'country' => CountryTwoCode::class,
             'currency' => Currency::class,
         ];
@@ -89,7 +89,7 @@ class MerchantFiltersTest extends TestCase
     private function filterParams(): array
     {
         return [
-            'multiple' => 'AA',
+            'merchantQuery' => 'AA',
             'country' => '12',
             'currency' => '123',
         ];

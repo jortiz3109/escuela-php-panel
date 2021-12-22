@@ -22,7 +22,7 @@ class IndexViewModel extends ViewModel
     public function filters(): array
     {
         return [
-            'multiple' => old('filters.multiple') ?? request()->input('filters.multiple'),
+            'merchantQuery' => old('filters.merchantQuery') ?? request()->input('filters.merchantQuery'),
             'country' => old('filters.country') ?? request()->input('filters.country'),
             'currency' => old('filters.currency') ?? request()->input('filters.currency'),
         ];
