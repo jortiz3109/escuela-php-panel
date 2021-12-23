@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('logins', LoginLogController::class)->name('logins.index');
+
+    Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
 });
 
 Route::get('/email/verify', function () {

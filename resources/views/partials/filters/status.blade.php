@@ -1,19 +1,16 @@
-<div class="column is-4">
-    <b-field
-        label="@lang('users.fields.status')"
-        type="{{ $errors->has('filters.enabled_at') ? 'is-danger' : '' }}"
-        message="{{ $errors->first('filters.enabled_at') }}">
-        <b-select
-            name="filters[status]"
-            value="{{ $value  }}"
-            expanded>
-            <option value=enabled>@lang('users.status.enabled')</option>
-            <option value=disabled>@lang('users.status.disabled')</option>
-        </b-select>
-    </b-field>
-</div>
-
-
-
-
-
+<b-field
+    label="@lang('transactions.fields.status')"
+    type="{{ $errors->has('filters.status') ? 'is-danger' : '' }}"
+    message="{{ $errors->first('filters.status') }}">
+    <b-select
+        placeholder="@lang('transactions.placeholders.select_status')" expanded
+        name="filters[status]"
+        value="{{ $value }}"
+    >
+        @foreach ($statuses as $status)
+            <option value="{{ $status }}">
+                {{ $status }}
+            </option>
+        @endforeach
+    </b-select>
+</b-field>

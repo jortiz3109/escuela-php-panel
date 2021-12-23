@@ -5,6 +5,7 @@
     <b-select
         placeholder="@lang('merchants.placeholders.select_country')" expanded
         name="filters[country]"
+        value="{{ $value }}"
     >
         @foreach ($countries as $country)
             <option value="{{ $country->alpha_two_code }}">

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filters\Conditions\Currencies;
+namespace App\Filters\Conditions\Merchants;
 
 use App\Filters\Condition;
 use App\Filters\Criteria;
 use Illuminate\Database\Eloquent\Builder;
 
-class AlphabeticCode extends Condition
+class Currency extends Condition
 {
     public static function append(Builder $query, Criteria $criteria): void
     {
