@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class ToggleStatusTest extends TestCase
+class StatusTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -16,13 +16,13 @@ class ToggleStatusTest extends TestCase
 
         $this->assertTrue($user->isEnabled());
 
-        $this->actingAs($user)->get(route('users.toggleStatus', [1]))
+        $this->actingAs($user)->get(route('users.status.toggle', [1]))
             ->assertStatus(Response::HTTP_OK);
 
         $user = $user->fresh();
         $this->assertFalse($user->isEnabled());
 
-        $this->actingAs($user)->get(route('users.toggleStatus', [1]))
+        $this->actingAs($user)->get(route('users.status.toggle', [1]))
             ->assertStatus(Response::HTTP_OK);
 
         $user = $user->fresh();
