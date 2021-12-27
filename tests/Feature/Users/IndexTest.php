@@ -78,8 +78,7 @@ class IndexTest extends TestCase
         $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
         User::factory()->create($userData);
-        $filters = http_build_query(['filters' =>['email' => 'test@test.com', 'created_at' => '2021-11-12',
-            'enabled_at'=> false, ]]);
+        $filters = http_build_query($filters);
         $response = $this->actingAs(User::factory()->create())->get(self::FILTER_URI . $filters);
         $users = $response->getOriginalContent()['users'];
 
