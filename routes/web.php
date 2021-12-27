@@ -12,22 +12,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::get('dashboard', DashboardController::class)
-    ->middleware(['auth'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::resource('merchants', MerchantController::class)->only('show', 'index', 'edit');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
 
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
-});
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+    Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
+});
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();

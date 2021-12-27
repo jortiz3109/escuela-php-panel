@@ -29,6 +29,7 @@ class MerchantFilters extends Filter
     protected function select(): Filter
     {
         $this->query->select(
+            'merchants.id',
             'merchants.name',
             'merchants.brand',
             'merchants.document',
