@@ -2,12 +2,28 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\Http\Resources\Merchants\ShowResource;
 use App\ViewComponents\Display\DisplayExternalURLComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
-use App\ViewModels\ShowViewModel;
+use App\ViewModels\Concerns\HasModel;
+use App\ViewModels\ViewModel;
 
-class MerchantShowViewModel extends ShowViewModel
+class MerchantShowViewModel extends ViewModel
 {
+    use HasModel;
+
+    protected function title(): string
+    {
+        return $this->model->name;
+    }
+
+    protected function data(): array
+    {
+        return [
+            'model' => (new ShowResource($this->model))->toArray(),
+        ];
+    }
+
     public function fields(): array
     {
         return [
