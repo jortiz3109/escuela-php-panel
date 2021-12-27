@@ -9,6 +9,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected $seed = true;
+
     protected function defaultUser(): User
     {
         return User::factory()->create();
