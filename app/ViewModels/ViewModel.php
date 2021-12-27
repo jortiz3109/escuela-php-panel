@@ -22,7 +22,7 @@ abstract class ViewModel implements Arrayable
         ];
     }
 
-    public function fields(): array
+    protected function fields(): array
     {
         return [];
     }
