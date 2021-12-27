@@ -3,7 +3,7 @@
 namespace Tests\Feature\Transactions;
 
 use App\Constants\TransactionStatus;
-use App\Http\Resources\Transactions\IndexResource;
+use App\Http\Resources\Transactions\TransactionIndexResource;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -37,7 +37,7 @@ class IndexTest extends TestCase
 
         $response->assertViewHas('collection');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
-        $this->assertEquals(IndexResource::class, $response->getOriginalContent()['collection']->collects);
+        $this->assertEquals(TransactionIndexResource::class, $response->getOriginalContent()['collection']->collects);
     }
 
     public function test_collection_has_transactions(): void
