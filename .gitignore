@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 .env.testing
 phpunit.coverage.xml
+/.php-cs-fixer.cache
