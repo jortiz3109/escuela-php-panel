@@ -2,14 +2,14 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\Models\Country;
+use App\Models\Currency;
+use App\Models\Merchant;
 use App\ViewComponents\Inputs\AutocompleteInput;
 use App\ViewComponents\Inputs\Input;
 use App\ViewComponents\Inputs\NumberInput;
 use App\ViewComponents\Inputs\TextInput;
 use App\ViewComponents\Inputs\URLInput;
-use App\Models\Country;
-use App\Models\Currency;
-use App\Models\Merchant;
 use App\ViewModels\ViewModel;
 
 class MerchantCreateViewModel extends ViewModel

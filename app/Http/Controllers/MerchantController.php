@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Merchants\IndexRequest;
 use App\Models\Merchant;
-use App\ViewModels\Merchants\MerchantIndexViewModel;
 use App\ViewModels\Merchants\MerchantCreateViewModel;
 use App\ViewModels\Merchants\MerchantEditViewModel;
+use App\ViewModels\Merchants\MerchantIndexViewModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\View\View;
 

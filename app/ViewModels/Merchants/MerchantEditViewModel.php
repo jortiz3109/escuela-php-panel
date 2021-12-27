@@ -2,7 +2,6 @@
 
 namespace App\ViewModels\Merchants;
 
-use App\Models\Merchant;
 use App\ViewModels\Concerns\HasModel;
 
 class MerchantEditViewModel extends MerchantCreateViewModel
