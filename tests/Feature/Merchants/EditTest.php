@@ -1,6 +1,6 @@
 <?php
 
-namespace Merchants;
+namespace Tests\Feature\Merchants;
 
 use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;

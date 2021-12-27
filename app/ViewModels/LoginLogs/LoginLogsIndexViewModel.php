@@ -3,20 +3,25 @@
 namespace App\ViewModels\LoginLogs;
 
 use App\ViewModels\Concerns\HasCollection;
-use App\ViewModels\ViewModel;
+use App\ViewModels\IndexViewModel;
 
-class LoginLogsIndexViewModel extends ViewModel
+class LoginLogsIndexViewModel extends IndexViewModel
 {
     use HasCollection;
+
+    protected function buttons(): array
+    {
+        return [];
+    }
 
     protected function title(): string
     {
         return trans('logins.titles.index');
     }
 
-    protected function headers(): array
+    public function filters(): array
     {
-        return trans('logins.fields');
+        return [];
     }
 
     protected function data(): array

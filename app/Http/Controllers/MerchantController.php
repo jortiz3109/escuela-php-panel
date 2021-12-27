@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Merchants\IndexRequest;
 use App\Models\Merchant;
-use App\ViewModels\Merchants\MerchantsCreateViewModel;
-use App\ViewModels\Merchants\MerchantsEditViewModel;
-use App\ViewModels\Merchants\MerchantsIndexViewModel;
+use App\ViewModels\Merchants\MerchantIndexViewModel;
+use App\ViewModels\Merchants\MerchantCreateViewModel;
+use App\ViewModels\Merchants\MerchantEditViewModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\View\View;
 
@@ -15,24 +15,20 @@ class MerchantController extends Controller
     /**
      * @throws BindingResolutionException
      */
-    public function index(IndexRequest $request, MerchantsIndexViewModel $viewModel): View
+    public function index(IndexRequest $request, MerchantIndexViewModel $viewModel): View
     {
         $merchants = Merchant::filter($request->input('filters', []))->paginate();
 
-        $viewModel->collection($merchants);
-
-        return view('merchants.index', $viewModel);
+        return view('merchants.index', $viewModel->collection($merchants));
     }
 
-    public function create(MerchantsCreateViewModel $viewModel): View
+    public function create(MerchantCreateViewModel $viewModel): View
     {
-        return view('layouts.create', $viewModel);
+        return view('modules.create', $viewModel);
     }
 
-    public function edit(Merchant $merchant): View
+    public function edit(Merchant $merchant, MerchantEditViewModel $viewModel): View
     {
-        $viewModel = new MerchantsEditViewModel($merchant);
-
-        return view('layouts.edit', $viewModel);
+        return view('modules.edit', $viewModel->model($merchant));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Merchants;
+namespace Tests\Feature\Merchants;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
