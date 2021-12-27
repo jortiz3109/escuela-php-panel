@@ -2,7 +2,7 @@
 
 namespace App\ViewModels\Transactions;
 
-use App\Http\Resources\Transactions\IndexResource;
+use App\Http\Resources\Transactions\TransactionIndexResource;
 use App\ViewComponents\Display\DisplayLinkComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
@@ -33,7 +33,7 @@ class TransactionIndexViewModel extends IndexViewModel
         ];
     }
 
-    public function fields(): array
+    protected function fields(): array
     {
         return [
             'date' => DisplayTextComponent::create('transactions.fields.date')->setPositions('center'),
@@ -49,7 +49,7 @@ class TransactionIndexViewModel extends IndexViewModel
     protected function data(): array
     {
         return [
-            'collection' => IndexResource::collection($this->collection),
+            'collection' => TransactionIndexResource::collection($this->collection),
         ];
     }
 }

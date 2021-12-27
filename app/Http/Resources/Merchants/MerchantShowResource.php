@@ -4,7 +4,7 @@ namespace App\Http\Resources\Merchants;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ShowResource extends JsonResource
+class MerchantShowResource extends JsonResource
 {
     public function toArray($request = null)
     {

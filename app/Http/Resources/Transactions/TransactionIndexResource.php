@@ -6,7 +6,7 @@ use App\Helpers\AmountHelper;
 use App\Helpers\DateHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IndexResource extends JsonResource
+class TransactionIndexResource extends JsonResource
 {
     public function toArray($request = null): array
     {
