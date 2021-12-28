@@ -12,6 +12,7 @@ class MerchantFiltersTest extends TestCase
     {
         $expected = DB::table('merchants')
             ->select(
+                'merchants.id',
                 'merchants.name',
                 'merchants.brand',
                 'merchants.document',
@@ -30,6 +31,7 @@ class MerchantFiltersTest extends TestCase
     {
         $expected = DB::table('merchants')
             ->select(
+                'merchants.id',
                 'merchants.name',
                 'merchants.brand',
                 'merchants.document',
