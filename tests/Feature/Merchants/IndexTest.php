@@ -44,7 +44,7 @@ class IndexTest extends TestCase
 
     public function test_collection_has_merchants(): void
     {
-        Merchant::factory()->count(3)->create();
+        Merchant::factory()->create();
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 

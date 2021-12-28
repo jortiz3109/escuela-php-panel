@@ -2,16 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transactions\IndexRequest;
 use App\Models\Transaction;
-use App\ViewModels\Transactions\DetailsViewModel;
+use App\ViewModels\Transactions\TransactionDetailsViewModel;
+use App\ViewModels\Transactions\TransactionIndexViewModel;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
-    public function show(Transaction $transaction, DetailsViewModel $viewModel): View
+    public function __construct()
     {
-        $viewModel->model($transaction);
+        $this->middleware('date_between')->only('index');
+    }
 
-        return view('transactions.show', $viewModel->toArray());
+    /**
+     * @throws BindingResolutionException
+     */
+    public function index(IndexRequest $request, TransactionIndexViewModel $viewModel): View
+    {
+        $transactions = Transaction::filter($request->input('filters', []))->paginate();
+
+        return view('modules.index', $viewModel->collection($transactions));
+    }
+
+    public function show(Transaction $transaction, TransactionDetailsViewModel $viewModel): View
+    {
+        return view('transactions.show', $viewModel->model($transaction));
     }
 }

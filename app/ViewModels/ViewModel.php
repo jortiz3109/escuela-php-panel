@@ -11,7 +11,7 @@ abstract class ViewModel implements Arrayable
         return [
             'buttons' => $this->buttons(),
             'texts' => $this->texts(),
-            'filters' => $this->filters(),
+            'fields' => $this->fields(),
         ] + $this->data();
     }
 
@@ -22,7 +22,7 @@ abstract class ViewModel implements Arrayable
         ];
     }
 
-    public function filters(): array
+    protected function fields(): array
     {
         return [];
     }

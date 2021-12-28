@@ -27,4 +27,9 @@ class Merchant extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function documentType(): BelongsTo
+    {
+        return $this->belongsTo(DocumentType::class);
+    }
 }
