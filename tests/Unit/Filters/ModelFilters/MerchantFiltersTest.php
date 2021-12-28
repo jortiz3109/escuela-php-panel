@@ -2,47 +2,12 @@
 
 namespace Tests\Unit\Filters\ModelFilters;
 
-use App\Filters\Conditions\Countries\TwoCode as CountryTwoCode;
-use App\Filters\Conditions\Currencies\AlphabeticCode as Currency;
-use App\Filters\Conditions\Merchants\MerchantQuery;
-use App\Filters\ModelFilters\MerchantFilters;
 use App\Models\Merchant;
 use Illuminate\Support\Facades\DB;
-use ReflectionException;
 use Tests\TestCase;
 
 class MerchantFiltersTest extends TestCase
 {
-    private string $modelInstance = Merchant::class;
-
-    /**
-     * @throws ReflectionException
-     */
-    public function test_model_instance(): void
-    {
-        $this->assertSame(
-            $this->modelInstance,
-            $this->getReflectionProtectedPropertyValue(MerchantFilters::class, 'model')
-        );
-    }
-
-    /**
-     * @throws ReflectionException
-     */
-    public function test_applicable_conditions(): void
-    {
-        $expected = [
-            'merchantQuery' => MerchantQuery::class,
-            'country' => CountryTwoCode::class,
-            'currency' => Currency::class,
-        ];
-
-        $this->assertSame(
-            $expected,
-            $this->getReflectionProtectedPropertyValue(MerchantFilters::class, 'applicableConditions')
-        );
-    }
-
     public function test_query_without_params(): void
     {
         $expected = DB::table('merchants')
