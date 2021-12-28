@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Filters;
 
-use App\Filters\Conditions\Merchants\CountryTwoCode;
 use App\Filters\Conditions\CurrencyAlphabeticCode;
+use App\Filters\Conditions\Merchants\CountryTwoCode;
 use App\Filters\Conditions\Name;
 use App\Filters\Conditions\Transactions\DateBetween;
 use App\Filters\Conditions\Transactions\MerchantName;
