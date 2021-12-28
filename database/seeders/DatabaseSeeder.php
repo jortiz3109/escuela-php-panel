@@ -6,8 +6,14 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $this->call(UserSeeder::class);
+        $this->call([
+            UserSeeder::class,
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            PaymentMethodSeeder::class,
+            DocumentTypeSeeder::class,
+        ]);
     }
 }

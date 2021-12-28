@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransactionController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -11,20 +12,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::get('/dashboard', DashboardController::class)
-    ->middleware(['auth'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::name('permissions.index')->get('/permissions', [PermissionController::class, 'index']);
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::name('logins.index')->get('/logins', LoginLogController::class);
+    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
 
-    Route::resource('users', UserController::class);
+    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
+
+    Route::get('logins', LoginLogController::class)->name('logins.index');
+
+    Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+
+    Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
 });
-
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();

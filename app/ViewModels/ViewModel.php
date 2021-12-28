@@ -9,13 +9,11 @@ abstract class ViewModel implements Arrayable
     public function toArray(): array
     {
         return [
-                'buttons' => $this->buttons(),
-                'texts' => $this->texts(),
-                'filters' => $this->filters(),
-            ] + $this->data();
+            'buttons' => $this->buttons(),
+            'texts' => $this->texts(),
+            'fields' => $this->fields(),
+        ] + $this->data();
     }
-
-    abstract protected function buttons(): array;
 
     protected function texts(): array
     {
@@ -24,12 +22,12 @@ abstract class ViewModel implements Arrayable
         ];
     }
 
-    public function filters(): array
+    protected function fields(): array
     {
         return [];
     }
 
+    abstract protected function buttons(): array;
     abstract protected function title(): string;
-
     abstract protected function data(): array;
 }
