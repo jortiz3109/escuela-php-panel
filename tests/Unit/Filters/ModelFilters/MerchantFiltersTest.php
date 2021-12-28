@@ -54,7 +54,7 @@ class MerchantFiltersTest extends TestCase
     private function filterParams(): array
     {
         return [
-            'merchantQuery' => 'AA',
+            'merchant_query' => 'AA',
             'country' => '12',
             'currency' => '123',
         ];

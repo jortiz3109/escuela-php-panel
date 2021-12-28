@@ -107,19 +107,19 @@ class IndexTest extends TestCase
     {
         return [
             'By name' => [
-                'filter' => 'merchantQuery',
+                'filter' => 'merchant_query',
                 'attribute' => 'name',
                 'filterValue' => 'EVERTEC',
                 'showedValue' => 'EVERTEC',
             ],
             'By brand' => [
-                'filter' => 'merchantQuery',
+                'filter' => 'merchant_query',
                 'attribute' => 'brand',
                 'filterValue' => 'PlacetoPay',
                 'showedValue' => 'PlacetoPay',
             ],
             'By document' => [
-                'filter' => 'merchantQuery',
+                'filter' => 'merchant_query',
                 'attribute' => 'document',
                 'filterValue' => '1234567890',
                 'showedValue' => '1234567890',
@@ -143,11 +143,11 @@ class IndexTest extends TestCase
     {
         return [
             'multiple min' => [
-                'attribute' => 'merchantQuery',
+                'attribute' => 'merchant_query',
                 'value' => 'a',
             ],
             'multiple max' => [
-                'attribute' => 'merchantQuery',
+                'attribute' => 'merchant_query',
                 'value' => Str::random(121),
             ],
         ];

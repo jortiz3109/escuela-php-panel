@@ -16,10 +16,10 @@ return [
         'currency' => 'Currency',
     ],
     'labels' => [
-        'merchantQuery' => 'Find merchant',
+        'merchant_query' => 'Find merchant',
     ],
     'placeholders' => [
-        'merchantQuery' => 'Search by name, brand or document',
+        'merchant_query' => 'Search by name, brand or document',
         'select_country' => 'Select a country',
         'select_currency' => 'Select a currency',
     ],

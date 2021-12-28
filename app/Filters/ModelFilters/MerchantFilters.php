@@ -13,7 +13,7 @@ class MerchantFilters extends Filter
     protected string $model = Merchant::class;
 
     protected array $applicableConditions = [
-        'merchantQuery' => MerchantQuery::class,
+        'merchant_query' => MerchantQuery::class,
         'country' => CountryTwoCode::class,
         'currency' => Currency::class,
     ];

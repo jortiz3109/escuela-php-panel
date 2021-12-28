@@ -1,10 +1,10 @@
 <b-field
-    label="@lang('merchants.labels.merchantQuery')"
-    type="{{ $errors->has('filters.merchantQuery') ? 'is-danger' : '' }}"
-    message="{{ $errors->first('filters.merchantQuery') }}">
+    label="@lang('merchants.labels.merchant_query')"
+    type="{{ $errors->has('filters.merchant_query') ? 'is-danger' : '' }}"
+    message="{{ $errors->first('filters.merchant_query') }}">
     <b-input
         name="filters[merchantQuery]"
         value="{{ $value  }}"
-        placeholder="@lang('merchants.placeholders.merchantQuery')"
+        placeholder="@lang('merchants.placeholders.merchant_query')"
     ></b-input>
 </b-field>

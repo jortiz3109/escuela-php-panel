@@ -15,7 +15,7 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters' => ['filled', 'array'],
-            'filters.merchantQuery' => ['nullable', 'min:2', 'max:120'],
+            'filters.merchant_query' => ['nullable', 'min:2', 'max:120'],
             'filters.country' => ['nullable'],
             'filters.currency' => ['nullable'],
         ];
