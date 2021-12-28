@@ -5,11 +5,13 @@ namespace Tests\Feature\Merchants;
 use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class EditTest extends TestCase
 {
     use RefreshDatabase;
+    use HasAuthenticatedUser;
 
     private const MERCHANTS_ROUTE_NAME = 'merchants.edit';
 
