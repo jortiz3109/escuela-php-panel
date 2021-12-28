@@ -21,7 +21,7 @@ class EditTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_it_can_create_merchants(): void
+    public function test_it_can_edit_merchants(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $this->fakeMerchant()));
         $response->assertStatus(Response::HTTP_OK);
@@ -31,8 +31,9 @@ class EditTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $merchant))
-            ->assertSee($merchant->name)
+        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $merchant));
+
+        $response->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
             ->assertSee($merchant->url);
