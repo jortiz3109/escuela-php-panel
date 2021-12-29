@@ -60,7 +60,6 @@ class UpdateTest extends TestCase
         $response->assertSessionHas('success', trans('common.successful_update', ['model' => 'permission']));
     }
 
-
     /**
      * @dataProvider validationFieldsProvider
      */
