@@ -63,7 +63,7 @@ class UpdateTest extends TestCase
     /**
      * @dataProvider validationFieldsProvider
      */
-    public function test_it_validates_filters(string $field, array $data): void
+    public function test_it_validates_fields(string $field, array $data): void
     {
         $response = $this
             ->actingAs($this->defaultUser())
