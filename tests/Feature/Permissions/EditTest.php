@@ -30,13 +30,19 @@ class EditTest extends TestCase
 
     public function test_it_can_edit_permission(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $this->permission->id));
+        $response = $this
+            ->actingAs($this->defaultUser())
+            ->get(route(self::PERMISSIONS_ROUTE_NAME, $this->permission->id));
+
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_see_permission_edition_view(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $this->permission->id));
+        $response = $this
+            ->actingAs($this->defaultUser())
+            ->get(route(self::PERMISSIONS_ROUTE_NAME, $this->permission->id));
+
         $response->assertViewIs('modules.edit');
     }
 
