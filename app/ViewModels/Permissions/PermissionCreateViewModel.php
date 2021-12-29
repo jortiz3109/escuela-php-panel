@@ -2,12 +2,11 @@
 
 namespace App\ViewModels\Permissions;
 
-use App\Models\Permission;
 use App\ViewComponents\Inputs\Input;
 use App\ViewComponents\Inputs\TextInput;
 use App\ViewModels\ViewModel;
 
-class PermissionCreateViewModel extends ViewModel
+abstract class PermissionCreateViewModel extends ViewModel
 {
     protected function buttons(): array
     {
@@ -20,11 +19,6 @@ class PermissionCreateViewModel extends ViewModel
                 'text' => trans('common.save'),
             ],
         ];
-    }
-
-    protected function title(): string
-    {
-        return trans('permissions.titles.create');
     }
 
     /**
@@ -45,14 +39,6 @@ class PermissionCreateViewModel extends ViewModel
                 trans('permissions.placeholders.description'),
                 true
             ),
-        ];
-    }
-
-    protected function data(): array
-    {
-        return [
-            'model' => new Permission(),
-            'action' => '',
         ];
     }
 }
