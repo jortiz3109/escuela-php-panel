@@ -18,4 +18,7 @@ return [
         'name' => 'Enter permission name...',
         'description' => 'Enter permission description...',
     ],
+    'alerts' => [
+        'successful_update' => 'The permission has been updated',
+    ],
 ];

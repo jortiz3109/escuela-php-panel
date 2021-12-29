@@ -34,6 +34,6 @@ class PermissionController extends Controller
 
         return redirect()
             ->route('permissions.index')
-            ->with('success', trans('common.successful_update', ['model' => 'permission']));
+            ->with('success', trans('permissions.alerts.successful_update'));
     }
 }

@@ -57,7 +57,7 @@ class UpdateTest extends TestCase
             ->put(route(self::PERMISSIONS_ROUTE_NAME, $this->permission->id), $this->newData);
 
         $response->assertRedirect(route('permissions.index'));
-        $response->assertSessionHas('success', trans('common.successful_update', ['model' => 'permission']));
+        $response->assertSessionHas('success', trans('permissions.alerts.successful_update'));
     }
 
     /**
