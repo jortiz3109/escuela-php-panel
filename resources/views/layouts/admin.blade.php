@@ -64,7 +64,7 @@
                         <div class="level-right">
                             <div class="level-item">
                                 <div class="buttons">
-                                @foreach($buttons as $template => $button)
+                                    @foreach($buttons as $template => $button)
                                         @include("partials.buttons.$template", $button)
                                     @endforeach
                                 </div>
