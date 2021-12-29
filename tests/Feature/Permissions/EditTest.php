@@ -19,10 +19,7 @@ class EditTest extends TestCase
     {
         parent::setUp();
 
-        $this->permission = Permission::factory()->create([
-            'name' => 'My permission',
-            'description' => 'My description',
-        ]);
+        $this->permission = Permission::factory()->create();
     }
 
     public function test_a_guest_user_cannot_access(): void

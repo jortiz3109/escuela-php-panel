@@ -17,7 +17,7 @@ class PermissionEditViewModel extends PermissionCreateViewModel
     {
         return [
             'model' => $this->model,
-            'action' => '',
+            'action' => route('permissions.update', $this->model->id),
         ];
     }
 }

@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
-    Route::resource('permissions', PermissionController::class)->only(['index', 'edit']);
+    Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);
 
     Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
 });

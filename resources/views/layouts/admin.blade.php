@@ -64,13 +64,14 @@
                         <div class="level-right">
                             <div class="level-item">
                                 <div class="buttons">
-                                    @foreach($buttons as $template => $button)
+                                @foreach($buttons as $template => $button)
                                         @include("partials.buttons.$template", $button)
                                     @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @include('partials.alert')
                     @includeWhen(isset($filters) && count($filters), 'filters', ['filters' => $filters ?? []])
                     <div class="box block">
                         @yield('content')
