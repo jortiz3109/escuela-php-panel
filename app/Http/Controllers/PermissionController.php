@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Actions\Permissions\PermissionUpdateAction;
 use App\Http\Requests\Permissions\IndexRequest;
+use App\Http\Requests\Permissions\UpdateRequest;
 use App\Models\Permission;
 use App\ViewModels\Permissions\PermissionEditViewModel;
 use App\ViewModels\Permissions\PermissionIndexViewModel;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PermissionController extends Controller
@@ -28,7 +28,7 @@ class PermissionController extends Controller
         return view('modules.edit', $viewModel->model($permission));
     }
 
-    public function update(Request $request, Permission $permission, PermissionUpdateAction $action)
+    public function update(UpdateRequest $request, Permission $permission, PermissionUpdateAction $action)
     {
         $action->execute($permission, $request);
 

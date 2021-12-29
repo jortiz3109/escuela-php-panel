@@ -5,13 +5,14 @@ namespace Tests\Feature\Permissions;
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Concerns\PermissionHasDataProvider;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
+    use PermissionHasDataProvider;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.index';
 
@@ -41,20 +42,16 @@ class IndexTest extends TestCase
         $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['permissions']->first());
     }
 
-    /**
-     * @param array $data
-     * @dataProvider permissionProvider
-     */
-    public function test_it_show_permissions_data(array $data): void
+    public function test_it_show_permissions_data(): void
     {
-        $permission = Permission::factory()->create($data);
+        $permission = Permission::factory()->create($this->validPermissionData());
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertSee($permission->name);
         $response->assertSee($permission->description);
     }
 
     /**
-     * @dataProvider validationProvider
+     * @dataProvider validationFilterProvider
      */
     public function test_it_validates_filters(string $attribute, $value): void
     {
@@ -64,35 +61,16 @@ class IndexTest extends TestCase
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
 
-    /**
-     * @param array $data
-     * @dataProvider permissionProvider
-     */
-    public function test_it_can_filter_permissions(array $data): void
+    public function test_it_can_filter_permissions(): void
     {
         Permission::factory()->count(3)->create();
-        Permission::factory()->create($data);
+        Permission::factory()->create($this->validPermissionData());
 
-        $filters = http_build_query(['filters' => ['name' => 'permissions.']]);
+        $filters = http_build_query(['filters' => ['name' => 'valid.']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
         $permissions = $response->getOriginalContent()['permissions'];
 
         $this->assertEquals(1, $permissions->count());
-        $this->assertEquals($data['name'], $permissions->first()->name);
-    }
-
-    public function validationProvider(): array
-    {
-        return [
-            'name min' => ['attribute' => 'name', 'value' => 'f'],
-            'name max' => ['attribute' => 'name', 'value' => Str::random(126)],
-        ];
-    }
-
-    public function permissionProvider(): array
-    {
-        return [
-            ['data' => ['name' => 'permissions.index', 'description' => 'Can list system permissions']],
-        ];
+        $this->assertEquals('valid.name', $permissions->first()->name);
     }
 }
