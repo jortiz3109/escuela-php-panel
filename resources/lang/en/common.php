@@ -8,5 +8,5 @@ return [
     'fields' => [
         'name' => 'Name',
         'email' => 'E-mail Address',
-    ]
+    ],
 ];

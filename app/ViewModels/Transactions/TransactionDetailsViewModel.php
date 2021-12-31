@@ -37,7 +37,7 @@ class TransactionDetailsViewModel extends ViewModel
             trans('transactions.titles.buyer') => [
                 'buyer_name' => DisplayTextComponent::create('common.fields.name'),
                 'buyer_email' => DisplayTextComponent::create('common.fields.email'),
-            ]
+            ],
         ];
     }
 

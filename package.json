@@ -27,6 +27,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
-        "buefy": "^0.9.13"
+        "@googlemaps/js-api-loader": "^1.12.12",
+        "buefy": "^0.9.13",
+        "google-maps": "^4.3.3",
+        "leaflet": "^1.7.1"
     }
 }
