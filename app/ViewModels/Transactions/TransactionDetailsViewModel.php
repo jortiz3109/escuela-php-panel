@@ -2,12 +2,44 @@
 
 namespace App\ViewModels\Transactions;
 
+use App\Http\Resources\Transactions\TransactionShowResource;
+use App\ViewComponents\Display\DisplayImageComponent;
+use App\ViewComponents\Display\DisplayMapComponent;
+use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasModel;
 use App\ViewModels\ViewModel;
 
 class TransactionDetailsViewModel extends ViewModel
 {
     use HasModel;
+
+    protected function fields(): array
+    {
+        return [
+            trans('transactions.titles.data') => [
+                'merchant' => DisplayTextComponent::create('transactions.fields.merchant'),
+                'reference' => DisplayTextComponent::create('transactions.fields.reference'),
+                'payment_method' => DisplayImageComponent::create('transactions.fields.payment_method'),
+                'card_number' => DisplayTextComponent::create('transactions.fields.card_number'),
+                'currency' => DisplayTextComponent::create('transactions.fields.currency'),
+                'total_amount' => DisplayTextComponent::create('transactions.fields.total_amount'),
+                'status' => DisplayTextComponent::create('transactions.fields.status'),
+                'ip_address' => DisplayTextComponent::create('transactions.fields.total_amount'),
+                'executed_at' => DisplayTextComponent::create('transactions.fields.executed'),
+            ],
+            trans('transactions.fields.geolocation') => [
+                'geolocation' => DisplayMapComponent::create('transactions.fields.geolocation'),
+            ],
+            trans('transactions.titles.payer') => [
+                'payer_name' => DisplayTextComponent::create('common.fields.name'),
+                'payer_email' => DisplayTextComponent::create('common.fields.email'),
+            ],
+            trans('transactions.titles.buyer') => [
+                'buyer_name' => DisplayTextComponent::create('common.fields.name'),
+                'buyer_email' => DisplayTextComponent::create('common.fields.email'),
+            ]
+        ];
+    }
 
     protected function buttons(): array
     {
@@ -22,7 +54,7 @@ class TransactionDetailsViewModel extends ViewModel
     protected function data(): array
     {
         return [
-            'transaction'  => $this->model,
+            'model'  => (new TransactionShowResource($this->model))->toArray(),
         ];
     }
 }

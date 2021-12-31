@@ -57,7 +57,8 @@ class DetailsTest extends TestCase
             ->assertSee($transaction->currency->alphabetic_code)
             ->assertSee($transaction->currency->symbol)
             ->assertSee($transaction->status)
-            ->assertSee($transaction->ip_address);
+            ->assertSee($transaction->ip_address)
+            ->assertSeeText(trans('transactions.fields.geolocation'));
     }
 
     public function test_it_show_the_payer_info(): void

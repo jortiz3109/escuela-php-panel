@@ -10,3 +10,7 @@
 [v-cloak] {
     display: none;
 }
+
+.table.is-borderless td, .table.is-borderless th {
+    border: 0;
+}
