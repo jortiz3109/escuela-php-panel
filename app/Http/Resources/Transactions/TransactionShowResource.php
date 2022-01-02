@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Transactions;
 
+use App\Helpers\AmountHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionShowResource extends JsonResource
@@ -14,7 +15,10 @@ class TransactionShowResource extends JsonResource
             'payment_method' => $this->resource->paymentMethod->logo,
             'card_number' => $this->resource->card_number,
             'currency' => $this->resource->currency->name . ' (' . $this->resource->currency->alphabetic_code . ')',
-            'total_amount' => $this->resource->total_amount,
+            'total_amount' => $this->resource->currency->alphabetic_code . AmountHelper::format(
+                    $this->resource->total_amount,
+                    $this->resource->currency->alphabetic_code
+                ),
             'status' => $this->resource->status,
             'ip_address' => $this->resource->ip_address,
             'executed_at' => $this->resource->executed_at,

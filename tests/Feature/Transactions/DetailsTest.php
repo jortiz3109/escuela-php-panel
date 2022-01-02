@@ -58,6 +58,8 @@ class DetailsTest extends TestCase
             ->assertSee($transaction->currency->symbol)
             ->assertSee($transaction->status)
             ->assertSee($transaction->ip_address)
+            ->assertSee(route('transactions.edit', $transaction->getKey()))
+            ->assertSee(route('transactions.index'))
             ->assertSeeText(trans('transactions.fields.geolocation'));
     }
 

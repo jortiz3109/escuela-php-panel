@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
-    Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+    Route::resource('transactions', TransactionController::class)->only(['index', 'show', 'edit']);
 
     Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
 });

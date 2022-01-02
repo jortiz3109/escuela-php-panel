@@ -43,7 +43,16 @@ class TransactionDetailsViewModel extends ViewModel
 
     protected function buttons(): array
     {
-        return [];
+        return [
+            'back' => [
+                'text' => trans('buttons.actions.back'),
+                'route' => route('transactions.index'),
+            ],
+            'edit' => [
+                'text' => trans('buttons.actions.edit'),
+                'route' => route('transactions.edit', $this->model->getKey()),
+            ],
+        ];
     }
 
     protected function title(): string
