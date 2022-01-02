@@ -9,11 +9,7 @@ class UserStatusController extends Controller
 {
     public function toggle(User $user): User
     {
-        if ($user->isEnabled()) {
-            $user->markAsDisabled();
-        } else {
-            $user->markAsEnabled();
-        }
+        $user->toggle();
 
         return $user;
     }

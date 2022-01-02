@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
+use App\Models\Concerns\HasToggle;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
     use HasFilters;
+    use HasToggle;
 
     protected $fillable = [
         'name',
