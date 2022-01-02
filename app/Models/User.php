@@ -28,7 +28,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $appends = [
         'date_formatted',
-        'status',
     ];
 
     protected $hidden = [
@@ -76,10 +75,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getDateFormattedAttribute(): string
     {
         return date('d-m-Y', strtotime($this->attributes['created_at']));
-    }
-
-    public function getStatusAttribute(): string
-    {
-        return (is_null($this->attributes['enabled_at'])) ? trans('users.status.disabled') : trans('users.status.enabled');
     }
 }

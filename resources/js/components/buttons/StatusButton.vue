@@ -1,8 +1,8 @@
 <template>
-    <button class="button" @click="switchUserStatus" :class="status === 'Enabled' ? 'is-success' : 'is-danger'">
-        <span class="text-red-500">{{ status }}</span>
+    <button class="button" @click="switchUserStatus" :class="isEnabled ? 'is-success' : 'is-danger'">
+        <span class="text-red-500">{{ isEnabled ? 'Enabled' : 'Disabled' }}</span>
         <b-icon
-            icon="check-circle"
+            icon="account-switch-outline"
             size="is-small">
         </b-icon>
     </button>
@@ -13,22 +13,17 @@ import axios from 'axios';
 
 export default {
     name: 'StatusButton',
-    data() {
-        return {
-            status: this.userStatus
-        }
-    },
     props: {
         url: { type: String, required: true },
         userId: { type: String, required: true },
-        userStatus: { type: String, required: true },
+        isEnabled: { type: Boolean, required: true },
         emailVerified: { type: Boolean, required: true }
     },
     methods: {
         switchUserStatus: async function () {
             if (!this.$props.emailVerified) return;
             const response = await axios.get(`${this.$props.url}/api/toggle-user-status/${this.$props.userId}`);
-            this.status = response.data.status;
+            this.isEnabled = !!response.data.enabled_at;
         }
     }
 }

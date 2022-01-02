@@ -26,7 +26,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->date_formatted }}</td>
                 <td>
-                    <status-button url="{{ config('app.url') }}" user-id="{{ $user->id }}" user-status="{{ $user->status }}" email-verified="{{ false }}"></status-button>
+                    <status-button url="{{ config('app.url') }}" user-id="{{ $user->id }}" is-enabled="{{ $user->isEnabled() }}" email-verified="{{ false }}"></status-button>
                 </td>
             </tr>
         @endforeach

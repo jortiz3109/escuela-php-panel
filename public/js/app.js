@@ -34,11 +34,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'StatusButton',
-  data: function data() {
-    return {
-      status: this.userStatus
-    };
-  },
   props: {
     url: {
       type: String,
@@ -48,8 +43,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       type: String,
       required: true
     },
-    userStatus: {
-      type: String,
+    isEnabled: {
+      type: Boolean,
       required: true
     },
     emailVerified: {
@@ -78,7 +73,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 response = _context.sent;
-                this.status = response.data.status;
+                this.isEnabled = !!response.data.enabled_at;
 
               case 6:
               case "end":
@@ -451,13 +446,17 @@ var render = function () {
     "button",
     {
       staticClass: "button",
-      class: _vm.status === "Enabled" ? "is-success" : "is-danger",
+      class: _vm.isEnabled ? "is-success" : "is-danger",
       on: { click: _vm.switchUserStatus },
     },
     [
-      _c("span", { staticClass: "text-red-500" }, [_vm._v(_vm._s(_vm.status))]),
+      _c("span", { staticClass: "text-red-500" }, [
+        _vm._v(_vm._s(_vm.isEnabled ? "Enabled" : "Disabled")),
+      ]),
       _vm._v(" "),
-      _c("b-icon", { attrs: { icon: "check-circle", size: "is-small" } }),
+      _c("b-icon", {
+        attrs: { icon: "account-switch-outline", size: "is-small" },
+      }),
     ],
     1
   )
