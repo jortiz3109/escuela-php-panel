@@ -16,9 +16,9 @@ class TransactionShowResource extends JsonResource
             'card_number' => $this->resource->card_number,
             'currency' => $this->resource->currency->name . ' (' . $this->resource->currency->alphabetic_code . ')',
             'total_amount' => $this->resource->currency->alphabetic_code . AmountHelper::format(
-                    $this->resource->total_amount,
-                    $this->resource->currency->alphabetic_code
-                ),
+                $this->resource->total_amount,
+                $this->resource->currency->alphabetic_code
+            ),
             'status' => $this->resource->status,
             'ip_address' => $this->resource->ip_address,
             'executed_at' => $this->resource->executed_at,
