@@ -1,7 +1,13 @@
 <template>
-    <button class="button" @click="switchUserStatus" :class="isEnabled ? 'is-success' : 'is-danger'">
-        <span class="text-red-500">{{ isEnabled ? 'Enabled' : 'Disabled' }}</span>
+    <button type="button" class="button" @click="switchUserStatus" :class="buttonColor" :disabled="!emailVerified">
+        <span>{{ isEnabled ? 'Enabled' : 'Disabled' }}</span>
         <b-icon
+            v-if="!emailVerified"
+            icon="cancel"
+            size="is-small">
+        </b-icon>
+        <b-icon
+            v-else
             icon="account-switch-outline"
             size="is-small">
         </b-icon>
@@ -16,8 +22,13 @@ export default {
     props: {
         url: { type: String, required: true },
         userId: { type: String, required: true },
-        isEnabled: { type: Boolean, required: true },
-        emailVerified: { type: Boolean, required: true }
+        isEnabled: { type: String, required: true },
+        emailVerified: { type: String, required: true }
+    },
+    computed: {
+        buttonColor: function () {
+            return this.isEnabled ? 'is-success' : 'is-danger'
+        }
     },
     methods: {
         switchUserStatus: async function () {

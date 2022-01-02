@@ -26,10 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
-    protected $appends = [
-        'date_formatted',
-    ];
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -55,7 +51,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isEnabled(): bool
     {
-        return null !== $this->enabled_at;
+        return !is_null($this->enabled_at);
+    }
+
+    public function isVerified(): bool
+    {
+        return !is_null($this->email_verified_at);
     }
 
     public function markAsEnabled(): void
@@ -70,10 +71,5 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->enabled_at = null;
 
         $this->save();
-    }
-
-    public function getDateFormattedAttribute(): string
-    {
-        return date('d-m-Y', strtotime($this->attributes['created_at']));
     }
 }

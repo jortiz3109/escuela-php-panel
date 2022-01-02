@@ -5,6 +5,4 @@ return [
     'save' => 'Save',
     'back' => 'Back',
     'actions' => 'Actions',
-    'enabled' => 'enabled',
-    'disabled' => 'disabled',
 ];

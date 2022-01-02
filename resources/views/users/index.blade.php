@@ -24,9 +24,9 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->date_formatted }}</td>
+                <td>{{ \App\Helpers\DateHelper::toDateString($user->created_at) }}</td>
                 <td>
-                    <status-button url="{{ config('app.url') }}" user-id="{{ $user->id }}" is-enabled="{{ $user->isEnabled() }}" email-verified="{{ false }}"></status-button>
+                    <status-button url="{{ config('app.url') }}" user-id="{{ $user->id }}" is-enabled="{{ $user->isEnabled() }}" email-verified="{{ $user->isVerified() }}"></status-button>
                 </td>
             </tr>
         @endforeach
