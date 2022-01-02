@@ -47,7 +47,7 @@ class TransactionDetailsViewModel extends ViewModel
             'back' => [
                 'text' => trans('buttons.actions.back'),
                 'route' => route('transactions.index'),
-            ]
+            ],
         ];
     }
 
