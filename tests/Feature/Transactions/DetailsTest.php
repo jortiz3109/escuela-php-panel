@@ -30,18 +30,6 @@ class DetailsTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_it_has_a_transaction_model(): void
-    {
-        $transaction = Transaction::factory()->create();
-
-        $response = $this->actingAs($this->defaultUser())
-            ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
-
-        $response->assertViewHas('transaction');
-
-        $this->assertInstanceOf(Transaction::class, $response->getOriginalContent()['transaction']);
-    }
-
     public function test_it_can_show_the_transaction_info(): void
     {
         $transaction = Transaction::factory()->create();
@@ -58,7 +46,6 @@ class DetailsTest extends TestCase
             ->assertSee($transaction->currency->symbol)
             ->assertSee($transaction->status)
             ->assertSee($transaction->ip_address)
-            ->assertSee(route('transactions.edit', $transaction->getKey()))
             ->assertSee(route('transactions.index'))
             ->assertSeeText(trans('transactions.fields.geolocation'));
     }

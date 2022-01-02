@@ -47,11 +47,7 @@ class TransactionDetailsViewModel extends ViewModel
             'back' => [
                 'text' => trans('buttons.actions.back'),
                 'route' => route('transactions.index'),
-            ],
-            'edit' => [
-                'text' => trans('buttons.actions.edit'),
-                'route' => route('transactions.edit', $this->model->getKey()),
-            ],
+            ]
         ];
     }
 
