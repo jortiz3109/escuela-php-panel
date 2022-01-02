@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ModelFilterProvider::class,
+        App\Providers\MoneyProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\FortifyViewServiceProvider::class,
         App\Providers\ViewServiceProvider::class,

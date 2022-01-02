@@ -1,3 +1,1 @@
-<a href="{{ $route }}" class="button" title="{{ $text ?? trans('common.create')}}">
-    <span>{{ $text ?? trans('common.create')}}</span>
-</a>
+<b-button tag="a" href="{{ $route }}" type="is-success" icon-left="plus">{{ $text }}</b-button>

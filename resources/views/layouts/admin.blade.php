@@ -8,33 +8,44 @@
             <div class="columns">
                 <div class="column">
                     <aside class="menu">
-                        <p class="menu-label">@lang('menu.administration')</p>
+                        <p class="menu-label">{{ trans('menu.administration') }}</p>
                         <ul class="menu-list">
-                            <li><a href="#"><em class="pr-2 mdi mdi-cash"></em>@lang('Transactions ')</a></li>
+                            <li><a href="{{ route('transactions.index') }}"><em class="pr-2 mdi mdi-cash"></em>{{ trans('transactions.navbar.title') }}</a></li>
                             <li>
                                 <a href="{{ route('merchants.index') }}">
-                                    <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>@lang('merchants.navbar.title')
+                                    <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>{{ trans('merchants.navbar.title') }}
                                 </a>
                                 <ul>
                                     <li><a>Payment methods</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>@lang('Countries')</a></li>
-                            <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>@lang('Currencies')</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('Currencies') }}</a></li>
                         </ul>
 
-                        <p class="menu-label">@lang('menu.security')</p>
+                        <p class="menu-label">{{ trans('menu.security') }}</p>
                         <ul class="menu-list">
-                            <li><a href="{{ route('permissions.index') }}"><em class="pr-2 mdi mdi-shield-lock"></em>@lang('permissions.navbar.title')</a></li>
-                            <li><a href="{{ route('users.index') }}"><em class="pr-2 mdi mdi-account-multiple"></em>@lang('users.navbar.title')</a></li>
-                            <li><a href="{{ route('logins.index') }}"><em class="pr-2 mdi mdi-login"></em>@lang('Last logins')</a></li>
+                            <li>
+                                <a href="{{ route('permissions.index') }}">
+                                    <em class="pr-2 mdi mdi-shield-lock"></em>{{ trans('permissions.navbar.title') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('Users') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logins.index') }}">
+                                    <em class="pr-2 mdi mdi-login"></em>{{ trans('Last logins') }}
+                                </a>
+                            </li>
                         </ul>
 
-                        <p class="menu-label">@lang('menu.system')</p>
+                        <p class="menu-label">{{ trans('menu.system') }}</p>
                         <ul class="menu-list">
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <em class="pr-2 mdi mdi-logout"></em>@lang('Logout')
+                                    <em class="pr-2 mdi mdi-logout"></em>{{ trans('Logout') }}
                                 </a>
                             </li>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -54,13 +65,13 @@
                             <div class="level-item">
                                 <div class="buttons">
                                     @foreach($buttons as $template => $button)
-                                        @include("partials.buttons.{$template}", $button)
+                                        @include("partials.buttons.$template", $button)
                                     @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @includeWhen(count($filters), 'filters', compact('filters'))
+                    @includeWhen(isset($filters) && count($filters), 'filters', ['filters' => $filters ?? []])
                     <div class="box block">
                         @yield('content')
                     </div>
