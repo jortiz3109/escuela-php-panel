@@ -31,7 +31,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#"><em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('Users') }}
+                                <a href="{{ route('users.index') }}"><em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('users.navbar.title') }}
                                 </a>
                             </li>
                             <li>
