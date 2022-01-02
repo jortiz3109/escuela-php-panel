@@ -1,3 +1,4 @@
+import axios from "axios";
 class GeoIP {
     apiKey = ''
     route = ''

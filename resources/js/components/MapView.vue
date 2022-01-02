@@ -17,6 +17,7 @@ export default {
         ip: {
             type: String,
             default: null,
+            required: true
         },
     },
     data: () => {
