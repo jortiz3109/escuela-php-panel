@@ -17,7 +17,7 @@ return [
         'currency' => 'Currency',
     ],
     'labels' => [
-        'multiple' => 'Find merchant',
+        'merchant_query' => 'Find merchant',
         'name' => 'Name',
         'brand' => 'Brand',
         'document' => 'Document',
@@ -34,7 +34,7 @@ return [
         'currency' => 'currency_id',
     ],
     'placeholders' => [
-        'multiple' => 'Search by name, brand or document',
+        'merchant_query' => 'Search by name, brand or document',
         'select_country' => 'Select a country',
         'select_currency' => 'Select a currency',
         'name' => 'Enter merchant name...',
