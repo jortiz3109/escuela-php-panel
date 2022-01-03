@@ -80,9 +80,8 @@ class IndexTest extends TestCase
         $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
         User::factory()->create($userData);
-        $filters = http_build_query(['filters' =>['email' => 'test@email.com', 'created_at' => '2021-11-12',
-            'enabled_at'=> false, ]]);
-        $response = $this->actingAs(User::factory()->create())->get(self::FILTER_URI . $filters);
+        $formattedFilters = http_build_query(['filters' => $filters]);
+        $response = $this->actingAs(User::factory()->create())->get(self::FILTER_URI . $formattedFilters);
         $users = $response->getOriginalContent()['users'];
 
         $this->assertCount(1, $users);
