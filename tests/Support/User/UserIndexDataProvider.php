@@ -19,13 +19,13 @@ trait UserIndexDataProvider
                 'enabled' => $this->makeFilter('enabled', 5),
                 'disabled' => $this->makeFilter('disabled', 15),
                 'filter_by' => 'enabled',
-                'filtered_data' => 5,
+                'filtered_data' => 6,
             ],
             'has filtered by disabled status' => [
                 'enabled' => $this->makeFilter('enabled', 5),
                 'disabled' => $this->makeFilter('disabled', 10),
                 'filter_by' => 'disabled',
-                'filtered' => 11,
+                'filtered' => 12,
             ],
         ];
     }
@@ -35,13 +35,13 @@ trait UserIndexDataProvider
         return [
             'filter user by created at' => [
                 'filters' => [
-                    'email' => 'test@test.com',
+                    'email' => 'test@email.com',
                     'created_at' => '2021-11-12',
-                    'enabled_at' => false,
+                    'enabled_at' => null,
                 ],
                 'user_data_creation' => [
                     'name' => 'test',
-                    'email' => 'test@test.com',
+                    'email' => 'test@email.com',
                     'created_at' => '12-11-2021',
                     'enabled_at' => null,
                 ],

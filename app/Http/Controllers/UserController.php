@@ -12,8 +12,7 @@ class UserController extends Controller
     public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
     {
         $users = User::filter($request->input('filters', []))->paginate();
-        $viewModel->collection($users);
 
-        return view('users.index', $viewModel->toArray());
+        return view('users.index', $viewModel->collection($users));
     }
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\Support\User\UserIndexDataProvider;
 use Tests\TestCase;
 
@@ -13,6 +14,7 @@ class IndexTest extends TestCase
 {
     use RefreshDatabase;
     use UserIndexDataProvider;
+    use HasAuthenticatedUser;
 
     private const USERS_ROUTE_NAME = 'users.index';
     private const FILTER_URI = '/users?';
@@ -78,7 +80,7 @@ class IndexTest extends TestCase
         $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
         User::factory()->create($userData);
-        $filters = http_build_query(['filters' =>['email' => 'test@test.com', 'created_at' => '2021-11-12',
+        $filters = http_build_query(['filters' =>['email' => 'test@email.com', 'created_at' => '2021-11-12',
             'enabled_at'=> false, ]]);
         $response = $this->actingAs(User::factory()->create())->get(self::FILTER_URI . $filters);
         $users = $response->getOriginalContent()['users'];
