@@ -22,17 +22,20 @@ class IndexTest extends TestCase
         $response = $this->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertRedirect(route('login'));
     }
+
     public function test_it_can_list_permissions(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertStatus(Response::HTTP_OK);
     }
+
     public function test_it_has_a_collection_of_permissions(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertViewHas('permissions');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['permissions']);
     }
+
     public function test_collection_has_permissions(): void
     {
         Permission::factory()->create();
@@ -59,6 +62,7 @@ class IndexTest extends TestCase
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
+
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
 
