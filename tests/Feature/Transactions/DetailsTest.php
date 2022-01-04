@@ -6,11 +6,13 @@ use App\Models\Person;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class DetailsTest extends TestCase
 {
     use RefreshDatabase;
+    use HasAuthenticatedUser;
 
     public const TRANSACTION_DETAILS_ROUTE_NAME = 'transactions.show';
 
