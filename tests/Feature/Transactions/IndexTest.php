@@ -59,7 +59,7 @@ class IndexTest extends TestCase
         $response->assertSee($transaction->date->toDateString());
         $response->assertSee($transaction->merchant->name);
         $response->assertSee($transaction->currency->alphabetic_code);
-        $response->assertSee('123.45');
+        $response->assertSee($transaction->currency->symbol . '123.45');
         $response->assertSee($transaction->payment_method);
         $response->assertSee($transaction->status);
     }
