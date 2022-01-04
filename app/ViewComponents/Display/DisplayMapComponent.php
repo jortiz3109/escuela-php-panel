@@ -8,9 +8,7 @@ class DisplayMapComponent extends DisplayComponent
 {
     public function renderTableHeader(): View
     {
-        return view('partials.display.table.th', [
-            'label' => '',
-        ]);
+        return view('partials.display.table.th-empty');
     }
 
     public function renderField(array $model, string $key): View
