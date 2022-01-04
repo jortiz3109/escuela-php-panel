@@ -2,35 +2,23 @@
 
 namespace Database\Seeders;
 
+use App\Models\Currency;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CurrencySeeder extends Seeder
 {
     public function run()
     {
-        DB::table('currencies')->insert([
-            [
-                'name' => 'Colombian Pesos',
-                'minor_unit' => 2,
-                'alphabetic_code' => 'COP',
-                'numeric_code' => '170',
-                'symbol' => '$',
-            ],
-            [
-                'name' => 'US Dollar',
-                'minor_unit' => 2,
-                'alphabetic_code' => 'USD',
-                'numeric_code' => '840',
-                'symbol' => '$',
-            ],
-            [
-                'name' => 'Brazilian Real',
-                'minor_unit' => 2,
-                'alphabetic_code' => 'BRL',
-                'numeric_code' => '986',
-                'symbol' => 'R$',
-            ],
-        ]);
+        $currencies = json_decode(file_get_contents(__DIR__ . '/currencies.json'), true);
+
+        foreach ($currencies as $currency) {
+            Currency::create([
+                'name' => $currency['name'],
+                'minor_unit' => $currency['fraction_digits'],
+                'alphabetic_code' => $currency['currency_code'],
+                'symbol' => $currency['symbol'],
+                'enabled_at' => now(),
+            ]);
+        }
     }
 }
