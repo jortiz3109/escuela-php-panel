@@ -5,16 +5,15 @@ namespace Tests\Feature\Currencies;
 use App\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
-use Tests\Feature\Concerns\HasNamesValidationProvider;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
-    use HasNamesValidationProvider;
 
     public const CURRENCIES_ROUTE_NAME = 'currencies.index';
 
@@ -64,7 +63,7 @@ class IndexTest extends TestCase
     }
 
     /**
-     * @dataProvider namesValidationProvider
+     * @dataProvider validationProvider
      */
     public function test_it_validates_filters(string $attribute, $value): void
     {
@@ -72,5 +71,13 @@ class IndexTest extends TestCase
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
 
         $response->assertSessionHasErrors("filters.{$attribute}");
+    }
+
+    public function validationProvider(): array
+    {
+        return [
+            'name min' => ['attribute' => 'name', 'value' => 'f'],
+            'name max' => ['attribute' => 'name', 'value' => Str::random(126)],
+        ];
     }
 }

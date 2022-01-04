@@ -1,22 +1,17 @@
 <?php
-
 namespace Tests\Feature\Permissions;
-
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
-use Tests\Feature\Concerns\HasDefaultPermission;
-use Tests\Feature\Concerns\HasNamesValidationProvider;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
-    use HasDefaultPermission;
-    use HasNamesValidationProvider;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.index';
 
@@ -25,20 +20,17 @@ class IndexTest extends TestCase
         $response = $this->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertRedirect(route('login'));
     }
-
     public function test_it_can_list_permissions(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertStatus(Response::HTTP_OK);
     }
-
     public function test_it_has_a_collection_of_permissions(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertViewHas('permissions');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['permissions']);
     }
-
     public function test_collection_has_permissions(): void
     {
         Permission::factory()->create();
@@ -46,35 +38,57 @@ class IndexTest extends TestCase
         $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['permissions']->first());
     }
 
-    public function test_it_show_permissions_data(): void
+    /**
+     * @param array $data
+     * @dataProvider permissionProvider
+     */
+    public function test_it_show_permissions_data(array $data): void
     {
-        $permission = $this->defaultPermission();
+        $permission = Permission::factory()->create($data);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertSee($permission->name);
         $response->assertSee($permission->description);
     }
 
     /**
-     * @dataProvider namesValidationProvider
+     * @dataProvider validationProvider
      */
     public function test_it_validates_filters(string $attribute, $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
-
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
 
-    public function test_it_can_filter_permissions(): void
+    /**
+     * @param array $data
+     * @dataProvider permissionProvider
+     */
+    public function test_it_can_filter_permissions(array $data): void
     {
         Permission::factory()->count(3)->create();
-        $permission = $this->defaultPermission();
+        Permission::factory()->create($data);
 
         $filters = http_build_query(['filters' => ['name' => 'permissions.']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
         $permissions = $response->getOriginalContent()['permissions'];
 
         $this->assertEquals(1, $permissions->count());
-        $this->assertEquals($permission->name, $permissions->first()->name);
+        $this->assertEquals($data['name'], $permissions->first()->name);
+    }
+
+    public function validationProvider(): array
+    {
+        return [
+            'name min' => ['attribute' => 'name', 'value' => 'f'],
+            'name max' => ['attribute' => 'name', 'value' => Str::random(126)],
+        ];
+    }
+
+    public function permissionProvider(): array
+    {
+        return [
+            ['data' => ['name' => 'permissions.index', 'description' => 'Can list system permissions']],
+        ];
     }
 }
