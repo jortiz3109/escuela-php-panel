@@ -46,20 +46,21 @@ class IndexTest extends TestCase
 
     public function test_it_can_filter_currencies(): void
     {
+        $currencyName = 'Peso colombiano';
+
         Currency::factory()->count(3)->create();
         Currency::factory()->create(
             [
-                'name' => 'Colombian peso',
-                'alphabetic_code' => 'COP',
+                'name' => $currencyName,
             ]
         );
 
-        $filters = http_build_query(['filters' => ['name' => 'Colombian peso']]);
+        $filters = http_build_query(['filters' => ['name' => $currencyName]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
         $currencies = $response->getOriginalContent()['currencies'];
 
         $this->assertEquals(1, $currencies->count());
-        $this->assertEquals('Colombian peso', $currencies->first()->name);
+        $this->assertEquals($currencyName, $currencies->first()->name);
     }
 
     /**
