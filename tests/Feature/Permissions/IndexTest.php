@@ -8,12 +8,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Feature\Concerns\HasDefaultPermission;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
+    use HasDefaultPermission;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.index';
 
@@ -43,13 +45,9 @@ class IndexTest extends TestCase
         $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['permissions']->first());
     }
 
-    /**
-     * @param array $data
-     * @dataProvider permissionProvider
-     */
-    public function test_it_show_permissions_data(array $data): void
+    public function test_it_show_permissions_data(): void
     {
-        $permission = Permission::factory()->create($data);
+        $permission = $this->defaultPermission();
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertSee($permission->name);
         $response->assertSee($permission->description);
@@ -66,21 +64,17 @@ class IndexTest extends TestCase
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
 
-    /**
-     * @param array $data
-     * @dataProvider permissionProvider
-     */
-    public function test_it_can_filter_permissions(array $data): void
+    public function test_it_can_filter_permissions(): void
     {
         Permission::factory()->count(3)->create();
-        Permission::factory()->create($data);
+        $permission = $this->defaultPermission();
 
         $filters = http_build_query(['filters' => ['name' => 'permissions.']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
         $permissions = $response->getOriginalContent()['permissions'];
 
         $this->assertEquals(1, $permissions->count());
-        $this->assertEquals($data['name'], $permissions->first()->name);
+        $this->assertEquals($permission->name, $permissions->first()->name);
     }
 
     public function validationProvider(): array
@@ -88,13 +82,6 @@ class IndexTest extends TestCase
         return [
             'name min' => ['attribute' => 'name', 'value' => 'f'],
             'name max' => ['attribute' => 'name', 'value' => Str::random(126)],
-        ];
-    }
-
-    public function permissionProvider(): array
-    {
-        return [
-            ['data' => ['name' => 'permissions.index', 'description' => 'Can list system permissions']],
         ];
     }
 }
