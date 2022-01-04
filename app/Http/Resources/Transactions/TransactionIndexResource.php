@@ -12,7 +12,7 @@ class TransactionIndexResource extends JsonResource
     {
         return array_replace($this->resource->toArray(), [
             'date' => DateHelper::toDateString($this->date),
-            'total_amount' => AmountHelper::format($this->total_amount, $this->currency),
+            'total_amount' => AmountHelper::format($this->total_amount, $this->currency, $this->currency_symbol),
         ]);
     }
 }
