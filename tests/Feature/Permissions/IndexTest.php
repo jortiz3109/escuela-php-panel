@@ -1,5 +1,7 @@
 <?php
+
 namespace Tests\Feature\Permissions;
+
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
