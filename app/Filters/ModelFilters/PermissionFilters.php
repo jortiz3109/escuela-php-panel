@@ -9,6 +9,7 @@ use App\Models\Permission;
 class PermissionFilters extends Filter
 {
     protected string $model = Permission::class;
+
     protected array $applicableConditions = [
         'name' => Name::class,
     ];
