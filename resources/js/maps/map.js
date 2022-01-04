@@ -9,7 +9,6 @@ class Map {
     service = null
 
     constructor() {
-        console.log(process.env.MIX_MAP_SERVICE)
         this.service = this.services[process.env.MIX_MAP_SERVICE] ?? LeafLetMap
     }
 
