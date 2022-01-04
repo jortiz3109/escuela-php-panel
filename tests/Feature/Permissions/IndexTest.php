@@ -5,10 +5,10 @@ namespace Tests\Feature\Permissions;
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\Feature\Concerns\HasDefaultPermission;
+use Tests\Feature\Concerns\HasNamesValidationProvider;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -16,6 +16,7 @@ class IndexTest extends TestCase
     use RefreshDatabase;
     use HasAuthenticatedUser;
     use HasDefaultPermission;
+    use HasNamesValidationProvider;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.index';
 
@@ -54,7 +55,7 @@ class IndexTest extends TestCase
     }
 
     /**
-     * @dataProvider validationProvider
+     * @dataProvider namesValidationProvider
      */
     public function test_it_validates_filters(string $attribute, $value): void
     {
@@ -75,13 +76,5 @@ class IndexTest extends TestCase
 
         $this->assertEquals(1, $permissions->count());
         $this->assertEquals($permission->name, $permissions->first()->name);
-    }
-
-    public function validationProvider(): array
-    {
-        return [
-            'name min' => ['attribute' => 'name', 'value' => 'f'],
-            'name max' => ['attribute' => 'name', 'value' => Str::random(126)],
-        ];
     }
 }
