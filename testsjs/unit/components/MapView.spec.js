@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {mount} from "@vue/test-utils";
-import MapView from "../../../resources/js/components/MapView";
+import MapView from "../../../resources/js/components/PMapView";
 import map from "../../../resources/js/maps/map";
 
 describe('MapView.vue', () => {

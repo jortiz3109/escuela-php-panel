@@ -1,3 +1,3 @@
 <div class="map-container is-fullwidth">
-    <map-view :ip="'{{ $value }}'"></map-view>
+    <p-map-view :ip="'{{ $value }}'"></p-map-view>
 </div>

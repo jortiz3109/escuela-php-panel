@@ -12,7 +12,7 @@ import Map from '../maps/map'
 import GeoIP from '../maps/services/GeoIP'
 
 export default {
-    name: 'MapView',
+    name: 'PMapView',
     props: {
         ip: {
             type: String,

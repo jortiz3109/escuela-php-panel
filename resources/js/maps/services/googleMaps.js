@@ -4,7 +4,7 @@ class GoogleMap {
 
     loadMaps() {
         const loader = new Loader({
-            apiKey: process.env.MIX_MAP_API_KEY,
+            apiKey: process.env.MIX_MAP_GOOGLE_API_KEY,
             version: 'weekly',
         })
         return loader.load()
