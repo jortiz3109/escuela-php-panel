@@ -6,11 +6,13 @@ use App\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Concerns\PermissionHasDataProvider;
+use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
     use RefreshDatabase;
+    use HasAuthenticatedUser;
     use PermissionHasDataProvider;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.update';
