@@ -10,5 +10,11 @@ class Currency extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $guarded = [];
+
+    protected $fillable = [
+        'name',
+        'minor_unit',
+        'alphabetic_code',
+        'symbol',
+    ];
 }
