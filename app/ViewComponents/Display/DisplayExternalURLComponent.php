@@ -7,11 +7,11 @@ use Illuminate\View\View;
 
 class DisplayExternalURLComponent extends DisplayComponent
 {
-    public function renderField(array $model, string $key): View
+    public function renderField(array $model, string $key = ''): View
     {
         return view('partials.display.url', [
             'url' => $model[$key],
-            'class' => CssHelper::getPositionClass($this->valuePosition),
+            'valueClass' => CssHelper::getPositionClass($this->valuePosition),
         ]);
     }
 }

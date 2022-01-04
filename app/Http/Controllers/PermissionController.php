@@ -20,7 +20,7 @@ class PermissionController extends Controller
     {
         $permissions = Permission::filter($request->input('filters', []))->paginate();
 
-        return view('permissions.index', $viewModel->collection($permissions));
+        return view('modules.index', $viewModel->collection($permissions));
     }
 
     public function edit(Permission $permission, PermissionEditViewModel $viewModel): View

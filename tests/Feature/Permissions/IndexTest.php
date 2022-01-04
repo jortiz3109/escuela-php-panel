@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Permissions;
 
+use App\Http\Resources\Permissions\PermissionIndexResource;
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -31,15 +32,16 @@ class IndexTest extends TestCase
     public function test_it_has_a_collection_of_permissions(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
-        $response->assertViewHas('permissions');
-        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['permissions']);
+        $response->assertViewHas('collection');
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
+        $this->assertEquals(PermissionIndexResource::class, $response->getOriginalContent()['collection']->collects);
     }
 
     public function test_collection_has_permissions(): void
     {
         Permission::factory()->create();
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
-        $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['permissions']->first());
+        $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['collection']->first()->resource);
     }
 
     public function test_it_show_permissions_data(): void
@@ -68,7 +70,7 @@ class IndexTest extends TestCase
 
         $filters = http_build_query(['filters' => ['name' => 'valid.']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
-        $permissions = $response->getOriginalContent()['permissions'];
+        $permissions = $response->getOriginalContent()['collection'];
 
         $this->assertEquals(1, $permissions->count());
         $this->assertEquals('valid.name', $permissions->first()->name);

@@ -51,5 +51,5 @@ abstract class DisplayComponent
         return $this;
     }
 
-    abstract public function renderField(array $model, string $key): View;
+    abstract public function renderField(array $model, string $key = ''): View;
 }

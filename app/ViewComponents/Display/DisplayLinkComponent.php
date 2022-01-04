@@ -18,12 +18,12 @@ class DisplayLinkComponent extends DisplayComponent
         $this->routeKey = $routeKey;
     }
 
-    public function renderField(array $model, string $key): View
+    public function renderField(array $model, string $key = ''): View
     {
         return view('partials.display.table.link', [
             'route' => route($this->routeName, $model[$this->routeKey]),
             'value' => $model[$key],
-            'class' => CssHelper::getPositionClass($this->valuePosition),
+            'valueClass' => CssHelper::getPositionClass($this->valuePosition),
         ]);
     }
 }
