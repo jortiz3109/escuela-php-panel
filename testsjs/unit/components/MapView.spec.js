@@ -13,7 +13,7 @@ describe('MapView.vue', () => {
         }
     }
     test('it must fail when ip is not set', async () => {
-        console.error = jest.fn().mockImplementation(() => {})
+        console.error = jest.fn().mockImplementation()
         const error = jest.spyOn(console, 'error')
         wrapper = mount(MapView)
         expect(error).toBeCalled()
@@ -36,7 +36,7 @@ describe('MapView.vue', () => {
                 longitude: -70
             }
         })
-        map.renderMap = jest.fn().mockImplementation(() => {})
+        map.renderMap = jest.fn().mockImplementation()
         wrapper = mount(MapView, options)
         await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
