@@ -1,3 +1,3 @@
 <a href="{{ $route }}" class="icon has-text-info">
-        <i class="fas fa-edit"></i>
+    <em class="fas fa-edit"></em>
 </a>
