@@ -24,40 +24,22 @@ trait PermissionHasDataProvider
 
     public function validationFieldsProvider(): array
     {
-        $validData = $this->validPermissionData();
-
         return [
-            'name is missing' => [
-                'name',
-                array_replace($validData, ['name' => null]),
-            ],
-            'name is not a string' => [
-                'name',
-                array_replace($validData, ['name' => ['name']]),
-            ],
-            'name is too short' => [
-                'name',
-                array_replace($validData, ['name' => 'a']),
-            ],
-            'name is too long' => [
-                'name',
-                array_replace($validData, ['name' => Str::random(126)]),
-            ],
             'description is missing' => [
                 'description',
-                array_replace($validData, ['description' => null]),
+                ['description' => null],
             ],
             'description is not a string' => [
                 'description',
-                array_replace($validData, ['description' => ['description']]),
+                ['description' => ['description']],
             ],
             'description is too short' => [
                 'description',
-                array_replace($validData, ['description' => 'a']),
+                ['description' => 'a'],
             ],
             'description is too long' => [
                 'description',
-                array_replace($validData, ['description' => Str::random(256)]),
+                ['description' => Str::random(256)],
             ],
         ];
     }

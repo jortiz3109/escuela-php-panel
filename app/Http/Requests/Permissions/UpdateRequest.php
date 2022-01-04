@@ -14,7 +14,6 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['bail', 'required', 'string', 'min:2', 'max:125'],
             'description' => ['bail', 'required', 'string', 'min:2', 'max:255'],
         ];
     }

@@ -27,7 +27,6 @@ class UpdateTest extends TestCase
         ]);
 
         $this->newData = [
-            'name' => 'New name',
             'description' => 'New description',
         ];
     }
@@ -46,7 +45,6 @@ class UpdateTest extends TestCase
 
         $this->permission->refresh();
 
-        $this->assertEquals($this->newData['name'], $this->permission->name);
         $this->assertEquals($this->newData['description'], $this->permission->description);
     }
 
