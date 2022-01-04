@@ -21,7 +21,6 @@ class CurrencyFactory extends Factory
             'name' => $this->faker->randomElement($this->names),
             'minor_unit' => 2,
             'alphabetic_code' => $this->faker->unique()->currencyCode(),
-            'numeric_code' => $this->faker->unique()->bothify('###'),
             'symbol' => '$',
         ];
     }
