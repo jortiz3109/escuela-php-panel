@@ -3,10 +3,13 @@
 namespace Tests\Feature\Merchants;
 
 use App\Models\Merchant;
+use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class ShowTest extends TestCase
 {
+    use HasAuthenticatedUser;
+
     private const MERCHANTS_ROUTE_NAME = 'merchants.show';
 
     public function test_an_user_authenticated_can_show_merchant_view(): void
