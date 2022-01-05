@@ -21,7 +21,7 @@ class MerchantIndexViewModel extends IndexViewModel
 
     protected function title(): string
     {
-        return trans('merchants.navbar.title');
+        return trans('merchants.titles.index');
     }
 
     public function filters(): array

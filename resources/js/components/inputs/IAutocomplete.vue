@@ -4,6 +4,7 @@
         <b-autocomplete
             v-model="item"
             :placeholder="placeholder"
+            :required="required"
             :keep-first="keepFirst"
             :open-on-focus="openOnFocus"
             :data="filteredDataObject"
@@ -32,6 +33,9 @@ export default {
             type: String,
         },
         placeholder: {
+            type: String,
+        },
+        required: {
             type: String,
         },
         data: {

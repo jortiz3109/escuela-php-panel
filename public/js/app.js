@@ -29,6 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     label: {
@@ -44,6 +45,9 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     },
     placeholder: {
+      type: String
+    },
+    required: {
       type: String
     },
     data: {
@@ -320,6 +324,7 @@ var render = function () {
       _c("b-autocomplete", {
         attrs: {
           placeholder: _vm.placeholder,
+          required: _vm.required,
           "keep-first": _vm.keepFirst,
           "open-on-focus": _vm.openOnFocus,
           data: _vm.filteredDataObject,

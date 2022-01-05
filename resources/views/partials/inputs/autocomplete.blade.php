@@ -8,6 +8,7 @@
         name="{{ $field->name }}"
         placeholder="{{ $field->placeholder }}"
         initial_value="{{ old($field->name, $model->{$field->name} ?? '') }}"
+        required="{{ $field->required ? 'required' : '' }}"
         :data='{{ $field->data }}'>
     </i-autocomplete>
 </b-field>

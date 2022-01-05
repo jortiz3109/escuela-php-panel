@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'entityName' => 'Merchant',
     'titles' => [
+        'index' => 'Merchants',
         'create' => 'Create merchant',
         'edit' => 'Edit merchant',
     ],
@@ -38,5 +38,9 @@ return [
         'url' => 'Enter merchant URL...',
         'country' => 'Search country...',
         'currency' => 'Search currency...',
+    ],
+    'alerts' => [
+        'successful_create' => 'Merchant has been created',
+        'successful_update' => 'Merchant has been updated',
     ],
 ];
