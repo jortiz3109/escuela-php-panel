@@ -1,5 +1,5 @@
 <b-field
-    label="@lang('Merchant')"
+    label="{{ trans('Merchant') }}"
     type="{{ $errors->has('filters.merchant') ? 'is-danger' : '' }}"
     message="{{ $errors->first('filters.merchant') }}">
     <b-input

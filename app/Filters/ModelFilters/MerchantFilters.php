@@ -2,9 +2,9 @@
 
 namespace App\Filters\ModelFilters;
 
-use App\Filters\Conditions\Merchants\Country;
-use App\Filters\Conditions\Merchants\Currency;
-use App\Filters\Conditions\Merchants\Multiple;
+use App\Filters\Conditions\CurrencyAlphabeticCode;
+use App\Filters\Conditions\Merchants\CountryTwoCode;
+use App\Filters\Conditions\Merchants\MerchantQuery;
 use App\Filters\Filter;
 use App\Models\Merchant;
 
@@ -13,9 +13,9 @@ class MerchantFilters extends Filter
     protected string $model = Merchant::class;
 
     protected array $applicableConditions = [
-        'multiple' => Multiple::class,
-        'country' => Country::class,
-        'currency' => Currency::class,
+        'merchant_query' => MerchantQuery::class,
+        'country' => CountryTwoCode::class,
+        'currency' => CurrencyAlphabeticCode::class,
     ];
 
     protected function joins(): Filter
@@ -29,6 +29,7 @@ class MerchantFilters extends Filter
     protected function select(): Filter
     {
         $this->query->select(
+            'merchants.id',
             'merchants.name',
             'merchants.brand',
             'merchants.document',

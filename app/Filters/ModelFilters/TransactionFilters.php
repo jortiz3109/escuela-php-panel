@@ -2,9 +2,9 @@
 
 namespace App\Filters\ModelFilters;
 
-use App\Filters\Conditions\Transactions\Date;
-use App\Filters\Conditions\Transactions\Merchant;
-use App\Filters\Conditions\Transactions\PaymentMethod;
+use App\Filters\Conditions\Transactions\DateBetween;
+use App\Filters\Conditions\Transactions\MerchantName;
+use App\Filters\Conditions\Transactions\PaymentMethodId;
 use App\Filters\Conditions\Transactions\Reference;
 use App\Filters\Conditions\Transactions\Status;
 use App\Filters\Filter;
@@ -15,11 +15,11 @@ class TransactionFilters extends Filter
     protected string $model = Transaction::class;
 
     protected array $applicableConditions = [
-        'merchant' => Merchant::class,
-        'payment_method' => PaymentMethod::class,
+        'merchant' => MerchantName::class,
+        'payment_method' => PaymentMethodId::class,
         'status' => Status::class,
         'reference' => Reference::class,
-        'date' => Date::class,
+        'dates' => DateBetween::class,
     ];
 
     protected function joins(): Filter
@@ -35,7 +35,7 @@ class TransactionFilters extends Filter
     {
         $this->query->select(
             'transactions.id',
-            'transactions.executed_at',
+            'transactions.date',
             'merchants.name as merchant',
             'transactions.reference',
             'currencies.alphabetic_code as currency',

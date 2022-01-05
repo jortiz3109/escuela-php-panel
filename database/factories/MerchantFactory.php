@@ -12,15 +12,15 @@ class MerchantFactory extends Factory
     public function definition(): array
     {
         return [
-            'uuid'     => $this->faker->uuid(),
-            'document_type_id' => DocumentType::all()->random()->id,
+            'uuid' => $this->faker->uuid(),
+            'document_type_id' => DocumentType::inRandomOrder()->first()->id,
             'document' => $this->faker->unique()->bothify('###########'),
             'name' => $this->faker->company(),
             'brand' => $this->faker->bs(),
             'url' => $this->faker->url(),
             'logo' => $this->faker->image(null, 100, 100),
-            'country_id'  => Country::all()->random()->id,
-            'currency_id' => Currency::all()->random()->id,
+            'country_id'  => Country::inRandomOrder()->first()->id,
+            'currency_id' => Currency::inRandomOrder()->first()->id,
         ];
     }
 }

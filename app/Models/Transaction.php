@@ -13,7 +13,7 @@ class Transaction extends Model
     use HasFilters;
 
     protected $casts = [
-        'executed_at' => 'datetime',
+        'date' => 'datetime',
     ];
 
     public function merchant(): BelongsTo

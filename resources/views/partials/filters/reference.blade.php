@@ -1,5 +1,5 @@
 <b-field
-    label="@lang('Reference')"
+    label="{{ trans('Reference') }}"
     type="{{ $errors->has('filters.reference') ? 'is-danger' : '' }}"
     message="{{ $errors->first('filters.reference') }}">
     <b-input

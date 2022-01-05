@@ -11,21 +11,23 @@ use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('date_between')->only('index');
+    }
+
     /**
      * @throws BindingResolutionException
      */
     public function index(IndexRequest $request, TransactionIndexViewModel $viewModel): View
     {
-        $transactions = Transaction::filter($request->safe()->collect()->get('filters', []))->paginate();
-        $viewModel->collection($transactions);
+        $transactions = Transaction::filter($request->input('filters', []))->paginate();
 
-        return view('modules.index', $viewModel->toArray());
+        return view('modules.index', $viewModel->collection($transactions));
     }
 
     public function show(Transaction $transaction, TransactionDetailsViewModel $viewModel): View
     {
-        $viewModel->model($transaction);
-
-        return view('transactions.show', $viewModel->toArray());
+        return view('transactions.show', $viewModel->model($transaction));
     }
 }

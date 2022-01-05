@@ -3,7 +3,7 @@
 namespace Tests\Feature\Transactions;
 
 use App\Constants\TransactionStatus;
-use App\Http\Resources\Transactions\IndexResource;
+use App\Http\Resources\Transactions\TransactionIndexResource;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -11,11 +11,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
     use RefreshDatabase;
+    use HasAuthenticatedUser;
 
     public const TRANSACTIONS_ROUTE_NAME = 'transactions.index';
 
@@ -37,7 +39,7 @@ class IndexTest extends TestCase
 
         $response->assertViewHas('collection');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
-        $this->assertEquals(IndexResource::class, $response->getOriginalContent()['collection']->collects);
+        $this->assertEquals(TransactionIndexResource::class, $response->getOriginalContent()['collection']->collects);
     }
 
     public function test_collection_has_transactions(): void
@@ -54,7 +56,7 @@ class IndexTest extends TestCase
         ]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
 
-        $response->assertSee($transaction->executed_at->toDateString());
+        $response->assertSee($transaction->date->toDateString());
         $response->assertSee($transaction->merchant->name);
         $response->assertSee($transaction->currency->alphabetic_code);
         $response->assertSee('$123.45');
@@ -62,7 +64,7 @@ class IndexTest extends TestCase
         $response->assertSee($transaction->status);
     }
 
-    public function test_it_can_filter_transactions_by_status()
+    public function test_it_can_filter_transactions_by_status(): void
     {
         Transaction::factory(5)->create(['status' => TransactionStatus::STATUS_FAILED]);
         Transaction::factory()->create(['status' => TransactionStatus::STATUS_APPROVED]);
@@ -75,7 +77,7 @@ class IndexTest extends TestCase
         $this->assertEquals(TransactionStatus::STATUS_APPROVED, $transactions->first()->status);
     }
 
-    public function test_it_can_filter_transactions_by_merchant()
+    public function test_it_can_filter_transactions_by_merchant(): void
     {
         Transaction::factory(5)->create();
         $transaction = Transaction::factory()->create();
@@ -88,7 +90,7 @@ class IndexTest extends TestCase
         $this->assertEquals($transaction->merchant->name, $transactions->first()->merchant);
     }
 
-    public function test_it_can_filter_transactions_by_reference()
+    public function test_it_can_filter_transactions_by_reference(): void
     {
         $reference = '123456';
         Transaction::factory(5)->create();
@@ -102,7 +104,7 @@ class IndexTest extends TestCase
         $this->assertEquals($reference, $transactions->first()->reference);
     }
 
-    public function test_it_can_filter_transactions_by_payment_method()
+    public function test_it_can_filter_transactions_by_payment_method(): void
     {
         Transaction::factory(5)->create();
 
@@ -113,7 +115,7 @@ class IndexTest extends TestCase
 
         Transaction::factory()->for($paymentMethod)->create();
 
-        $filters = http_build_query(['filters' => ['payment_method' => $paymentMethod->name]]);
+        $filters = http_build_query(['filters' => ['payment_method' => $paymentMethod->id]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
@@ -121,16 +123,16 @@ class IndexTest extends TestCase
         $this->assertEquals('new payment method', $transactions->first()->payment_method);
     }
 
-    public function test_it_can_filter_transactions_by_date()
+    public function test_it_can_filter_transactions_by_date(): void
     {
-        Transaction::factory()->create(['executed_at' => Carbon::parse('2021-11-29')]);
+        Transaction::factory()->create(['date' => Carbon::parse('2021-11-29')]);
 
-        $filters = http_build_query(['filters' => ['date' => '11/29/2021 - 11/29/2021']]);
+        $filters = http_build_query(['filters' => ['dates' => '11/29/2021 - 11/29/2021']]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
-        $this->assertEquals('2021-11-29', $transactions->first()->executed_at->toDateString());
+        $this->assertEquals('2021-11-29', $transactions->first()->date->toDateString());
     }
 
     /**

@@ -20,14 +20,14 @@ class TransactionFactory extends Factory
             'merchant_id' => Merchant::factory(),
             'payer_id' => Person::factory(),
             'buyer_id' => Person::factory(),
-            'payment_method_id' => PaymentMethod::all()->random()->id,
-            'currency_id' => Currency::all()->random()->id,
+            'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
+            'currency_id' => Currency::inRandomOrder()->first()->id,
             'reference' => $this->faker->numberBetween(1000000000, 9999999999),
             'card_number' => $this->faker->numerify('######******####'),
             'total_amount' => $this->faker->numberBetween(1, 999999),
             'status' => $this->faker->randomElement(TransactionStatus::STATUSES),
             'ip_address' => $this->faker->ipv4(),
-            'executed_at' => $this->faker->dateTime(),
+            'date' => $this->faker->dateTime(),
         ];
     }
 }

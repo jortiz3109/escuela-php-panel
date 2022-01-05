@@ -22,7 +22,7 @@ abstract class Filter
     public function __construct(array $conditions = [])
     {
         $this->query = $this->newModel()->newQuery();
-        $this->conditions = $conditions;
+        $this->conditions($conditions);
     }
 
     private function newModel(): Model
@@ -40,7 +40,7 @@ abstract class Filter
 
     public function conditions(array $conditions = []): self
     {
-        $this->conditions = $conditions;
+        $this->conditions = array_filter($conditions);
         return $this;
     }
 
