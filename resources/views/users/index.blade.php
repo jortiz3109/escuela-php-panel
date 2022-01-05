@@ -4,18 +4,18 @@
         <caption class="is-hidden">{{ $texts['title'] }}</caption>
         <thead>
         <tr>
-            <th scope="col">@lang('users.fields.name')</th>
-            <th scope="col">@lang('users.fields.email')</th>
-            <th scope="col">@lang('users.fields.created_at')</th>
-            <th scope="col">@lang('users.fields.status')</th>
+            <th scope="col">{{trans('users.fields.name')}}</th>
+            <th scope="col">{{trans('users.fields.email')}}</th>
+            <th scope="col">{{trans('users.fields.created_at')}}</th>
+            <th scope="col">{{trans('users.fields.status')}}</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-            <th scope="col">@lang('users.fields.name')</th>
-            <th scope="col">@lang('users.fields.email')</th>
-            <th scope="col">@lang('users.fields.created_at')</th>
-            <th scope="col">@lang('users.fields.status')</th>
+            <th scope="col">{{trans('users.fields.name')}}</th>
+            <th scope="col">{{trans('users.fields.email')}}</th>
+            <th scope="col">{{trans('users.fields.created_at')}}</th>
+            <th scope="col">{{trans('users.fields.status')}}</th>
         </tr>
         </tfoot>
         <tbody>
