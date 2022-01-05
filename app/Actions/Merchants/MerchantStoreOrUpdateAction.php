@@ -20,6 +20,7 @@ class MerchantStoreOrUpdateAction implements ActionContract
         $merchant->brand = $request->input('brand');
         $merchant->document = $request->input('document');
         $merchant->url = $request->input('url');
+        $merchant->logo = $request->input('logo');
         $merchant->country_id = $request->input('country_id');
         $merchant->currency_id = $request->input('currency_id');
         $merchant->document_type_id = $request->input('document_type_id');

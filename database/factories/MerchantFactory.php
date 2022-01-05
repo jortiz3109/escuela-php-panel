@@ -17,7 +17,6 @@ class MerchantFactory extends Factory
     public function definition(): array
     {
         return [
-            'uuid' => $this->faker->uuid(),
             'document_type_id' => DocumentType::inRandomOrder()->first()->id,
             'document' => $this->faker->unique()->bothify('###########'),
             'name' => $this->faker->company(),
