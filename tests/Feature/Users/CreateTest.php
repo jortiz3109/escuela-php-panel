@@ -20,7 +20,7 @@ class CreateTest extends TestCase
     {
         $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME))
             ->assertStatus(Response::HTTP_OK)
-            ->assertViewIs('users.create');
+            ->assertViewIs('modules.create');
     }
 
     public function test_unauthenticated_will_be_redirect_to_login(): void
