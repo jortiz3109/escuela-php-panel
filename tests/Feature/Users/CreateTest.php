@@ -37,5 +37,4 @@ class CreateTest extends TestCase
             ->assertSee(trans('users.placeholders.password'))
             ->assertSee(trans('users.placeholders.password_confirmation'));
     }
-
 }

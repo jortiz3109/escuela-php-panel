@@ -54,9 +54,8 @@ class UserCreateViewModel extends ViewModel
                 trans('users.labels.password_confirmation'),
                 trans('users.inputs.password_confirmation'),
                 trans('users.placeholders.password_confirmation'),
-            )
+            ),
         ];
-
     }
 
     protected function data(): array
@@ -66,5 +65,4 @@ class UserCreateViewModel extends ViewModel
             'action' => 'users.store',
         ];
     }
-
 }

@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-
     use RefreshDatabase;
     use UserStoreDataProvider;
     use HasAuthenticatedUser;
@@ -25,7 +24,7 @@ class StoreTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => $data['name'],
             'email' => $data['email'],
-            'created_by' => auth()->id()
+            'created_by' => auth()->id(),
         ]);
     }
 
@@ -60,12 +59,10 @@ class StoreTest extends TestCase
 
     public function test_it_has_a_created_by_id_with_authenticated_user_id(): void
     {
-
         $this->actingAs($user = $this->defaultUser())
             ->post(route('users.store'), $data = $this->userData())
             ->assertRedirect('/dashboard');
 
-        $this->assertEquals( $user->id, User::latest('id')->first()->created_by);
+        $this->assertEquals($user->id, User::latest('id')->first()->created_by);
     }
-
 }

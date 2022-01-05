@@ -18,5 +18,4 @@ class UserStoreAction
 
         return $user;
     }
-
 }

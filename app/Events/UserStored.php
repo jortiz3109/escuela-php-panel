@@ -9,13 +9,14 @@ use Illuminate\Queue\SerializesModels;
 
 class UserStored
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public User $user;
 
     public function __construct(User $user)
     {
-
         $this->user = $user;
     }
 

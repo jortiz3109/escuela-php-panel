@@ -7,7 +7,6 @@ use App\Events\UserStored;
 use App\Http\Requests\Users\UserCreateRequest;
 use App\ViewModels\Users\UserCreateViewModel;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 
 class UserController extends Controller
