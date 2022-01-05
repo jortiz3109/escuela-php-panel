@@ -46,7 +46,8 @@ class MerchantController extends Controller
         return view('modules.edit', $viewModel->model($merchant));
     }
 
-    public function update(Merchant $merchant, UpdateRequest $request, MerchantUpdateAction $action): RedirectResponse {
+    public function update(Merchant $merchant, UpdateRequest $request, MerchantUpdateAction $action): RedirectResponse
+    {
         $merchant = $action->execute($merchant, $request);
 
         return redirect($merchant->presenter()->show())
