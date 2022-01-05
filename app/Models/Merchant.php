@@ -12,6 +12,7 @@ class Merchant extends Model
 {
     use HasFactory;
     use HasFilters;
+    use HasUUID;
 
     public function country(): BelongsTo
     {

@@ -1,12 +1,14 @@
 <b-field
+    horizontal
     label="{{ $field->label }}"
-    horizontal>
+    type="@error($field->name) is-danger @enderror"
+    message="@error($field->name) {{ $errors->first($field->name) }} @enderror">
     <b-input
         type="text"
         id="{{ $field->name }}"
         name="{{ $field->name }}"
         placeholder="{{ $field->placeholder }}"
         {{ $field->required ? 'required' : '' }}
-        value="{{ old($field->name, $model->{$field->name}) }}">
+        value="{{ old($field->name, $model->{$field->name} ?? '') }}">
     </b-input>
 </b-field>

@@ -15,18 +15,21 @@ class CountrySeeder extends Seeder
                 'alpha_two_code' => 'CO',
                 'alpha_three_code' => 'COL',
                 'numeric_code' => '170',
+                'enabled_at' => now(),
             ],
             [
                 'name' => 'United States',
                 'alpha_two_code' => 'US',
                 'alpha_three_code' => 'USA',
                 'numeric_code' => '840',
+                'enabled_at' => now(),
             ],
             [
                 'name' => 'Brasil',
                 'alpha_two_code' => 'BR',
                 'alpha_three_code' => 'BRA',
                 'numeric_code' => '076',
+                'enabled_at' => now(),
             ],
         ]);
     }

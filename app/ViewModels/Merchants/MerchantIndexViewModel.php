@@ -11,12 +11,17 @@ class MerchantIndexViewModel extends IndexViewModel
 
     protected function buttons(): array
     {
-        return [];
+        return [
+            'create' => [
+                'text' => trans('merchants.titles.create'),
+                'route' => route('merchants.create'),
+            ],
+        ];
     }
 
     protected function title(): string
     {
-        return trans('merchants.titles.index');
+        return trans('merchants.navbar.title');
     }
 
     public function filters(): array

@@ -16,6 +16,7 @@ class CurrencySeeder extends Seeder
                 'alphabetic_code' => 'COP',
                 'numeric_code' => '170',
                 'symbol' => '$',
+                'enabled_at' => now(),
             ],
             [
                 'name' => 'US Dollar',
@@ -23,6 +24,7 @@ class CurrencySeeder extends Seeder
                 'alphabetic_code' => 'USD',
                 'numeric_code' => '840',
                 'symbol' => '$',
+                'enabled_at' => now(),
             ],
             [
                 'name' => 'Brazilian Real',
@@ -30,6 +32,7 @@ class CurrencySeeder extends Seeder
                 'alphabetic_code' => 'BRL',
                 'numeric_code' => '986',
                 'symbol' => 'R$',
+                'enabled_at' => now(),
             ],
         ]);
     }

@@ -29,8 +29,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     label: {
@@ -42,6 +40,9 @@ __webpack_require__.r(__webpack_exports__);
     name: {
       type: String
     },
+    initial_value: {
+      type: String
+    },
     placeholder: {
       type: String
     },
@@ -49,13 +50,32 @@ __webpack_require__.r(__webpack_exports__);
       type: Array
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.value && !this.item) {
+      this.item = this.data.find(function (option) {
+        return option.id.toString() === _this.value.toString();
+      }).name;
+    }
+  },
   data: function data() {
-    console.log(this.data);
     return {
       keepFirst: true,
       openOnFocus: true,
-      clearable: false
+      clearable: true,
+      item: '',
+      value: this.initial_value
     };
+  },
+  computed: {
+    filteredDataObject: function filteredDataObject() {
+      var _this2 = this;
+
+      return this.data.filter(function (option) {
+        return option.name.toString().toLowerCase().indexOf(_this2.item.toLowerCase()) >= 0;
+      });
+    }
   }
 });
 
@@ -276,34 +296,59 @@ var render = function () {
   return _c(
     "section",
     [
-      _c(
-        "b-field",
-        { attrs: { label: _vm.label, horizontal: "" } },
-        [
-          _c("b-autocomplete", {
-            attrs: {
-              id: _vm.id,
-              name: _vm.name,
-              placeholder: _vm.placeholder,
-              "keep-first": _vm.keepFirst,
-              "open-on-focus": _vm.openOnFocus,
-              data: _vm.data,
-              icon: "magnify",
-              clearable: "",
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "empty",
-                fn: function () {
-                  return [_vm._v("No results found")]
-                },
-                proxy: true,
-              },
-            ]),
-          }),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.value,
+            expression: "value",
+          },
         ],
-        1
-      ),
+        attrs: { type: "hidden", id: _vm.id, name: _vm.name },
+        domProps: { value: _vm.value },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.value = $event.target.value
+          },
+        },
+      }),
+      _vm._v(" "),
+      _c("b-autocomplete", {
+        attrs: {
+          placeholder: _vm.placeholder,
+          "keep-first": _vm.keepFirst,
+          "open-on-focus": _vm.openOnFocus,
+          data: _vm.filteredDataObject,
+          icon: "magnify",
+          field: "name",
+          clearable: "",
+        },
+        on: {
+          select: function (option) {
+            return (_vm.value = option ? option.id : "")
+          },
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "empty",
+            fn: function () {
+              return [_vm._v("No results found")]
+            },
+            proxy: true,
+          },
+        ]),
+        model: {
+          value: _vm.item,
+          callback: function ($$v) {
+            _vm.item = $$v
+          },
+          expression: "item",
+        },
+      }),
     ],
     1
   )

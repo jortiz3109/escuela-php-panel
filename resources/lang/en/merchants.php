@@ -1,8 +1,8 @@
 <?php
 
 return [
+    'entityName' => 'Merchant',
     'titles' => [
-        'index' => 'Merchants',
         'create' => 'Create merchant',
         'edit' => 'Edit merchant',
     ],
@@ -20,18 +20,11 @@ return [
         'merchant_query' => 'Find merchant',
         'name' => 'Name',
         'brand' => 'Brand',
+        'document_type' => 'Document type',
         'document' => 'Document',
         'url' => 'URL',
         'country' => 'Country',
         'currency' => 'Currency',
-    ],
-    'inputs' => [
-        'name' => 'name',
-        'brand' => 'brand',
-        'document' => 'document',
-        'url' => 'url',
-        'country' => 'country_id',
-        'currency' => 'currency_id',
     ],
     'placeholders' => [
         'merchant_query' => 'Search by name, brand or document',
@@ -39,6 +32,7 @@ return [
         'select_currency' => 'Select a currency',
         'name' => 'Enter merchant name...',
         'brand' => 'Enter merchant brand...',
+        'document_type' => 'Search document type...',
         'document' => 'Enter merchant document...',
         'url' => 'Enter merchant URL...',
         'country' => 'Search country...',

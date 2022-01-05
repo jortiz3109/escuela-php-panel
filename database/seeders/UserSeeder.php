@@ -9,8 +9,8 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        User::factory()->enabled()->create([
-            'email' => 'test@test.com',
-        ]);
+        if (config('app.env') !== 'production') {
+            User::factory()->enabled()->create(['name' => 'admin', 'email' => 'admin@email.com']);
+        }
     }
 }

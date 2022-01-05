@@ -1,9 +1,9 @@
-@php /** @var \App\Inputs\Input[] $fields */ @endphp
+@php /** @var \App\ViewComponents\Inputs\Input[] $fields */ @endphp
 @extends('layouts.admin')
 @section('content')
     <template>
         <section>
-            <form id="submit" method="POST" action="{{ $action }}">
+            <form id="submit" method="POST" action="{{ $route }}">
                 @csrf
                 @foreach($fields as $field)
                     {{ $field->render($model) }}

@@ -2,6 +2,7 @@
 
 namespace App\ViewComponents\Inputs;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\View;
 
@@ -12,7 +13,7 @@ abstract class Input
         public string $name,
         public string $placeholder = '',
         public bool $required = false,
-        public string $data = ''
+        public ?Collection $data = null
     ) {
     }
 
