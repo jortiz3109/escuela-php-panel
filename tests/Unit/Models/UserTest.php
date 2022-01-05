@@ -10,10 +10,17 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_has_a_disabled_default_status()
+    public function test_user_has_a_default_disabled_status(): void
     {
         $user = User::factory()->make();
 
         $this->assertEquals(false, $user->isEnabled());
+    }
+
+    public function test_user_has_a_no_verified_email_as_default(): void
+    {
+        $user = User::factory()->make();
+
+        $this->assertEquals(false, $user->isEmailVerified());
     }
 }
