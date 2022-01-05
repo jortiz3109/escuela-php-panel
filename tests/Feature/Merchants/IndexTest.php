@@ -16,6 +16,7 @@ class IndexTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
+    use MerchantTestHelper;
 
     private const MERCHANTS_ROUTE_NAME = 'merchants.index';
 
@@ -44,7 +45,7 @@ class IndexTest extends TestCase
 
     public function test_collection_has_merchants(): void
     {
-        Merchant::factory()->create();
+        $this->fakeMerchant();
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
@@ -56,10 +57,9 @@ class IndexTest extends TestCase
 
     public function test_it_show_merchants_data(): void
     {
-        $merchant = Merchant::factory()->create();
+        $merchant = $this->fakeMerchant();
 
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
-        $response
+        $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME))
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
@@ -98,9 +98,8 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, string $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-
-        $response->assertSessionHasErrors("filters.{$attribute}");
+        $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters))
+            ->assertSessionHasErrors("filters.{$attribute}");
     }
 
     public function filtersProvider(): array

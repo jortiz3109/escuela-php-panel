@@ -45,7 +45,7 @@ class MerchantShowViewModel extends ViewModel
             ],
             'edit' => [
                 'text' => trans('buttons.actions.edit'),
-                'route' => route('merchants.edit', $this->model->getKey()),
+                'route' => $this->model->presenter()->edit(),
             ],
         ];
     }

@@ -13,7 +13,7 @@ class MerchantEditViewModel extends MerchantCreateViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('merchants.show', $this->model),
+                'route' => $this->model->presenter()->show(),
             ],
             'save' => [
                 'text' => trans('common.update'),
@@ -28,6 +28,6 @@ class MerchantEditViewModel extends MerchantCreateViewModel
 
     public function getRoute(): string
     {
-        return route('merchants.update', $this->model);
+        return $this->model->presenter()->update();
     }
 }

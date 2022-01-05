@@ -35,8 +35,7 @@ class MerchantController extends Controller
     {
         $merchant = $action->execute(new Merchant(), $request);
 
-        return redirect()
-            ->route('merchants.show', $merchant)
+        return redirect($merchant->presenter()->show())
             ->with('success', trans('common.alerts.created', ['entityName' => trans('merchants.entityName')]));
     }
 
