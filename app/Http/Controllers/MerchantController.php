@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Actions\Merchants\MerchantStoreOrUpdateAction;
 use App\Http\Requests\Merchants\IndexRequest;
 use App\Http\Requests\Merchants\StoreOrUpdateRequest;
-use App\Http\Requests\Merchants\UpdateRequest;
 use App\Models\Merchant;
 use App\ViewModels\Merchants\MerchantCreateViewModel;
 use App\ViewModels\Merchants\MerchantEditViewModel;
