@@ -9,7 +9,7 @@ use App\ViewComponents\Inputs\TextInput;
 use App\ViewModels\Concerns\HasCollection;
 use App\ViewModels\ViewModel;
 
-class CreateUsersViewModel extends ViewModel
+class UserCreateViewModel extends ViewModel
 {
     use HasCollection;
 

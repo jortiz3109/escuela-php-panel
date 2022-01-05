@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Actions\User\UserStoreAction;
 use App\Events\UserStored;
 use App\Http\Requests\Users\UserCreateRequest;
-use App\ViewModels\Users\CreateUsersViewModel;
+use App\ViewModels\Users\UserCreateViewModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function create(CreateUsersViewModel $viewModel): View
+    public function create(UserCreateViewModel $viewModel): View
     {
         return view('modules.create', $viewModel);
     }
