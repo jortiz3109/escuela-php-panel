@@ -23,4 +23,13 @@ class UserTest extends TestCase
 
         $this->assertEquals(false, $user->isEmailVerified());
     }
+
+    public function test_user_model_can_change_to_disabled()
+    {
+        $user = User::factory()->enabled()->make();
+
+        $user->markAsDisabled();
+
+        $this->assertEquals(false, $user->isEnabled());
+    }
 }
