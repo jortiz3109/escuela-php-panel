@@ -7,7 +7,7 @@ use App\Models\Merchant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class MerchantStoreOrUpdateAction implements ActionContract
+class MerchantUpdateAction implements ActionContract
 {
     /**
      * @param Merchant $merchant

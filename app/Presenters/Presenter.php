@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Presenter
+abstract class Presenter
 {
     protected Model $model;
 
@@ -12,4 +12,10 @@ class Presenter
     {
         $this->model = $model;
     }
+
+    abstract public function show(): string;
+
+    abstract public function edit(): string;
+
+    abstract public function update(): string;
 }

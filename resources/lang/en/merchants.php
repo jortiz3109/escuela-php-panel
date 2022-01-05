@@ -12,6 +12,7 @@ return [
     'fields' => [
         'name'     => 'Name',
         'document' => 'Document',
+        'brand' => 'Brand',
         'url'      => 'Url',
         'country'  => 'Country',
         'currency' => 'Currency',

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Merchants\MerchantStoreOrUpdateAction;
+use App\Actions\Merchants\MerchantStoreAction;
+use App\Actions\Merchants\MerchantUpdateAction;
 use App\Http\Requests\Merchants\IndexRequest;
-use App\Http\Requests\Merchants\StoreOrUpdateRequest;
+use App\Http\Requests\Merchants\StoreRequest;
+use App\Http\Requests\Merchants\UpdateRequest;
 use App\Models\Merchant;
 use App\ViewModels\Merchants\MerchantCreateViewModel;
 use App\ViewModels\Merchants\MerchantEditViewModel;
@@ -31,7 +33,7 @@ class MerchantController extends Controller
         return view('modules.create', $viewModel->model(new Merchant()));
     }
 
-    public function store(StoreOrUpdateRequest $request, MerchantStoreOrUpdateAction $action): RedirectResponse
+    public function store(StoreRequest $request, MerchantStoreAction $action): RedirectResponse
     {
         $merchant = $action->execute(new Merchant(), $request);
 
@@ -44,15 +46,10 @@ class MerchantController extends Controller
         return view('modules.edit', $viewModel->model($merchant));
     }
 
-    public function update(
-        Merchant $merchant,
-        StoreOrUpdateRequest $request,
-        MerchantStoreOrUpdateAction $action
-    ): RedirectResponse {
+    public function update(Merchant $merchant, UpdateRequest $request, MerchantUpdateAction $action): RedirectResponse {
         $merchant = $action->execute($merchant, $request);
 
-        return redirect()
-            ->route('merchants.show', $merchant)
+        return redirect($merchant->presenter()->show())
             ->with('success', trans('common.alerts.updated', ['entityName' => trans('merchants.entityName')]));
     }
 
