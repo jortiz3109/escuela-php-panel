@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
+    Route::resource('users', UserController::class)->only(['edit']);
     Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
     Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);
