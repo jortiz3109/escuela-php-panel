@@ -15,7 +15,5 @@ class UserTest extends TestCase
         $user = User::factory()->make();
 
         $this->assertEquals(false, $user->isEnabled());
-
     }
-
 }
