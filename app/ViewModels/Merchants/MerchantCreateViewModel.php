@@ -42,50 +42,50 @@ class MerchantCreateViewModel extends ViewModel
     protected function fields(): array
     {
         return [
-            new TextInput(
+            TextInput::create(
                 trans('merchants.labels.name'),
                 'name',
                 trans('merchants.placeholders.name'),
-                true
-            ),
-            new TextInput(
+            )->required(),
+
+            TextInput::create(
                 trans('merchants.labels.brand'),
                 'brand',
                 trans('merchants.placeholders.brand'),
-                true
-            ),
-            new AutocompleteInput(
+            )->required(),
+
+            AutocompleteInput::create(
                 trans('merchants.labels.document_type'),
                 'document_type_id',
                 trans('merchants.placeholders.document_type'),
-                true,
-                $this->documentTypes(),
-            ),
-            new NumberInput(
+            )->required()
+                ->setData($this->documentTypes()),
+
+            NumberInput::create(
                 trans('merchants.labels.document'),
                 'document',
                 trans('merchants.placeholders.document'),
-                true
-            ),
-            new URLInput(
+            )->required(),
+
+            URLInput::create(
                 trans('merchants.labels.url'),
                 'url',
                 trans('merchants.placeholders.url'),
-            ),
-            new AutocompleteInput(
+            )->required(),
+
+            AutocompleteInput::create(
                 trans('merchants.labels.country'),
-                'country_id',
+                'country',
                 trans('merchants.placeholders.country'),
-                true,
-                $this->countries(),
-            ),
-            new AutocompleteInput(
+            )->required()
+                ->setData($this->countries()),
+
+            AutocompleteInput::create(
                 trans('merchants.labels.currency'),
-                'currency_id',
+                'currency',
                 trans('merchants.placeholders.currency'),
-                true,
-                $this->currencies(),
-            ),
+            )->required()
+                ->setData($this->currencies()),
         ];
     }
 
