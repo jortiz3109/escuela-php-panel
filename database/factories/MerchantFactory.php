@@ -5,8 +5,13 @@ namespace Database\Factories;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\DocumentType;
+use App\Models\Merchant;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method Merchant create($attributes = [], ?Model $parent = null)
+ */
 class MerchantFactory extends Factory
 {
     public function definition(): array

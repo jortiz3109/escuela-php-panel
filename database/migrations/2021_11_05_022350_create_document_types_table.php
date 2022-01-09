@@ -10,7 +10,7 @@ class CreateDocumentTypesTable extends Migration
     {
         Schema::create('document_types', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 5);
+            $table->string('code', 5)->unique();
             $table->string('name', 50);
             $table->timestamps();
         });

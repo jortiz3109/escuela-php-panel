@@ -1,6 +1,8 @@
 <b-field
+    horizontal
     label="{{ $field->label }}"
-    horizontal>
+    type="@error($field->name) is-danger @enderror"
+    message="@error($field->name) {{ $errors->first($field->name) }} @enderror">
     <b-input
         type="email"
         id="{{ $field->name }}"

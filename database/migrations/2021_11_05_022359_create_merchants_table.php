@@ -14,11 +14,13 @@ class CreateMerchantsTable extends Migration
             $table->foreignId('country_id')->constrained();
             $table->foreignId('currency_id')->constrained();
             $table->foreignId('document_type_id')->constrained();
-            $table->string('document', 30)->unique();
+            $table->string('document', 30);
             $table->string('name', 120)->index();
             $table->string('brand', 120)->index();
             $table->string('url')->nullable();
             $table->string('logo')->nullable();
+
+            $table->index(['document', 'document_type_id']);
             $table->timestamps();
         });
     }

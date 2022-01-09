@@ -2,14 +2,16 @@
 
 namespace App\ViewComponents\Inputs;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class AutocompleteInput extends Input
 {
-    public string $data = '';
     protected string $partial = 'autocomplete';
+    public Collection $data;
 
-    public function setData(array $data): self
+    public function setData(Collection $data): self
     {
-        $this->data = json_encode($data);
+        $this->data = $data;
 
         return $this;
     }
