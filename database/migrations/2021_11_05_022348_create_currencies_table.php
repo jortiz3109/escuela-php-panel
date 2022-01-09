@@ -13,7 +13,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('name', 80);
             $table->unsignedTinyInteger('minor_unit')->nullable();
             $table->char('alphabetic_code', 3);
-            $table->string('symbol', 10);
+            $table->char('symbol', 5);
             $table->timestamp('enabled_at')->nullable();
         });
     }
