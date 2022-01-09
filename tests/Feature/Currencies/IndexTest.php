@@ -32,15 +32,15 @@ class IndexTest extends TestCase
     public function test_it_has_a_collection_of_currencies(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
-        $response->assertViewHas('currencies');
-        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['currencies']);
+        $response->assertViewHas('collection');
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']);
     }
 
     public function test_collection_has_currencies(): void
     {
         Currency::factory()->create();
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
-        $this->assertInstanceOf(Currency::class, $response->getOriginalContent()['currencies']->first());
+        $this->assertInstanceOf(Currency::class, $response->getOriginalContent()['collection']->first());
     }
 
     public function test_it_can_filter_currencies(): void
@@ -56,7 +56,7 @@ class IndexTest extends TestCase
 
         $filters = http_build_query(['filters' => ['name' => $currencyName]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
-        $currencies = $response->getOriginalContent()['currencies'];
+        $currencies = $response->getOriginalContent()['collection'];
 
         $this->assertEquals(1, $currencies->count());
         $this->assertEquals($currencyName, $currencies->first()->name);

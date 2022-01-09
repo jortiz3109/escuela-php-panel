@@ -2,6 +2,7 @@
 
 namespace App\ViewModels\Currencies;
 
+use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\IndexViewModel;
 
@@ -14,6 +15,15 @@ class CurrencyIndexViewModel extends IndexViewModel
         return trans('currencies.titles.index');
     }
 
+    protected function fields(): array
+    {
+        return [
+            'name' => DisplayTextComponent::create('currencies.fields.name'),
+            'alphabetic_code' => DisplayTextComponent::create('currencies.fields.alphabetic_code'),
+            'symbol' => DisplayTextComponent::create('currencies.fields.symbol'),
+        ];
+    }
+
     public function filters(): array
     {
         return [
@@ -24,7 +34,7 @@ class CurrencyIndexViewModel extends IndexViewModel
     protected function data(): array
     {
         return [
-            'currencies' => $this->collection,
+            'collection' => $this->collection,
         ];
     }
 }
