@@ -10,7 +10,7 @@
                             @csrf
 
                             <div class="field">
-                                @lang('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.')
+                                {{ trans('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
                             </div>
 
                             @if (session('status'))
@@ -20,7 +20,7 @@
                             @endif
 
                             <div class="field">
-                                <label for="email" class="label">@lang('E-Mail Address')</label>
+                                <label for="email" class="label">{{ trans('E-Mail Address') }}</label>
 
                                 <div class="control">
                                     <input id="email" type="email" name="email" value="{{ old('email') }}"
@@ -37,7 +37,7 @@
                             <div class="field">
                                 <div class="control">
                                     <button type="submit" class="button is-primary">
-                                        @lang('Email Password Reset Link')
+                                        {{ trans('Email Password Reset Link') }}
                                     </button>
                                 </div>
                             </div>

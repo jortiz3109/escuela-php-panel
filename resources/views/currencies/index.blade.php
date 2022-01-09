@@ -4,16 +4,16 @@
         <caption class="is-hidden">{{ $texts['title'] }}</caption>
         <thead>
         <tr>
-            <th scope="col">@lang('currencies.fields.name')</th>
-            <th scope="col">@lang('currencies.fields.alphabetic_code')</th>
-            <th scope="col" style="min-width: 8em">@lang('currencies.fields.symbol')</th>
+            <th scope="col">{{ trans('currencies.fields.name') }}</th>
+            <th scope="col">{{ trans('currencies.fields.alphabetic_code') }}</th>
+            <th scope="col" style="min-width: 8em">{{ trans('currencies.fields.symbol') }}</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-            <th scope="col">@lang('currencies.fields.name')</th>
-            <th scope="col">@lang('currencies.fields.alphabetic_code')</th>
-            <th scope="col">@lang('currencies.fields.symbol')</th>
+            <th scope="col">{{ trans('currencies.fields.name') }}</th>
+            <th scope="col">{{ trans('currencies.fields.alphabetic_code') }}</th>
+            <th scope="col">{{ trans('currencies.fields.symbol') }}</th>
         </tr>
         </tfoot>
         <tbody>

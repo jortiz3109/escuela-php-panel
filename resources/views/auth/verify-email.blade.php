@@ -6,13 +6,13 @@
 
             <div class="message">
                 <div class="message-body">
-                    @lang('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.')
+                    {{ trans('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
                 </div>
             </div>
 
             @if (session('status') === 'verification-link-sent')
                 <div class="notification is-success is-light">
-                    @lang('A new verification link has been sent to the email address you provided during registration.')
+                    {{ trans('A new verification link has been sent to the email address you provided during registration.') }}
                 </div>
             @endif
 
@@ -22,7 +22,7 @@
 
                     <div class="my-3">
                         <button type="submit" class="button is-primary is-fullwidth">
-                            @lang('Resend Verification Email')
+                            {{ trans('Resend Verification Email') }}
                         </button>
                     </div>
                 </form>
@@ -31,7 +31,7 @@
                     @csrf
 
                     <button type="submit" class="button is-text">
-                        @lang('Logout')
+                        {{ trans('Logout') }}
                     </button>
                 </form>
             </div>
