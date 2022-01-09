@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             PaymentMethodSeeder::class,
             DocumentTypeSeeder::class,
+            PermissionSeeder::class,
         ]);
     }
 }
