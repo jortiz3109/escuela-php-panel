@@ -7,9 +7,9 @@ use Illuminate\Database\Seeder;
 
 class CurrencySeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        $currencies = json_decode(file_get_contents(__DIR__ . '/currencies.json'), true);
+        $currencies = json_decode(file_get_contents(__DIR__ . '/../../resources/data_sources/currencies.json'), true);
 
         foreach ($currencies as $currency) {
             Currency::create([
