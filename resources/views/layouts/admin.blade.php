@@ -33,11 +33,13 @@
 
                         <p class="menu-label">{{ trans('menu.security') }}</p>
                         <ul class="menu-list">
-                            <li>
-                                <a href="{{ route('permissions.index') }}">
-                                    <em class="pr-2 mdi mdi-shield-lock"></em>{{ trans('permissions.navbar.title') }}
-                                </a>
-                            </li>
+                            @can('viewAny', \App\Models\Permission::class)
+                                <li>
+                                    <a href="{{ route('permissions.index') }}">
+                                        <em class="pr-2 mdi mdi-shield-lock"></em>{{ trans('permissions.navbar.title') }}
+                                    </a>
+                                </li>
+                            @endcan
                             <li>
                                 <a href="#"><em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('Users') }}
                                 </a>

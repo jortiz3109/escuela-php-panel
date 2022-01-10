@@ -4,24 +4,23 @@ namespace App\Policies;
 
 use App\Constants\PermissionType;
 use App\Models\Permission;
-use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TransactionPolicy
+class PermissionPolicy
 {
     use HandlesAuthorization;
 
     public function viewAny(User $user): bool
     {
-        return Permission::firstWhere('name', Transaction::PERMISSIONS[PermissionType::INDEX])
+        return Permission::firstWhere('name', Permission::PERMISSIONS[PermissionType::INDEX])
             ->users
             ->contains($user);
     }
 
-    public function view(User $user, Transaction $transaction): bool
+    public function update(User $user, Permission $permission)
     {
-        return Permission::firstWhere('name', Transaction::PERMISSIONS[PermissionType::SHOW])
+        return Permission::firstWhere('name', Permission::PERMISSIONS[PermissionType::UPDATE])
             ->users
             ->contains($user);
     }

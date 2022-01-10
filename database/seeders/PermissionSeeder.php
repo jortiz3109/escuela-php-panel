@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Constants\PermissionType;
 use App\Models\Merchant;
+use App\Models\Permission;
 use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,14 @@ class PermissionSeeder extends Seeder
         [
             'name' => Transaction::PERMISSIONS[PermissionType::SHOW],
             'description' => 'Can show a transaction',
+        ],
+        [
+            'name' => Permission::PERMISSIONS[PermissionType::INDEX],
+            'description' => 'Can list all permissions',
+        ],
+        [
+            'name' => Permission::PERMISSIONS[PermissionType::UPDATE],
+            'description' => 'Can update a permission',
         ],
     ];
 
