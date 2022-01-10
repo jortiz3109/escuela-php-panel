@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
-    Route::resource('users', UserController::class)->only(['edit']);
+    Route::resource('users', UserController::class)->only(['edit', 'update']);
     Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
     Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);

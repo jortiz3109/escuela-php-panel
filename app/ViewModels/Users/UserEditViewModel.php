@@ -55,7 +55,7 @@ class UserEditViewModel extends ViewModel
     {
         return [
             'model' => $this->model,
-            'action' => '',
+            'action' => route('users.update', $this->model->id),
         ];
     }
 }
