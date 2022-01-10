@@ -51,4 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $this->save();
     }
+
+    public function disableEmailVerification(): void
+    {
+        $this->email_verified_at = null;
+
+        $this->save();
+    }
 }

@@ -59,6 +59,17 @@ class UpdateTest extends TestCase
         $response->assertSessionHasErrors($field);
     }
 
+    public function test_a_user_loses_their_email_verification_when_updating_it(): void
+    {
+        $this
+            ->actingAs($this->defaultUser())
+            ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $this->userData());
+
+        $this->user->refresh();
+
+        $this->assertNull($this->user['email_verified_at']);
+    }
+
     public function test_it_can_see_user_data(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME, $this->user->id));
