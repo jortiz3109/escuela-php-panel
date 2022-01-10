@@ -14,7 +14,7 @@ class GoogleMap {
         this.loadMaps().then(() => {
             const map = new google.maps.Map(document.getElementById('map'), {
                 center: LatLng,
-                zoom: 8,
+                zoom: process.env.MIX_DEFAULT_ZOOM_MAP ?? 13,
             })
             new google.maps.Marker({
                 position: LatLng,
