@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         return view('modules.edit', $viewModel->model($user));
     }
-    
+
     // TODO: Change permissions.index with users.index when EP-8 merge
     public function update(UpdateRequest $request, User $user, UserUpdateAction $action)
     {
