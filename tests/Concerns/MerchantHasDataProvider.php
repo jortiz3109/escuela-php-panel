@@ -14,12 +14,12 @@ trait MerchantHasDataProvider
         return Merchant::factory()
             ->for(Country::factory(['name' => 'countryName', 'alpha_two_code' => '12']))
             ->for(Currency::factory(['alphabetic_code' => '123']))
-            ->create([
+            ->create(array_replace([
                 'name' => 'EVERTEC',
                 'brand' => 'PlacetoPay',
                 'document' => '1234567890',
                 'url' => 'https://placetopay.com',
-            ]);
+            ], $attributes));
     }
 
     public function fakeMerchantData(array $attributes = []): array
