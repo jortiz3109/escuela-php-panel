@@ -3,6 +3,7 @@
 namespace App\ViewModels\Transactions;
 
 use App\Http\Resources\Transactions\TransactionShowResource;
+use App\ViewComponents\Display\DisplayCurrencyComponent;
 use App\ViewComponents\Display\DisplayImageComponent;
 use App\ViewComponents\Display\DisplayMapComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
@@ -21,7 +22,7 @@ class TransactionDetailsViewModel extends ViewModel
                 'reference' => DisplayTextComponent::create('transactions.fields.reference'),
                 'payment_method' => DisplayImageComponent::create('transactions.fields.payment_method'),
                 'card_number' => DisplayTextComponent::create('transactions.fields.card_number'),
-                'currency' => DisplayTextComponent::create('transactions.fields.currency'),
+                'currency' => DisplayCurrencyComponent::create('transactions.fields.currency'),
                 'total_amount' => DisplayTextComponent::create('transactions.fields.total_amount'),
                 'status' => DisplayTextComponent::create('transactions.fields.status'),
                 'ip_address' => DisplayTextComponent::create('transactions.fields.total_amount'),
