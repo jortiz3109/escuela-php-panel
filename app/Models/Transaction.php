@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\PermissionType;
 use App\Filters\Concerns\HasFilters;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,11 @@ class Transaction extends Model
 {
     use HasFactory;
     use HasFilters;
+
+    public const PERMISSIONS = [
+        PermissionType::INDEX => 'transaction.index',
+        PermissionType::SHOW => 'transaction.show',
+    ];
 
     protected $casts = [
         'date' => 'datetime',

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Constants\PermissionType;
 use App\Models\Person;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,6 +16,7 @@ class DetailsTest extends TestCase
     use HasAuthenticatedUser;
 
     public const TRANSACTION_DETAILS_ROUTE_NAME = 'transactions.show';
+    private const TRANSACTION_PERMISSION = Transaction::PERMISSIONS[PermissionType::SHOW];
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -22,11 +24,21 @@ class DetailsTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_it_can_render_the_transaction_details_page(): void
+    public function test_an_user_without_permission_cannot_access(): void
     {
         $transaction = Transaction::factory()->create();
 
         $response = $this->actingAs($this->defaultUser())
+            ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function test_it_can_render_the_transaction_details_page(): void
+    {
+        $transaction = Transaction::factory()->create();
+
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertStatus(Response::HTTP_OK);
@@ -36,7 +48,7 @@ class DetailsTest extends TestCase
     {
         $transaction = Transaction::factory()->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertViewHas('transaction');
@@ -48,7 +60,7 @@ class DetailsTest extends TestCase
     {
         $transaction = Transaction::factory()->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertSee($transaction->merchant->name)
@@ -71,7 +83,7 @@ class DetailsTest extends TestCase
             ]), 'payer')
             ->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertSee('payer-name');
@@ -87,7 +99,7 @@ class DetailsTest extends TestCase
             ]), 'payer')
             ->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertSee('buyer-name');

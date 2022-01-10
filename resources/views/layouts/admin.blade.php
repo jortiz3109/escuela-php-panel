@@ -10,7 +10,13 @@
                     <aside class="menu">
                         <p class="menu-label">{{ trans('menu.administration') }}</p>
                         <ul class="menu-list">
-                            <li><a href="{{ route('transactions.index') }}"><em class="pr-2 mdi mdi-cash"></em>{{ trans('transactions.navbar.title') }}</a></li>
+                            @can('viewAny', \App\Models\Transaction::class)
+                                <li>
+                                    <a href="{{ route('transactions.index') }}">
+                                        <em class="pr-2 mdi mdi-cash"></em>{{ trans('transactions.navbar.title') }}
+                                    </a>
+                                </li>
+                            @endcan
                             @can('viewAny', \App\Models\Merchant::class)
                                 <li>
                                     <a href="{{ route('merchants.index') }}">

@@ -14,6 +14,8 @@ class TransactionController extends Controller
     public function __construct()
     {
         $this->middleware('date_between')->only('index');
+
+        $this->authorizeResource(Transaction::class, 'transaction');
     }
 
     /**
