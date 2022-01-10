@@ -2,34 +2,45 @@
 
 namespace Tests\Feature\Merchants;
 
+use App\Constants\PermissionType;
+use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\MerchantHasDataProvider;
 use Tests\TestCase;
 
 class EditTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
-    use MerchantTestHelper;
+    use MerchantHasDataProvider;
+
+    private const MERCHANT_PERMISSION = Merchant::PERMISSIONS[PermissionType::UPDATE];
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $this->get($this->fakeMerchant()->presenter()->edit())
+        $this->get($this->createMerchantWithData()->presenter()->edit())
             ->assertRedirect(route('login'));
+    }
+
+    public function test_an_user_without_permission_cannot_create_a_merchant(): void
+    {
+        $this->actingAs($this->defaultUser())->get($this->createMerchantWithData()->presenter()->edit())
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     public function test_it_can_edit_merchants(): void
     {
-        $this->actingAs($this->defaultUser())->get($this->fakeMerchant()->presenter()->edit())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($this->createMerchantWithData()->presenter()->edit())
             ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_loads_default_merchant_data(): void
     {
-        $merchant = $this->fakeMerchant();
+        $merchant = $this->createMerchantWithData();
 
-        $this->actingAs($this->defaultUser())->get($merchant->presenter()->edit())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($merchant->presenter()->edit())
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)

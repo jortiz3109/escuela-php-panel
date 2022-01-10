@@ -7,8 +7,8 @@ use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\Concerns\PermissionHasDataProvider;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class IndexTest extends TestCase

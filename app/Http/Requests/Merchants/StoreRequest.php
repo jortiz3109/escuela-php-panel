@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Merchants;
 
+use App\Models\Merchant;
 use App\Rules\ValidUrlRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -10,7 +11,7 @@ class StoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create', Merchant::class);
     }
 
     public function rules(): array

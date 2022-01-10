@@ -11,14 +11,16 @@
                         <p class="menu-label">{{ trans('menu.administration') }}</p>
                         <ul class="menu-list">
                             <li><a href="{{ route('transactions.index') }}"><em class="pr-2 mdi mdi-cash"></em>{{ trans('transactions.navbar.title') }}</a></li>
-                            <li>
-                                <a href="{{ route('merchants.index') }}">
-                                    <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>{{ trans('merchants.navbar.title') }}
-                                </a>
-                                <ul>
-                                    <li><a>Payment methods</a></li>
-                                </ul>
-                            </li>
+                            @can('viewAny', \App\Models\Merchant::class)
+                                <li>
+                                    <a href="{{ route('merchants.index') }}">
+                                        <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>{{ trans('merchants.navbar.title') }}
+                                    </a>
+                                    <ul>
+                                        <li><a>Payment methods</a></li>
+                                    </ul>
+                                </li>
+                            @endcan
                             <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
                             <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('Currencies') }}</a></li>
                         </ul>

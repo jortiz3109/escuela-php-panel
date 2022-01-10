@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\PermissionType;
 use App\Filters\Concerns\HasFilters;
 use App\Presenters\MerchantPresenter;
 use Database\Factories\MerchantFactory;
@@ -17,6 +18,13 @@ class Merchant extends Model
 {
     use HasFactory;
     use HasFilters;
+
+    public const PERMISSIONS = [
+        PermissionType::INDEX => 'merchant.index',
+        PermissionType::SHOW => 'merchant.show',
+        PermissionType::CREATE => 'merchant.create',
+        PermissionType::UPDATE => 'merchant.update',
+    ];
 
     public function country(): BelongsTo
     {
