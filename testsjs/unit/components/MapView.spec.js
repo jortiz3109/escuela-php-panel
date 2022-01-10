@@ -9,7 +9,8 @@ describe('MapView.vue', () => {
     let wrapper
     let options = {
         propsData: {
-            ip: '11.00000'
+            lat: '11.00000',
+            lbg: '-77.0000'
         }
     }
     test('it must fail when ip is not set', async () => {
@@ -25,7 +26,7 @@ describe('MapView.vue', () => {
         await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
         expect(wrapper.vm.mapError).toBeTruthy()
-        expect(wrapper.html()).toContain('Map Error')
+        expect(wrapper.html()).toContain('Error while rendering map')
         expect(wrapper.html()).not.toContain('id="map"')
     })
 
@@ -41,7 +42,7 @@ describe('MapView.vue', () => {
         await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
         expect(wrapper.vm.mapError).toBeFalsy()
-        expect(wrapper.html()).not.toContain('Map Error')
+        expect(wrapper.html()).not.toContain('Error while rendering map')
         expect(wrapper.html()).toContain('id="map"')
     })
 })

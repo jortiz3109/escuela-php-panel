@@ -1,3 +1,3 @@
 <div class="map-container is-fullwidth">
-    <p-map-view :ip="'{{ $value }}'"></p-map-view>
+    <p-map-view :lat="'{{ $value['latitude'] }}'" :lng="'{{ $value['longitude'] }}'"></p-map-view>
 </div>

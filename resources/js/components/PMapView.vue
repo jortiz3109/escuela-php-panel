@@ -2,23 +2,25 @@
     <div class="container-fluid">
         <div id="map" class="is-full" v-if="!mapError"></div>
         <div class="container has-text-centered" v-else>
-            <img id="map-error" :src="'/img/mapError.png'" alt="Map Error">
+            <img id="map-error" :src="'/img/mapError.png'" alt="Error while rendering map">
         </div>
     </div>
 </template>
 
 <script>
 import Map from '../maps/map'
-import GeoIP from '../maps/services/GeoIP'
 
 export default {
     name: 'PMapView',
     props: {
-        ip: {
-            type: String,
-            default: null,
+        lat: {
+            type: Number,
             required: true
         },
+        lng: {
+            type: Number,
+            required: true
+        }
     },
     data: () => {
         return {
@@ -26,18 +28,17 @@ export default {
         }
     },
     methods: {
-        getCoords(ip) {
-            GeoIP.getLocation(ip).then(res => {
-                const lat = res.data.latitude
-                const long = res.data.longitude
-                Map.renderMap({lat: lat, lng: long})
-            }).catch(() => {
-                this.mapError = true
-            })
+        renderMap() {
+            Map.renderMap({lat: this.lat, lng: this.lng})
         },
     },
-    async mounted() {
-        await this.getCoords(this.ip)
+    mounted() {
+        try {
+            this.renderMap()
+        } catch (e) {
+            console.log(e)
+            this.mapError = true
+        }
     },
 }
 </script>
