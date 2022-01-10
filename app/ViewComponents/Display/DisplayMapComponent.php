@@ -11,10 +11,10 @@ class DisplayMapComponent extends DisplayComponent
         return view('partials.display.table.th-empty');
     }
 
-    public function renderField(array $model, string $key): View
+    public function renderField(array $resource, string $key): View
     {
         return view('partials.display.map', [
-            'value' => $model[$key],
+            'value' => $resource[$key],
         ]);
     }
 }
