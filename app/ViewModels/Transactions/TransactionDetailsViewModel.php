@@ -17,7 +17,7 @@ class TransactionDetailsViewModel extends ViewModel
     protected function fields(): array
     {
         return [
-            trans('transactions.titles.data') => [
+            'transactions.titles.data' => [
                 'merchant' => DisplayTextComponent::create('transactions.fields.merchant'),
                 'reference' => DisplayTextComponent::create('transactions.fields.reference'),
                 'payment_method' => DisplayImageComponent::create('transactions.fields.payment_method'),
@@ -28,14 +28,14 @@ class TransactionDetailsViewModel extends ViewModel
                 'ip_address' => DisplayTextComponent::create('transactions.fields.total_amount'),
                 'executed_at' => DisplayTextComponent::create('transactions.fields.executed'),
             ],
-            trans('transactions.fields.geolocation') => [
+            'transactions.fields.geolocation' => [
                 'geolocation' => DisplayMapComponent::create('transactions.fields.geolocation'),
             ],
-            trans('transactions.titles.payer') => [
+            'transactions.titles.payer' => [
                 'payer_name' => DisplayTextComponent::create('common.fields.name'),
                 'payer_email' => DisplayTextComponent::create('common.fields.email'),
             ],
-            trans('transactions.titles.buyer') => [
+            'transactions.titles.buyer' => [
                 'buyer_name' => DisplayTextComponent::create('common.fields.name'),
                 'buyer_email' => DisplayTextComponent::create('common.fields.email'),
             ],

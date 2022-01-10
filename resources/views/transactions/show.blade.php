@@ -6,7 +6,7 @@
                 @foreach($fields as $name => $section)
                     <div class="columns">
                         <div class="column is-one-quarter">
-                            <h3 class="title is-5">{{ $name }}</h3>
+                            <h3 class="title is-5">{{ trans($name) }}</h3>
                         </div>
                         <div class="column is-dark table-container">
                             <table class="table is-borderless is-fullwidth">
