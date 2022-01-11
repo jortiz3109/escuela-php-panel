@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentMethod extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
+
+    public function scopeEnabled(Builder $query): Builder
+    {
+        return $query->where('enabled', true);
+    }
 }
