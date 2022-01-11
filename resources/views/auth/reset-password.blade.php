@@ -2,7 +2,7 @@
 @section('content')
     <div class="card mt-6">
         <div class="card-header">
-            <h3 class="card-header-title">@lang('Reset Password')</h3>
+            <h3 class="card-header-title">{{ trans('Reset Password') }}</h3>
         </div>
 
         <div class="card-content">
@@ -12,7 +12,7 @@
                 <input type="hidden" name="token" value="{{ request()->route('token') }}">
 
                 <div class="field">
-                    <label for="email" class="label">@lang('E-Mail Address')</label>
+                    <label for="email" class="label">{{ trans('E-Mail Address') }}</label>
 
                     <div class="control">
                         <input id="email" type="email" name="email" value="{{ old('email', request()->email) }}"
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="field">
-                    <label for="password" class="label">@lang('Password')</label>
+                    <label for="password" class="label">{{ trans('Password') }}</label>
 
                     <div class="control">
                         <input id="password" type="password" name="password"
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="field">
-                    <label for="password-confirm" class="label">@lang('Confirm Password')</label>
+                    <label for="password-confirm" class="label">{{ trans('Confirm Password') }}</label>
 
                     <div class="control">
                         <input id="password-confirm" type="password" name="password_confirmation"
@@ -59,7 +59,7 @@
                 <div class="field">
                     <div class="control">
                         <button type="submit" class="button is-primary">
-                            @lang('Reset Password')
+                            {{ trans('Reset Password') }}
                         </button>
                     </div>
                 </div>

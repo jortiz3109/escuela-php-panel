@@ -4,20 +4,20 @@
         <caption class="is-hidden">{{ $texts['title'] }}</caption>
         <thead>
         <tr>
-            <th scope="col">@lang('merchants.fields.name')</th>
-            <th scope="col">@lang('merchants.fields.document')</th>
-            <th scope="col">@lang('merchants.fields.url')</th>
-            <th scope="col">@lang('merchants.fields.country')</th>
-            <th scope="col">@lang('merchants.fields.currency')</th>
+            <th scope="col">{{ trans('merchants.fields.name') }}</th>
+            <th scope="col">{{ trans('merchants.fields.document') }}</th>
+            <th scope="col">{{ trans('merchants.fields.url') }}</th>
+            <th scope="col">{{ trans('merchants.fields.country') }}</th>
+            <th scope="col">{{ trans('merchants.fields.currency') }}</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-            <th scope="col">@lang('merchants.fields.name')</th>
-            <th scope="col">@lang('merchants.fields.document')</th>
-            <th scope="col">@lang('merchants.fields.url')</th>
-            <th scope="col">@lang('merchants.fields.country')</th>
-            <th scope="col">@lang('merchants.fields.currency')</th>
+            <th scope="col">{{ trans('merchants.fields.name') }}</th>
+            <th scope="col">{{ trans('merchants.fields.document') }}</th>
+            <th scope="col">{{ trans('merchants.fields.url') }}</th>
+            <th scope="col">{{ trans('merchants.fields.country') }}</th>
+            <th scope="col">{{ trans('merchants.fields.currency') }}</th>
         </tr>
         </tfoot>
         <tbody>

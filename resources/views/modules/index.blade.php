@@ -17,10 +17,10 @@
             </tr>
         </tfoot>
         <tbody>
-        @foreach($collection->toArray(request()) as $item)
+        @foreach($collection as $item)
             <tr>
                 @foreach($fields as $field => $viewComponent)
-                    {{ $viewComponent->renderField($item, $field) }}
+                    {{ $viewComponent->renderField($item->toArray(), $field) }}
                 @endforeach
             </tr>
         @endforeach
