@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Filters\Concerns\HasFilters;
 use App\Models\Concerns\HasToggle;
 use App\Models\Contracts\ToggleInterface;
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;

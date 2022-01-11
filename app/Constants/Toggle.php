@@ -12,6 +12,6 @@ class Toggle
 
     public const TOGGLEABLE = [
         self::USER => User::class,
-        self::PAYMENT_METHOD => PaymentMethod::class
+        self::PAYMENT_METHOD => PaymentMethod::class,
     ];
 }

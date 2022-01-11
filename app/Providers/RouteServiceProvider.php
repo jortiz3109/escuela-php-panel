@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Constants\Toggle;
 use App\Models\Contracts\ToggleInterface;
 use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
