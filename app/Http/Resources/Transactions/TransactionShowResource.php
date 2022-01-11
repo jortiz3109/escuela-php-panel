@@ -24,7 +24,7 @@ class TransactionShowResource extends JsonResource
             'executed_at' => $this->resource->executed_at,
             'geolocation' => [
                 'latitude' => $this->resource->latitude,
-                'longitude' => $this->resource->longitude
+                'longitude' => $this->resource->longitude,
             ],
             'payer_name' => $this->resource->payer->name,
             'payer_email' => $this->resource->payer->email,

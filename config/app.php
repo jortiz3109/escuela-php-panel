@@ -179,6 +179,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\FortifyViewServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        \App\Providers\LocationProvider::class,
 
     ],
 
