@@ -9,11 +9,6 @@ class MerchantIndexViewModel extends IndexViewModel
 {
     use HasPaginator;
 
-    protected function buttons(): array
-    {
-        return [];
-    }
-
     protected function title(): string
     {
         return trans('merchants.titles.index');
