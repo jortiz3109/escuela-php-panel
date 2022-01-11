@@ -50,7 +50,10 @@ class IndexTest extends TestCase
     public function test_it_show_permissions_data(array $data): void
     {
         $permission = Permission::factory()->create($data);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
+        $filters = http_build_query(['filters' => ['name' => $data['name']]]);
+
+        $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
+
         $response->assertSee($permission->name);
         $response->assertSee($permission->description);
     }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CountrySeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         DB::table('countries')->insert([
             [
