@@ -38,8 +38,9 @@ class RouteServiceProvider extends ServiceProvider
             $model = Route::current()->parameter('model');
             $id = Route::current()->parameter('id');
             $modelClass = Toggle::TOGGLEABLE[$model];
-            return $modelClass::find($id);
+            return $modelClass::findOrFail($id);
         });
+
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
