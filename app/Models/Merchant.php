@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
-use App\Presenters\MerchantPresenter;
+use App\Presenters\MerchantUrlPresenter;
 use Database\Factories\MerchantFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,8 +38,8 @@ class Merchant extends Model
         return $this->belongsTo(DocumentType::class);
     }
 
-    public function presenter(): MerchantPresenter
+    public function urlPresenter(): MerchantUrlPresenter
     {
-        return new MerchantPresenter($this);
+        return new MerchantUrlPresenter($this);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-class MerchantPresenter extends Presenter
+class MerchantUrlPresenter extends Presenter
 {
     public function show(): string
     {

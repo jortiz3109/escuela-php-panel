@@ -17,7 +17,7 @@ class UpdateTest extends TestCase
         $merchant = $this->fakeMerchant();
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->put($this->fakeMerchant()->presenter()->update())
+        $this->put($this->fakeMerchant()->urlPresenter()->update())
             ->assertRedirect(route('login'));
 
         unset($fakeMerchantData['uuid']);
@@ -33,8 +33,8 @@ class UpdateTest extends TestCase
         $fakeMerchantData = $this->fakeMerchantData();
 
         $this->actingAs($this->defaultUser())
-            ->put($merchant->presenter()->update(), $fakeMerchantData)
-            ->assertRedirect($merchant->presenter()->show());
+            ->put($merchant->urlPresenter()->update(), $fakeMerchantData)
+            ->assertRedirect($merchant->urlPresenter()->show());
 
         unset($fakeMerchantData['uuid']);
 

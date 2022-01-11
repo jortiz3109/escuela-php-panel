@@ -14,7 +14,7 @@ class ShowTest extends TestCase
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $this->get($this->fakeMerchant()->presenter()->show())
+        $this->get($this->fakeMerchant()->urlPresenter()->show())
             ->assertRedirect(route('login'));
     }
 
@@ -22,14 +22,14 @@ class ShowTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get($merchant->presenter()->show())
+        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->show())
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
             ->assertSee($merchant->url)
             ->assertSee($merchant->country->name)
             ->assertSee($merchant->currency->alphabetic_code)
-            ->assertSee($merchant->presenter()->edit())
+            ->assertSee($merchant->urlPresenter()->edit())
             ->assertSee(route('merchants.index'))
             ->assertStatus(200);
     }
