@@ -79,8 +79,8 @@ class IndexTest extends TestCase
         $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
         User::factory()->create($userData);
-        $filters = http_build_query($filters);
-        $response = $this->actingAs($this->defaultUser())->get(self::FILTER_URI . $filters);
+
+        $response = $this->actingAs($this->defaultUser())->get(self::FILTER_URI . http_build_query(['filters' => $filters]));
         $users = $response->getOriginalContent()['users'];
 
         $this->assertCount(1, $users);
