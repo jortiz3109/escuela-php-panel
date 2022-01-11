@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Filters\Concerns\HasFilters;
+use App\Models\Concerns\HasToggle;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +17,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use HasFilters;
+    use HasToggle;
 
     protected $fillable = [
         'name',
@@ -30,6 +35,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = [
+        'enabled_at',
+    ];
+
     public function logins(): HasMany
     {
         return $this->hasMany(LoginLog::class);
@@ -42,7 +51,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isEnabled(): bool
     {
-        return null !== $this->enabled_at;
+        return !is_null($this->enabled_at);
+    }
+
+    public function isVerified(): bool
+    {
+        return !is_null($this->email_verified_at);
+    }
+
+    public function markAsEnabled(): void
+    {
+        $this->enabled_at = Carbon::now()->toDateTimeString();
+
+        $this->save();
     }
 
     public function markAsDisabled(): void
