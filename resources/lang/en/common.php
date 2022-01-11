@@ -5,4 +5,5 @@ return [
     'save' => 'Save',
     'back' => 'Back',
     'actions' => 'Actions',
+    'payment_methods' => 'Payment Methods'
 ];
