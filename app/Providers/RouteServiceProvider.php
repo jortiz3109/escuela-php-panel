@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Constants\Toggle;
+use App\Models\Contracts\ToggleInterface;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -32,6 +35,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+        $this->app->bind(ToggleInterface::class, function () {
+            $model = Route::current()->parameter('model');
+            $id = Route::current()->parameter('id');
+            $modelClass = Toggle::TOGGLEABLE[$model];
+            return $modelClass::find($id);
+        });
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')

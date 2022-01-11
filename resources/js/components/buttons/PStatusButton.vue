@@ -1,8 +1,8 @@
 <template>
-    <button type="button" class="button" @click="switchUserStatus" :class="buttonColor" :disabled="!emailVerified">
+    <button type="button" class="button" @click="switchUserStatus" :class="buttonColor" :disabled="!buttonEnabled">
         <span>{{ isEnabled ? 'Enabled' : 'Disabled' }}</span>
         <b-icon
-            v-if="!emailVerified"
+            v-if="!buttonEnabled"
             icon="cancel"
             size="is-small">
         </b-icon>
@@ -21,9 +21,10 @@ export default {
     name: 'StatusButton',
     props: {
         url: { type: String, required: true },
-        userId: { type: String, required: true },
+        id: { type: String, required: true },
+        model: { type: String, required: true },
         isEnabled: { type: String, required: true },
-        emailVerified: { type: String, required: true }
+        buttonEnabled: { type: String, required: true }
     },
     computed: {
         buttonColor: function () {
@@ -32,8 +33,8 @@ export default {
     },
     methods: {
         switchUserStatus: async function () {
-            if (!this.$props.emailVerified) return;
-            const response = await axios.get(`${this.$props.url}/api/toggle-user-status/${this.$props.userId}`);
+            if (!this.buttonEnabled) return;
+            const response = await axios.patch(`${this.url}/api/toggle/${this.model}/${this.id}`);
             this.isEnabled = !!response.data.enabled_at;
         }
     }

@@ -17,7 +17,7 @@ class CreateMerchantPaymentMethodTable extends Migration
             $table->id();
             $table->foreignId('merchant_id')->constrained('merchants');
             $table->foreignId('payment_method_id')->constrained('payment_methods');
-            $table->boolean('enabled')->default(true);
+            $table->timestamp('enabled_at')->nullable();
         });
     }
 

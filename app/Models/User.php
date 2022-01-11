@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
 use App\Models\Concerns\HasToggle;
+use App\Models\Contracts\ToggleInterface;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
 {
     use HasApiTokens;
     use HasFactory;
@@ -47,29 +48,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function knowDevices(): HasMany
     {
         return $this->hasMany(KnowDevice::class);
-    }
-
-    public function isEnabled(): bool
-    {
-        return !is_null($this->enabled_at);
-    }
-
-    public function isVerified(): bool
-    {
-        return !is_null($this->email_verified_at);
-    }
-
-    public function markAsEnabled(): void
-    {
-        $this->enabled_at = Carbon::now()->toDateTimeString();
-
-        $this->save();
-    }
-
-    public function markAsDisabled(): void
-    {
-        $this->enabled_at = null;
-
-        $this->save();
     }
 }

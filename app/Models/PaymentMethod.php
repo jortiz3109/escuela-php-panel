@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Concerns\HasToggle;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentMethod extends Model
 {
+    use HasToggle;
+
     public $timestamps = false;
     protected $guarded = [];
-
-    public function scopeEnabled(Builder $query): Builder
-    {
-        return $query->where('enabled', true);
-    }
 }

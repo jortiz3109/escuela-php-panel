@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\UserStatusController;
+use App\Http\Controllers\Api\ToggleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/toggle-user-status/{user}', [UserStatusController::class, 'toggle'])->name('users.status.toggle');
+Route::patch('/toggle/{model}/{id}', [ToggleController::class, 'toggle'])->name('toggle');
