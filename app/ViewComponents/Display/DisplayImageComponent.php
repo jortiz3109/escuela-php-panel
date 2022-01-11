@@ -5,13 +5,13 @@ namespace App\ViewComponents\Display;
 use App\Helpers\CssHelper;
 use Illuminate\View\View;
 
-class DisplayExternalURLComponent extends DisplayComponent
+class DisplayImageComponent extends DisplayComponent
 {
     public function renderField(array $resource, string $key): View
     {
-        return view('partials.display.url', [
+        return view('partials.display.image', [
             'url' => $resource[$key],
-            'class' => CssHelper::getPositionClass($this->valuePosition),
+            'valueClass' => CssHelper::getPositionClass($this->valuePosition),
         ]);
     }
 }
