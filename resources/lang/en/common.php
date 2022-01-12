@@ -9,4 +9,6 @@ return [
     'responses' => [
         'updated' => ':model updated successfully!',
     ],
+    'status' => 'Status',
+    'logo' => 'Logo',
 ];

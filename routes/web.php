@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -21,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+    Route::resource('payment_methods', PaymentMethodController::class)->only('index');
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 

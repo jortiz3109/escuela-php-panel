@@ -13,6 +13,7 @@ class PaymentMethodStatusController extends Controller
         $paymentMethod->toggle();
 
         return response()->json([
+            'enabled_at' => $paymentMethod->isEnabled(),
             'message' => trans('common.responses.updated', ['model' => 'payment method']),
         ]);
     }
