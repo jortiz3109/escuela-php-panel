@@ -27,6 +27,8 @@ class TransactionFactory extends Factory
             'total_amount' => $this->faker->numberBetween(1, 999999),
             'status' => $this->faker->randomElement(TransactionStatus::STATUSES),
             'ip_address' => $this->faker->ipv4(),
+            'latitude' => $this->faker->latitude(),
+            'longitude' => $this->faker->longitude(),
             'date' => $this->faker->dateTime(),
         ];
     }
