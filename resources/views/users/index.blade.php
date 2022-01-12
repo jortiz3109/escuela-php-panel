@@ -26,7 +26,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ \App\Helpers\DateHelper::toDateString($user->created_at) }}</td>
                 <td>
-                    <p-status-button url="{{ config('app.url') }}" id="{{ $user->id }}" model="{{ \App\Constants\Toggle::USER }}" is-enabled="{{ $user->isEnabled() }}" button-Enabled="{{ $user->isVerified() }}"></p-status-button>
+                    <p-status-button url="{{ route('users.status.toggle', [$user->id]) }}" is-enabled="{{ $user->isEnabled() }}" button-Enabled="{{ $user->isVerified() }}"></p-status-button>
                 </td>
             </tr>
         @endforeach

@@ -5,5 +5,8 @@ return [
     'save' => 'Save',
     'back' => 'Back',
     'actions' => 'Actions',
-    'payment_methods' => 'Payment Methods'
+    'payment_methods' => 'Payment Methods',
+    'responses' => [
+        'updated' => ':model updated successfully!',
+    ],
 ];

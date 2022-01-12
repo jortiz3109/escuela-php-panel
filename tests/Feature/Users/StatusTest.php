@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Users;
 
-use App\Constants\Toggle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
@@ -17,7 +16,7 @@ class StatusTest extends TestCase
     {
         $user = $this->enabledUser();
 
-        $this->actingAs($this->enabledUser())->patch(route('toggle', [Toggle::USER, $user->id]))
+        $this->actingAs($this->enabledUser())->patch(route('users.status.toggle', [$user->id]))
             ->assertStatus(Response::HTTP_OK);
 
         $user = $user->fresh();
@@ -28,7 +27,7 @@ class StatusTest extends TestCase
     {
         $user = $this->defaultUser();
 
-        $this->actingAs($user)->patch(route('toggle', [Toggle::USER, $user->id]))
+        $this->actingAs($user)->patch(route('users.status.toggle', [$user->id]))
             ->assertStatus(Response::HTTP_OK);
 
         $user = $user->fresh();

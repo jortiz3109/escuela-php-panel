@@ -21,8 +21,6 @@ export default {
     name: 'StatusButton',
     props: {
         url: { type: String, required: true },
-        id: { type: String, required: true },
-        model: { type: String, required: true },
         isEnabled: { type: String, required: true },
         buttonEnabled: { type: String, required: true }
     },
@@ -34,7 +32,7 @@ export default {
     methods: {
         switchUserStatus: async function () {
             if (!this.buttonEnabled) return;
-            const response = await axios.patch(`${this.url}/api/toggle/${this.model}/${this.id}`);
+            const response = await axios.patch(`${this.url}`);
             this.isEnabled = !!response.data.enabled_at;
         }
     }
