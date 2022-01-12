@@ -72,7 +72,7 @@ class IndexTest extends TestCase
         $paymentMethods = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $paymentMethods);
-        $response->assertSee($attribute === 'name'? $showedValue : $filterValue);
+        $response->assertSee($attribute === 'name' ? $showedValue : $filterValue);
     }
 
     /**
@@ -100,7 +100,7 @@ class IndexTest extends TestCase
                 'attribute' => 'enabled_at',
                 'filterValue' => 'enabled',
                 'showedValue' => '2021-01-01',
-            ]
+            ],
         ];
     }
 

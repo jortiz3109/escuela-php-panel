@@ -19,7 +19,7 @@ class PaymentMethodsIndexViewModel extends IndexViewModel
             'back' => [
                 'text' => trans('buttons.actions.back'),
                 'route' => route('dashboard'),
-            ]
+            ],
         ];
     }
 
