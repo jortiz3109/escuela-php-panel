@@ -13,7 +13,7 @@ class PaymentMethodFilters extends Filter
 
     protected array $applicableConditions = [
         'name' => Name::class,
-        'status' => Status::class,
+        'status_enabled' => Status::class,
     ];
 
     protected function select(): Filter

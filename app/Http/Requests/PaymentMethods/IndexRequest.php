@@ -14,8 +14,8 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filters.status' => ['bail', 'nullable', 'bool'],
-            'filters.name' => ['bail', 'nullable', 'exists:payment_methods,name'],
+            'filters.status_enabled' => ['bail', 'nullable', 'in:enabled,disabled'],
+            'filters.name' => ['bail', 'nullable', 'min:3', 'string'],
         ];
     }
 }

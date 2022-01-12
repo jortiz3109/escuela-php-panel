@@ -15,7 +15,12 @@ class PaymentMethodsIndexViewModel extends IndexViewModel
 
     protected function buttons(): array
     {
-        return [];
+        return [
+            'back' => [
+                'text' => trans('buttons.actions.back'),
+                'route' => route('dashboard'),
+            ]
+        ];
     }
 
     protected function title(): string
@@ -27,7 +32,7 @@ class PaymentMethodsIndexViewModel extends IndexViewModel
     {
         return [
             'name' => old('filters.name') ?? request()->input('filters.name'),
-            'enabled_at' => old('filters.enabled') ?? request()->input('filters.enabled'),
+            'status_enabled' => old('filters.status_enabled') ?? request()->input('filters.status_enabled'),
         ];
     }
 

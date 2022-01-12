@@ -11,4 +11,8 @@ return [
     ],
     'status' => 'Status',
     'logo' => 'Logo',
+    'status_enabled' => [
+        'enabled' => 'Enabled',
+        'disabled' => 'Disabled',
+    ]
 ];
