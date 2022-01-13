@@ -71,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('partials.alert')
                     @includeWhen(isset($filters) && count($filters), 'filters', ['filters' => $filters ?? []])
                     <div class="box block">
                         @yield('content')

@@ -18,13 +18,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
-
-    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
-
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
+    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+    Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);
 
     Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
 });
