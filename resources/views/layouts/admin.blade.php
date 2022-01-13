@@ -15,12 +15,12 @@
                                 <a href="{{ route('merchants.index') }}">
                                     <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>{{ trans('merchants.navbar.title') }}
                                 </a>
-                                <ul>
-                                    <li><a>Payment methods</a></li>
-                                </ul>
                             </li>
-                            <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
+                            <li><a href="{{ route('countries.index') }}"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('countries.navbar.title') }}</a></li>
                             <li><a href="{{ route('currencies.index') }}"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('currencies.navbar.title') }}</a></li>
+                            <li><a href="{{ route('payment-methods.index') }}"><em class="pr-2 mdi mdi-card-account-details"></em>{{ trans('common.payment_methods') }}</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
+                            <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('Currencies') }}</a></li>
                         </ul>
 
                         <p class="menu-label">{{ trans('menu.security') }}</p>
@@ -31,7 +31,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{route('users.index')}}"><em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('users.titles.entity') }}
+                                <a href="{{ route('users.index') }}"><em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('users.navbar.title') }}
                                 </a>
                             </li>
                             <li>
@@ -71,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('partials.alert')
                     @includeWhen(isset($filters) && count($filters), 'filters', ['filters' => $filters ?? []])
                     <div class="box block">
                         @yield('content')

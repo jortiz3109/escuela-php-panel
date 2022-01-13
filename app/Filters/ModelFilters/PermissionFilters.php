@@ -16,7 +16,7 @@ class PermissionFilters extends Filter
 
     protected function select(): Filter
     {
-        $this->query->select(['name', 'description', 'created_at']);
+        $this->query->select(['id', 'name', 'description', 'created_at']);
         return $this;
     }
 }

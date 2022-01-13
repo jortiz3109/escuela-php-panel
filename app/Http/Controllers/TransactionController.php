@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\SaveTransactionLocation;
+use App\Actions\Transactions\SaveTransactionLocation;
 use App\Http\Requests\Transactions\IndexRequest;
 use App\Models\Transaction;
 use App\ViewModels\Transactions\TransactionDetailsViewModel;

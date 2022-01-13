@@ -37,7 +37,7 @@ trait UserIndexDataProvider
                 'filters' => [
                     'email' => 'filter@test.com',
                     'created_at' => '2021-11-12',
-                    'enabled_at' => false,
+                    'enabled_at' => null,
                 ],
                 'user_data_creation' => [
                     'name' => 'test',

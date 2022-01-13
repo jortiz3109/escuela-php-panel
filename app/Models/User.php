@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
+use App\Models\Concerns\HasToggle;
+use App\Models\Contracts\ToggleInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,22 +12,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
     use HasFilters;
+    use HasToggle;
 
     protected $fillable = [
         'name',
         'email',
         'password',
-    ];
-
-    protected $appends = [
-        'date_formatted',
-        'status',
     ];
 
     protected $hidden = [
@@ -49,27 +47,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function knowDevices(): HasMany
     {
         return $this->hasMany(KnowDevice::class);
-    }
-
-    public function isEnabled(): bool
-    {
-        return null !== $this->enabled_at;
-    }
-
-    public function markAsDisabled(): void
-    {
-        $this->enabled_at = null;
-
-        $this->save();
-    }
-
-    public function getDateFormattedAttribute(): string
-    {
-        return date('d-m-Y', strtotime($this->attributes['created_at']));
-    }
-
-    public function getStatusAttribute(): string
-    {
-        return (is_null($this->attributes['enabled_at'])) ? trans('users.status.disabled') : trans('users.status.enabled');
     }
 }

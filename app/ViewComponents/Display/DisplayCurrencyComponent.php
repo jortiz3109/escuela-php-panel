@@ -7,9 +7,9 @@ use Illuminate\View\View;
 
 class DisplayCurrencyComponent extends DisplayComponent
 {
-    public function renderField(array $resource, string $key): View
+    public function renderField(array $resource, string $key = ''): View
     {
-        return view('partials.display.currency', [
+        return view('partials.display.table.currency', [
             'value' => $resource[$key],
             'valueClass' => CssHelper::getPositionClass($this->valuePosition),
         ]);

@@ -24,8 +24,10 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->date_formatted }}</td>
-                <td>{{ $user->status }}</td>
+                <td>{{ \App\Helpers\DateHelper::toDateString($user->created_at) }}</td>
+                <td>
+                    <p-status-button url="{{ route('users.status.toggle', [$user->id]) }}" is-enabled="{{ $user->isEnabled() }}" button-Enabled="{{ $user->isVerified() }}"></p-status-button>
+                </td>
             </tr>
         @endforeach
         </tbody>

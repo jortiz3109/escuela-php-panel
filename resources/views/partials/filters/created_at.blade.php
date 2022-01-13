@@ -6,7 +6,6 @@
         <b-datepicker
             selected="{{ $value  }}"
             name="filters[created_at]"
-            v-model="selected"
             locale="en-ca">
         </b-datepicker>
     </b-field>

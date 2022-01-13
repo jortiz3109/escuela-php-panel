@@ -7,6 +7,7 @@
         name="{{ $field->name }}"
         placeholder="{{ $field->placeholder }}"
         {{ $field->required ? 'required' : '' }}
+        {{ $field->disabled ? 'disabled' : '' }}
         value="{{ old($field->name, $model->{$field->name}) }}">
     </b-input>
 </b-field>

@@ -3,9 +3,9 @@
 namespace App\ViewModels\Users;
 
 use App\ViewModels\Concerns\HasPaginator;
-use App\ViewModels\ViewModel;
+use App\ViewModels\IndexViewModel;
 
-class UserIndexViewModel extends ViewModel
+class UserIndexViewModel extends IndexViewModel
 {
     use HasPaginator;
 
