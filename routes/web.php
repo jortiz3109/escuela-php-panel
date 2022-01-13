@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\MerchantController;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::middleware('auth')->group(function () {
+    Route::get('currencies', [CurrencyController::class, 'index'])->name('currencies.index');
+
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);

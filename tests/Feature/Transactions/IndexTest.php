@@ -3,6 +3,7 @@
 namespace Tests\Feature\Transactions;
 
 use App\Constants\TransactionStatus;
+use App\Helpers\AmountHelper;
 use App\Http\Resources\Transactions\TransactionIndexResource;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
@@ -51,15 +52,15 @@ class IndexTest extends TestCase
 
     public function test_it_show_transactions_data(): void
     {
-        $transaction = Transaction::factory()->create([
-            'total_amount' => 12345,
-        ]);
+        $transaction = Transaction::factory()->create();
+        $formattedAmount = AmountHelper::format($transaction->total_amount, $transaction->currency->alphabetic_code);
+
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
 
         $response->assertSee($transaction->date->toDateString());
         $response->assertSee($transaction->merchant->name);
         $response->assertSee($transaction->currency->alphabetic_code);
-        $response->assertSee('$123.45');
+        $response->assertSee($formattedAmount);
         $response->assertSee($transaction->payment_method);
         $response->assertSee($transaction->status);
     }

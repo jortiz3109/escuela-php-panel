@@ -9,7 +9,7 @@
             @endif
             <form action="{{ route('login') }}" method="POST">
                 @csrf
-                <b-field label="{{ __('Email') }}"
+                <b-field label="{{ trans('Email') }}"
                          type="{{ $errors->has('email') ? 'is-danger' : null }}"
                          message="{{ $errors->first('email') }}">
                     <b-input type="email"
@@ -22,7 +22,7 @@
                     </b-input>
                 </b-field>
 
-                <b-field label="{{ __('Password') }}"
+                <b-field label="{{ trans('Password') }}"
                          type="{{ $errors->has('password') ? 'is-danger' : null }}"
                          message="{{ $errors->first('password') }}">
                     <b-input type="password"
@@ -37,11 +37,11 @@
 
                 <label class="checkbox mb-5">
                     <input type="checkbox" name="remember" id="remember">
-                    @lang('Remember me')
+                    {{ trans('Remember me') }}
                 </label>
 
                 <button type="submit" class="button is-primary is-fullwidth">
-                    @lang('Login')
+                    {{ trans('Login') }}
                 </button>
             </form>
             @if (Route::has('password.request'))

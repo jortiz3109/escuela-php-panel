@@ -9,11 +9,6 @@ class LoginLogsIndexViewModel extends IndexViewModel
 {
     use HasCollection;
 
-    protected function buttons(): array
-    {
-        return [];
-    }
-
     protected function title(): string
     {
         return trans('logins.titles.index');

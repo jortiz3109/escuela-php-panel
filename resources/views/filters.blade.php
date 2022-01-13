@@ -22,8 +22,8 @@
                     @endforeach
                 </div>
             @endforeach
-            <b-button type="is-link" native-type="submit" icon-left="magnify">@lang('filters.find')</b-button>
-            <b-button tag="a" type="is-link" href="{{ url()->current() }}" icon-left="eraser">@lang('filters.clear')</b-button>
+            <b-button type="is-link" native-type="submit" icon-left="magnify">{{ trans('filters.find') }}</b-button>
+            <b-button tag="a" type="is-link" href="{{ url()->current() }}" icon-left="eraser">{{ trans('filters.clear') }}</b-button>
         </form>
     </div>
 </b-collapse>
