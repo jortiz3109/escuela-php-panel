@@ -15,7 +15,7 @@ class IndexTest extends TestCase
     use RefreshDatabase;
     use HasAuthenticatedUser;
 
-    private const PAYMENT_METHODS_ROUTE_NAME = 'payment_methods.index';
+    private const PAYMENT_METHODS_ROUTE_NAME = 'payment-methods.index';
 
     public function test_a_guest_user_cannot_access(): void
     {

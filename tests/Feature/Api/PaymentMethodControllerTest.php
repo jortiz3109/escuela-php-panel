@@ -22,7 +22,8 @@ class PaymentMethodControllerTest extends TestCase
             'enabled_at' => $status ? now() : null,
         ]);
 
-        $this->actingAs($this->enabledUser())->patch(route('payment_methods.status.toggle', [$paymentMethod->id]))
+        $this->actingAs($this->enabledUser())
+            ->patch(route('payment-methods.status.toggle', [$paymentMethod->id]))
             ->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => trans('common.responses.updated', ['model' => 'payment method']),

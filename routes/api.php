@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::patch('users/{user}/toggle', [UserStatusController::class, 'toggle'])->name('users.status.toggle');
-Route::patch('payment_methods/{payment_method}/toggle', [PaymentMethodStatusController::class, 'toggle'])->name('payment_methods.status.toggle');
+Route::patch('payment-methods/{payment_method}/toggle', [PaymentMethodStatusController::class, 'toggle'])->name('payment-methods.status.toggle');

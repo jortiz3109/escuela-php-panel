@@ -16,7 +16,7 @@
                                     <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>{{ trans('merchants.navbar.title') }}
                                 </a>
                             </li>
-                            <li><a href="{{ route('payment_methods.index') }}"><em class="pr-2 mdi mdi-card-account-details"></em>{{ trans('common.payment_methods') }}</a></li>
+                            <li><a href="{{ route('payment-methods.index') }}"><em class="pr-2 mdi mdi-card-account-details"></em>{{ trans('common.payment_methods') }}</a></li>
                             <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
                             <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('Currencies') }}</a></li>
                         </ul>

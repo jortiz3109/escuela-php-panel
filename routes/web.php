@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
-    Route::resource('payment_methods', PaymentMethodController::class)->only('index');
+    Route::resource('payment-methods', PaymentMethodController::class)->only('index');
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
