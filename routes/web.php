@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::middleware('auth')->group(function () {
+    Route::get('countries', [CountryController::class, 'index'])->name('countries.index');
+
     Route::get('currencies', [CurrencyController::class, 'index'])->name('currencies.index');
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
