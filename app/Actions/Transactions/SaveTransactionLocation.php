@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Transactions;
 
 use App\Location\Location;
 use App\Models\Transaction;
