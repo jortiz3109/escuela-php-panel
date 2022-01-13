@@ -25,7 +25,7 @@ class PaymentMethodsIndexViewModel extends IndexViewModel
 
     protected function title(): string
     {
-        return trans('users.titles.index');
+        return trans('common.payment_methods');
     }
 
     public function filters(): array
