@@ -17,7 +17,8 @@ class TransactionShowResource extends JsonResource
             'currency' => [$this->resource->currency->name, $this->resource->currency->alphabetic_code],
             'total_amount' => AmountHelper::format(
                 $this->resource->total_amount,
-                $this->resource->currency->alphabetic_code
+                $this->resource->currency->alphabetic_code,
+                $this->resource->currency->symbol
             ),
             'status' => $this->resource->status,
             'ip_address' => $this->resource->ip_address,
