@@ -2,6 +2,7 @@
 
 return [
     'titles' => [
+        'index' => 'Users',
         'edit' => 'Edit user',
     ],
     'navbar' => [
@@ -10,6 +11,12 @@ return [
     'fields' => [
         'name' => 'Name',
         'email' => 'Email',
+        'created_at' => 'Created at',
+        'status' => 'Status',
+    ],
+    'status' => [
+        'enabled' => 'Enabled',
+        'disabled' => 'Disabled',
     ],
     'placeholders' => [
         'name' => 'Enter user name...',

@@ -4,16 +4,16 @@
         <caption class="is-hidden">{{ $texts['title'] }}</caption>
         <thead>
         <tr>
-            <th scope="col">@lang('permissions.fields.name')</th>
-            <th scope="col">@lang('permissions.fields.description')</th>
-            <th scope="col" style="min-width: 8em">@lang('permissions.fields.created_at')</th>
+            <th scope="col">{{ trans('permissions.fields.name') }}</th>
+            <th scope="col">{{ trans('permissions.fields.description') }}</th>
+            <th scope="col" style="min-width: 8em">{{ trans('permissions.fields.created_at') }}</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-            <th scope="col">@lang('permissions.fields.name')</th>
-            <th scope="col">@lang('permissions.fields.description')</th>
-            <th scope="col">@lang('permissions.fields.created_at')</th>
+            <th scope="col">{{ trans('permissions.fields.name') }}</th>
+            <th scope="col">{{ trans('permissions.fields.description') }}</th>
+            <th scope="col">{{ trans('permissions.fields.created_at') }}</th>
         </tr>
         </tfoot>
         <tbody>

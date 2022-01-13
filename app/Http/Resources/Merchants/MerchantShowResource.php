@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class MerchantShowResource extends JsonResource
 {
-    public function toArray($request = null)
+    public function toArray($request = null): array
     {
         $docType = $this->resource->documentType->code;
         $doc = $this->resource->document;

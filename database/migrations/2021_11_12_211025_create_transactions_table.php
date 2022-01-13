@@ -21,6 +21,8 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('total_amount');
             $table->enum('status', TransactionStatus::STATUSES);
             $table->string('ip_address', 40);
+            $table->decimal('latitude', 12, 8)->nullable();
+            $table->decimal('longitude', 12, 8)->nullable();
             $table->timestamp('date');
             $table->timestamps();
         });
