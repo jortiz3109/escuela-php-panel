@@ -19,7 +19,7 @@ class UserUpdateAction implements ActionContract
         return $user;
     }
 
-    public function emailRevalidation(User $user, Request $request): void
+    private function emailRevalidation(User $user, Request $request): void
     {
         if ($user->email !== $request->input('email')) {
             $user->disableEmailVerification();
