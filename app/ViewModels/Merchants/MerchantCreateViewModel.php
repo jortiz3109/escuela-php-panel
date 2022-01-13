@@ -38,44 +38,43 @@ class MerchantCreateViewModel extends ViewModel
     protected function fields(): array
     {
         return [
-            new TextInput(
+            TextInput::create(
                 trans('merchants.labels.name'),
-                trans('merchants.inputs.name'),
+                'name',
                 trans('merchants.placeholders.name'),
-                true
-            ),
-            new TextInput(
+            )->required(),
+
+            TextInput::create(
                 trans('merchants.labels.brand'),
-                trans('merchants.inputs.brand'),
+                'brand',
                 trans('merchants.placeholders.brand'),
-                true
-            ),
-            new NumberInput(
+            )->required(),
+
+            NumberInput::create(
                 trans('merchants.labels.document'),
-                trans('merchants.inputs.document'),
+                'document',
                 trans('merchants.placeholders.document'),
-                true
-            ),
-            new URLInput(
+            )->required(),
+
+            URLInput::create(
                 trans('merchants.labels.url'),
-                trans('merchants.inputs.url'),
+                'url',
                 trans('merchants.placeholders.url'),
-                true
-            ),
-            new AutocompleteInput(
+            )->required(),
+
+            AutocompleteInput::create(
                 trans('merchants.labels.country'),
-                trans('merchants.inputs.country'),
+                'country',
                 trans('merchants.placeholders.country'),
-                true,
-                json_encode(Country::pluck('name', 'id')->toArray()),
-            ),
-            new AutocompleteInput(
+            )->required()
+                ->setData(Country::pluck('name', 'id')->toArray()),
+
+            AutocompleteInput::create(
                 trans('merchants.labels.currency'),
-                trans('merchants.inputs.currency'),
+                'currency',
                 trans('merchants.placeholders.currency'),
-                true,
-                json_encode(Currency::pluck('name', 'id')->toArray()),
-            ),
+            )->required()
+                ->setData(Currency::pluck('name', 'id')->toArray()),
         ];
     }
 

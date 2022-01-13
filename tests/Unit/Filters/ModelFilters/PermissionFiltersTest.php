@@ -11,7 +11,7 @@ class PermissionFiltersTest extends TestCase
     public function test_query_without_params(): void
     {
         $expected = DB::table('permissions')
-            ->select(['name', 'description', 'created_at'])
+            ->select(['id', 'name', 'description', 'created_at'])
             ->toSql();
 
         $this->assertEquals($expected, Permission::filter([])->toSql());
@@ -20,7 +20,7 @@ class PermissionFiltersTest extends TestCase
     public function test_query_with_params(): void
     {
         $expected = DB::table('permissions')
-            ->select(['name', 'description', 'created_at'])
+            ->select(['id', 'name', 'description', 'created_at'])
             ->where('name', 'like', '%Barry%')
             ->toSql();
 

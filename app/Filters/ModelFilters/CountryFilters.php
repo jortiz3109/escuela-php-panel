@@ -4,11 +4,11 @@ namespace App\Filters\ModelFilters;
 
 use App\Filters\Conditions\Name;
 use App\Filters\Filter;
-use App\Models\Permission;
+use App\Models\Country;
 
-class PermissionFilters extends Filter
+class CountryFilters extends Filter
 {
-    protected string $model = Permission::class;
+    protected string $model = Country::class;
 
     protected array $applicableConditions = [
         'name' => Name::class,
@@ -16,7 +16,7 @@ class PermissionFilters extends Filter
 
     protected function select(): Filter
     {
-        $this->query->select(['id', 'name', 'description', 'created_at']);
+        $this->query->select(['name', 'alpha_two_code']);
         return $this;
     }
 }

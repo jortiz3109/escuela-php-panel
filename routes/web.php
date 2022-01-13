@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
@@ -15,19 +16,21 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::middleware('auth')->group(function () {
+    Route::get('countries', [CountryController::class, 'index'])->name('countries.index');
+
     Route::get('currencies', [CurrencyController::class, 'index'])->name('currencies.index');
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
 
-    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
-
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+
+    Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);
 
     Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
 });

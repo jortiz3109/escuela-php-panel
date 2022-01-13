@@ -19,7 +19,7 @@
                                     <li><a>Payment methods</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
+                            <li><a href="{{ route('countries.index') }}"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('countries.navbar.title') }}</a></li>
                             <li><a href="{{ route('currencies.index') }}"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('currencies.navbar.title') }}</a></li>
                         </ul>
 
@@ -71,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('partials.alert')
                     @includeWhen(isset($filters) && count($filters), 'filters', ['filters' => $filters ?? []])
                     <div class="box block">
                         @yield('content')
