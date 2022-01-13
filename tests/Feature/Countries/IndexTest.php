@@ -38,8 +38,6 @@ class IndexTest extends TestCase
 
     public function test_collection_has_countries(): void
     {
-        $country = Country::first() ?: Country::factory()->create();
-
         $response = $this->actingAs($this->defaultUser())->get(route(self::COUNTRIES_ROUTE_NAME));
 
         $this->assertInstanceOf(Country::class, $response->getOriginalContent()['collection']->first());
