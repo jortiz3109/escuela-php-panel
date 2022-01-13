@@ -70,13 +70,6 @@ class UpdateTest extends TestCase
         $this->assertNull($this->user['email_verified_at']);
     }
 
-    public function test_it_can_see_user_data(): void
-    {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME, $this->user->id));
-        $response->assertSee($this->user->name);
-        $response->assertSee($this->user->email);
-    }
-
     public function userDataProvider(): array
     {
         return [
