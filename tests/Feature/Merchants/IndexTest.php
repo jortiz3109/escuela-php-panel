@@ -36,10 +36,10 @@ class IndexTest extends TestCase
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
 
-        $response->assertViewHas('merchants');
+        $response->assertViewHas('collection');
         $this->assertInstanceOf(
             LengthAwarePaginator::class,
-            $response->getOriginalContent()['merchants']
+            $response->getOriginalContent()['collection']
         );
     }
 
@@ -51,7 +51,7 @@ class IndexTest extends TestCase
 
         $this->assertInstanceOf(
             Merchant::class,
-            $response->getOriginalContent()['merchants']->first()
+            $response->getOriginalContent()['collection']->first()
         );
     }
 
@@ -61,7 +61,6 @@ class IndexTest extends TestCase
 
         $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME))
             ->assertSee($merchant->name)
-            ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
             ->assertSee($merchant->url)
             ->assertSee($merchant->country->name)
@@ -86,7 +85,7 @@ class IndexTest extends TestCase
 
         $filters = http_build_query(['filters' => [$filter => $filterValue]]);
         $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-        $merchants = $response->getOriginalContent()['merchants'];
+        $merchants = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $merchants);
         $response->assertSee($showedValue);
