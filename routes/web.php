@@ -5,8 +5,10 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -21,10 +23,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
+    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
+
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+    Route::resource('payment-methods', PaymentMethodController::class)->only('index');
+
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
-    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+
     Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);
 
     Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');

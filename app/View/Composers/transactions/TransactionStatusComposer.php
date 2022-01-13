@@ -1,11 +1,11 @@
 <?php
 
-namespace App\View\Composers;
+namespace App\View\Composers\transactions;
 
 use App\Constants\TransactionStatus;
 use Illuminate\View\View;
 
-class StatusComposer
+class TransactionStatusComposer
 {
     public function compose(View $view): void
     {

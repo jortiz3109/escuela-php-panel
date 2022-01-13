@@ -12,6 +12,7 @@ class CreatePaymentMethodsTable extends Migration
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('logo');
+            $table->timestamp('enabled_at')->nullable();
         });
     }
 
