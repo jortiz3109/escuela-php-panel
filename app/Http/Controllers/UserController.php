@@ -8,6 +8,7 @@ use App\Http\Requests\Users\UpdateRequest;
 use App\Models\User;
 use App\ViewModels\Users\UserEditViewModel;
 use App\ViewModels\Users\UserIndexViewModel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -19,12 +20,12 @@ class UserController extends Controller
         return view('users.index', $viewModel->collection($users));
     }
 
-    public function edit(User $user, UserEditViewModel $viewModel)
+    public function edit(User $user, UserEditViewModel $viewModel): View
     {
         return view('modules.edit', $viewModel->model($user));
     }
 
-    public function update(UpdateRequest $request, User $user, UserUpdateAction $action)
+    public function update(UpdateRequest $request, User $user, UserUpdateAction $action): RedirectResponse
     {
         $action->execute($user, $request);
 
