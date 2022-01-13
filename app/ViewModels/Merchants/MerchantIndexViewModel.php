@@ -2,6 +2,10 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\ViewComponents\Display\Buttons\DisplayEditButton;
+use App\ViewComponents\Display\Buttons\DisplayShowButton;
+use App\ViewComponents\Display\DisplayButtonGroup;
+use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\IndexViewModel;
 
@@ -33,10 +37,25 @@ class MerchantIndexViewModel extends IndexViewModel
         ];
     }
 
+    protected function fields(): array
+    {
+        return [
+            'name' => DisplayTextComponent::create('merchants.fields.name'),
+            'document' => DisplayTextComponent::create('merchants.fields.document'),
+            'url' => DisplayTextComponent::create('merchants.fields.url')->setPositions('center'),
+            'country' => DisplayTextComponent::create('merchants.fields.country'),
+            'currency' => DisplayTextComponent::create('merchants.fields.currency'),
+            'button_group' => DisplayButtonGroup::create([
+                DisplayShowButton::create('merchants.show'),
+                DisplayEditButton::create('merchants.edit'),
+            ])->setValuePosition('center'),
+        ];
+    }
+
     protected function data(): array
     {
         return [
-            'merchants'  => $this->collection,
+            'collection' => $this->collection,
         ];
     }
 }

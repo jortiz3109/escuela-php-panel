@@ -75,14 +75,14 @@ class MerchantCreateViewModel extends ViewModel
 
             AutocompleteInput::create(
                 trans('merchants.labels.country'),
-                'country',
+                'country_id',
                 trans('merchants.placeholders.country'),
             )->required()
                 ->setData($this->countries()),
 
             AutocompleteInput::create(
                 trans('merchants.labels.currency'),
-                'currency',
+                'currency_id',
                 trans('merchants.placeholders.currency'),
             )->required()
                 ->setData($this->currencies()),
