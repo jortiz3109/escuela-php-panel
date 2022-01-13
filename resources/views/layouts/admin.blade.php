@@ -20,7 +20,7 @@
                                 </ul>
                             </li>
                             <li><a href="#"><em class="pr-2 mdi mdi-map-legend"></em>{{ trans('Countries') }}</a></li>
-                            <li><a href="#"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('Currencies') }}</a></li>
+                            <li><a href="{{ route('currencies.index') }}"><em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('currencies.navbar.title') }}</a></li>
                         </ul>
 
                         <p class="menu-label">{{ trans('menu.security') }}</p>

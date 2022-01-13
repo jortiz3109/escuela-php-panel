@@ -1,0 +1,614 @@
+{
+    "AED": {
+        "alphabetic_code": "AED",
+        "name": "\u062f\u0631\u0647\u0645 \u0625\u0645\u0627\u0631\u0627\u062a\u064a\u0660",
+        "minor_unit": 2,
+        "symbol": "\u062f.\u0625.\u200f"
+    },
+    "AFN": {
+        "alphabetic_code": "AFN",
+        "name": "\u0627\u0641\u063a\u0627\u0646\u06cd\u06f0",
+        "minor_unit": 0,
+        "symbol": "\u060b"
+    },
+    "ALL": {
+        "alphabetic_code": "ALL",
+        "name": "Lek\u00eb Shqiptar",
+        "minor_unit": 0,
+        "symbol": "Lek\u00eb"
+    },
+    "AMD": {
+        "alphabetic_code": "AMD",
+        "name": "\u0570\u0561\u0575\u056f\u0561\u056f\u0561\u0576 \u0564\u0580\u0561\u0574",
+        "minor_unit": 2,
+        "symbol": "\u058f"
+    },
+    "ARS": {
+        "alphabetic_code": "ARS",
+        "name": "Pesos Argentinos",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "AUD": {
+        "alphabetic_code": "AUD",
+        "name": "Australian Dollars",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "AZN": {
+        "alphabetic_code": "AZN",
+        "name": "Az\u0259rbaycan Manat\u0131",
+        "minor_unit": 2,
+        "symbol": "\u20bc"
+    },
+    "BAM": {
+        "alphabetic_code": "BAM",
+        "name": "Bosansko-hercegova\u010dkih Konvertibilnih Maraka",
+        "minor_unit": 2,
+        "symbol": "KM"
+    },
+    "BDT": {
+        "alphabetic_code": "BDT",
+        "name": "\u09ac\u09be\u0982\u09b2\u09be\u09a6\u09c7\u09b6\u09c0 \u099f\u09be\u0995\u09be\u09e6",
+        "minor_unit": 2,
+        "symbol": "\u09f3"
+    },
+    "BGN": {
+        "alphabetic_code": "BGN",
+        "name": "\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u043b\u0435\u0432\u0430",
+        "minor_unit": 2,
+        "symbol": "\u043b\u0432."
+    },
+    "BHD": {
+        "alphabetic_code": "BHD",
+        "name": "\u062f\u064a\u0646\u0627\u0631 \u0628\u062d\u0631\u064a\u0646\u064a\u0660",
+        "minor_unit": 3,
+        "symbol": "\u062f.\u0628.\u200f"
+    },
+    "BND": {
+        "alphabetic_code": "BND",
+        "name": "Dolar Brunei",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "BOB": {
+        "alphabetic_code": "BOB",
+        "name": "Bolivian Bolivianos",
+        "minor_unit": 2,
+        "symbol": "BOB"
+    },
+    "BRL": {
+        "alphabetic_code": "BRL",
+        "name": "Real Brasileiro",
+        "minor_unit": 2,
+        "symbol": "R$"
+    },
+    "BYN": {
+        "alphabetic_code": "BYN",
+        "name": "\u0431\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0456\u0445 \u0440\u0443\u0431\u043b\u0451\u045e",
+        "minor_unit": 2,
+        "symbol": "Br"
+    },
+    "BZD": {
+        "alphabetic_code": "BZD",
+        "name": "Belize Dollars",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "CAD": {
+        "alphabetic_code": "CAD",
+        "name": "Canadian Dollars",
+        "minor_unit": 2,
+        "symbol": "CA$"
+    },
+    "CHF": {
+        "alphabetic_code": "CHF",
+        "name": "Franc Svizzer",
+        "minor_unit": 2,
+        "symbol": "CHF"
+    },
+    "CLP": {
+        "alphabetic_code": "CLP",
+        "name": "Pesos Chilenos",
+        "minor_unit": 0,
+        "symbol": "$"
+    },
+    "CNY": {
+        "alphabetic_code": "CNY",
+        "name": "\u4eba\u6c11\u5e01",
+        "minor_unit": 2,
+        "symbol": "\u00a5"
+    },
+    "COP": {
+        "alphabetic_code": "COP",
+        "name": "Pesos Colombianos",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "CRC": {
+        "alphabetic_code": "CRC",
+        "name": "Colones Costarricenses",
+        "minor_unit": 2,
+        "symbol": "\u20a1"
+    },
+    "CSD": {
+        "alphabetic_code": "CSD",
+        "name": "Starih Srpskih Dinara",
+        "minor_unit": 2,
+        "symbol": "CSD"
+    },
+    "CZK": {
+        "alphabetic_code": "CZK",
+        "name": "\u010desk\u00fdch Korun",
+        "minor_unit": 2,
+        "symbol": "K\u010d"
+    },
+    "DKK": {
+        "alphabetic_code": "DKK",
+        "name": "DKK",
+        "minor_unit": 2,
+        "symbol": "kr."
+    },
+    "DOP": {
+        "alphabetic_code": "DOP",
+        "name": "Pesos Dominicanos",
+        "minor_unit": 2,
+        "symbol": "RD$"
+    },
+    "DZD": {
+        "alphabetic_code": "DZD",
+        "name": "\u1e0cinar Udzayri",
+        "minor_unit": 2,
+        "symbol": "DZD"
+    },
+    "EGP": {
+        "alphabetic_code": "EGP",
+        "name": "\u062c\u0646\u064a\u0647 \u0645\u0635\u0631\u064a\u0660",
+        "minor_unit": 2,
+        "symbol": "\u062c.\u0645.\u200f"
+    },
+    "ETB": {
+        "alphabetic_code": "ETB",
+        "name": "\u12e8\u12a2\u1275\u12ee\u1335\u12eb \u1265\u122d",
+        "minor_unit": 2,
+        "symbol": "\u1265\u122d"
+    },
+    "EUR": {
+        "alphabetic_code": "EUR",
+        "name": "Euro",
+        "minor_unit": 2,
+        "symbol": "\u20ac"
+    },
+    "GBP": {
+        "alphabetic_code": "GBP",
+        "name": "Punnd Sasannach",
+        "minor_unit": 2,
+        "symbol": "\u00a3"
+    },
+    "GEL": {
+        "alphabetic_code": "GEL",
+        "name": "\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8 \u10da\u10d0\u10e0\u10d8",
+        "minor_unit": 2,
+        "symbol": "\u20be"
+    },
+    "GTQ": {
+        "alphabetic_code": "GTQ",
+        "name": "Guatemalan Quetzals",
+        "minor_unit": 2,
+        "symbol": "GTQ"
+    },
+    "HKD": {
+        "alphabetic_code": "HKD",
+        "name": "\u6e2f\u5143",
+        "minor_unit": 2,
+        "symbol": "HK$"
+    },
+    "HNL": {
+        "alphabetic_code": "HNL",
+        "name": "Lempiras Hondure\u00f1os",
+        "minor_unit": 2,
+        "symbol": "L"
+    },
+    "HRK": {
+        "alphabetic_code": "HRK",
+        "name": "Hrvatskih Kuna",
+        "minor_unit": 2,
+        "symbol": "HRK"
+    },
+    "HUF": {
+        "alphabetic_code": "HUF",
+        "name": "Magyar Forint",
+        "minor_unit": 2,
+        "symbol": "Ft"
+    },
+    "IDR": {
+        "alphabetic_code": "IDR",
+        "name": "Rupiah Indonesia",
+        "minor_unit": 2,
+        "symbol": "Rp"
+    },
+    "ILS": {
+        "alphabetic_code": "ILS",
+        "name": "\u05e9\u05e7\u05dc\u05d9\u05dd \u05d7\u05d3\u05e9\u05d9\u05dd",
+        "minor_unit": 2,
+        "symbol": "\u20aa"
+    },
+    "INR": {
+        "alphabetic_code": "INR",
+        "name": "\u0c30\u0c42\u0c2a\u0c3e\u0c2f\u0c32\u0c41",
+        "minor_unit": 2,
+        "symbol": "\u20b9"
+    },
+    "IQD": {
+        "alphabetic_code": "IQD",
+        "name": "\u062f\u064a\u0646\u0627\u0631 \u0639\u0631\u0627\u0642\u064a\u0660",
+        "minor_unit": 0,
+        "symbol": "\u062f.\u0639.\u200f"
+    },
+    "IRR": {
+        "alphabetic_code": "IRR",
+        "name": "\u0631\u06cc\u0627\u0644 \u0627\u06cc\u0631\u0627\u0646\u06f0",
+        "minor_unit": 0,
+        "symbol": "\u0631\u06cc\u0627\u0644"
+    },
+    "ISK": {
+        "alphabetic_code": "ISK",
+        "name": "\u00edslenskar Kr\u00f3nur",
+        "minor_unit": 0,
+        "symbol": "ISK"
+    },
+    "JMD": {
+        "alphabetic_code": "JMD",
+        "name": "Jamaican Dollars",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "JOD": {
+        "alphabetic_code": "JOD",
+        "name": "\u062f\u064a\u0646\u0627\u0631 \u0623\u0631\u062f\u0646\u064a\u0660",
+        "minor_unit": 3,
+        "symbol": "\u062f.\u0623.\u200f"
+    },
+    "JPY": {
+        "alphabetic_code": "JPY",
+        "name": "\u5186",
+        "minor_unit": 0,
+        "symbol": "\uffe5"
+    },
+    "KES": {
+        "alphabetic_code": "KES",
+        "name": "Shilingi Za Kenya",
+        "minor_unit": 2,
+        "symbol": "Ksh"
+    },
+    "KGS": {
+        "alphabetic_code": "KGS",
+        "name": "\u041a\u044b\u0440\u0433\u044b\u0437\u0441\u0442\u0430\u043d \u0441\u043e\u043c\u0443",
+        "minor_unit": 2,
+        "symbol": "\u0441\u043e\u043c"
+    },
+    "KHR": {
+        "alphabetic_code": "KHR",
+        "name": "\u179a\u17c0\u179b\u200b\u1780\u1798\u17d2\u1796\u17bb\u1787\u17b6",
+        "minor_unit": 2,
+        "symbol": "\u17db"
+    },
+    "KRW": {
+        "alphabetic_code": "KRW",
+        "name": "\ub300\ud55c\ubbfc\uad6d \uc6d0",
+        "minor_unit": 0,
+        "symbol": "\u20a9"
+    },
+    "KWD": {
+        "alphabetic_code": "KWD",
+        "name": "\u062f\u064a\u0646\u0627\u0631 \u0643\u0648\u064a\u062a\u064a\u0660",
+        "minor_unit": 3,
+        "symbol": "\u062f.\u0643.\u200f"
+    },
+    "KZT": {
+        "alphabetic_code": "KZT",
+        "name": "\u049a\u0430\u0437\u0430\u049b\u0441\u0442\u0430\u043d \u0442\u0435\u04a3\u0433\u0435\u0441\u0456",
+        "minor_unit": 2,
+        "symbol": "\u20b8"
+    },
+    "LAK": {
+        "alphabetic_code": "LAK",
+        "name": "\u0ea5\u0eb2\u0ea7 \u0e81\u0eb5\u0e9a",
+        "minor_unit": 0,
+        "symbol": "\u20ad"
+    },
+    "LBP": {
+        "alphabetic_code": "LBP",
+        "name": "\u062c\u0646\u064a\u0647 \u0644\u0628\u0646\u0627\u0646\u064a\u0660",
+        "minor_unit": 0,
+        "symbol": "\u0644.\u0644.\u200f"
+    },
+    "LKR": {
+        "alphabetic_code": "LKR",
+        "name": "\u0dc1\u0dca\u200d\u0dbb\u0dd3 \u0dbd\u0d82\u0d9a\u0dcf \u0dbb\u0dd4\u0db4\u0dd2\u0dba\u0dbd",
+        "minor_unit": 2,
+        "symbol": "\u0dbb\u0dd4."
+    },
+    "LYD": {
+        "alphabetic_code": "LYD",
+        "name": "\u062f\u064a\u0646\u0627\u0631 \u0644\u064a\u0628\u064a",
+        "minor_unit": 3,
+        "symbol": "\u062f.\u0644.\u200f"
+    },
+    "MAD": {
+        "alphabetic_code": "MAD",
+        "name": "\u062f\u0631\u0647\u0645 \u0645\u063a\u0631\u0628\u064a",
+        "minor_unit": 2,
+        "symbol": "\u062f.\u0645.\u200f"
+    },
+    "MKD": {
+        "alphabetic_code": "MKD",
+        "name": "\u041c\u0430\u043a\u0435\u0434\u043e\u043d\u0441\u043a\u0438 \u0434\u0435\u043d\u0430\u0440\u0438",
+        "minor_unit": 2,
+        "symbol": "\u0434\u0435\u043d."
+    },
+    "MNT": {
+        "alphabetic_code": "MNT",
+        "name": "\u041c\u043e\u043d\u0433\u043e\u043b \u0442\u04e9\u0433\u0440\u04e9\u0433",
+        "minor_unit": 2,
+        "symbol": "\u20ae"
+    },
+    "MOP": {
+        "alphabetic_code": "MOP",
+        "name": "\u6fb3\u9580\u5143",
+        "minor_unit": 2,
+        "symbol": "MOP$"
+    },
+    "MVR": {
+        "alphabetic_code": "MVR",
+        "name": "Maldivian Rufiyaas",
+        "minor_unit": 2,
+        "symbol": "MVR"
+    },
+    "MXN": {
+        "alphabetic_code": "MXN",
+        "name": "Pesos Mexicanos",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "MYR": {
+        "alphabetic_code": "MYR",
+        "name": "Ringgit Malaysia",
+        "minor_unit": 2,
+        "symbol": "RM"
+    },
+    "NGN": {
+        "alphabetic_code": "NGN",
+        "name": "N\u00e1\u00edr\u00e0 N\u00e0\u00ecj\u00edr\u00ed\u00e0",
+        "minor_unit": 2,
+        "symbol": "\u20a6"
+    },
+    "NIO": {
+        "alphabetic_code": "NIO",
+        "name": "C\u00f3rdobas Nicarag\u00fcenses",
+        "minor_unit": 2,
+        "symbol": "C$"
+    },
+    "NOK": {
+        "alphabetic_code": "NOK",
+        "name": "Norwegian Kroner",
+        "minor_unit": 2,
+        "symbol": "NOK"
+    },
+    "NPR": {
+        "alphabetic_code": "NPR",
+        "name": "\u0928\u0947\u092a\u093e\u0932\u0940 \u0930\u0942\u092a\u0948\u092f\u093e\u0901\u0966",
+        "minor_unit": 2,
+        "symbol": "\u0928\u0947\u0930\u0942"
+    },
+    "NZD": {
+        "alphabetic_code": "NZD",
+        "name": "T\u0101ra O Aotearoa",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "OMR": {
+        "alphabetic_code": "OMR",
+        "name": "\u0631\u064a\u0627\u0644 \u0639\u0645\u0627\u0646\u064a\u0660",
+        "minor_unit": 3,
+        "symbol": "\u0631.\u0639.\u200f"
+    },
+    "PAB": {
+        "alphabetic_code": "PAB",
+        "name": "Balboas Paname\u00f1os",
+        "minor_unit": 2,
+        "symbol": "B\/."
+    },
+    "PEN": {
+        "alphabetic_code": "PEN",
+        "name": "Peruvian Soles",
+        "minor_unit": 2,
+        "symbol": "PEN"
+    },
+    "PHP": {
+        "alphabetic_code": "PHP",
+        "name": "Piso Ng Pilipinas",
+        "minor_unit": 2,
+        "symbol": "\u20b1"
+    },
+    "PKR": {
+        "alphabetic_code": "PKR",
+        "name": "\u067e\u0627\u06a9\u0633\u062a\u0627\u0646\u06cc \u0631\u0648\u067e\u06cc\u06c1",
+        "minor_unit": 2,
+        "symbol": "Rs"
+    },
+    "PLN": {
+        "alphabetic_code": "PLN",
+        "name": "Z\u0142otych Polskich",
+        "minor_unit": 2,
+        "symbol": "z\u0142"
+    },
+    "PYG": {
+        "alphabetic_code": "PYG",
+        "name": "Guaran\u00edes Paraguayos",
+        "minor_unit": 0,
+        "symbol": "Gs."
+    },
+    "QAR": {
+        "alphabetic_code": "QAR",
+        "name": "\u0631\u064a\u0627\u0644 \u0642\u0637\u0631\u064a\u0660",
+        "minor_unit": 2,
+        "symbol": "\u0631.\u0642.\u200f"
+    },
+    "RON": {
+        "alphabetic_code": "RON",
+        "name": "Lei Rom\u00e2ne\u0219ti",
+        "minor_unit": 2,
+        "symbol": "RON"
+    },
+    "RSD": {
+        "alphabetic_code": "RSD",
+        "name": "\u0441\u0440\u043f\u0441\u043a\u0438\u0445 \u0434\u0438\u043d\u0430\u0440\u0430",
+        "minor_unit": 0,
+        "symbol": "RSD"
+    },
+    "RUB": {
+        "alphabetic_code": "RUB",
+        "name": "\u0441\u0443\u043c",
+        "minor_unit": 2,
+        "symbol": "\u20bd"
+    },
+    "RWF": {
+        "alphabetic_code": "RWF",
+        "name": "RWF",
+        "minor_unit": 0,
+        "symbol": "RF"
+    },
+    "SAR": {
+        "alphabetic_code": "SAR",
+        "name": "\u0631\u064a\u0627\u0644 \u0633\u0639\u0648\u062f\u064a\u0660",
+        "minor_unit": 2,
+        "symbol": "\u0631.\u0633.\u200f"
+    },
+    "SDG": {
+        "alphabetic_code": "SDG",
+        "name": "\u062c\u0646\u064a\u0647 \u0633\u0648\u062f\u0627\u0646\u064a\u0660",
+        "minor_unit": 2,
+        "symbol": "\u062c.\u0633."
+    },
+    "SEK": {
+        "alphabetic_code": "SEK",
+        "name": "Svenska Kronor",
+        "minor_unit": 2,
+        "symbol": "kr"
+    },
+    "SGD": {
+        "alphabetic_code": "SGD",
+        "name": "\u65b0\u52a0\u5761\u5143",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "SYP": {
+        "alphabetic_code": "SYP",
+        "name": "Syrian Pounds",
+        "minor_unit": 0,
+        "symbol": "SYP"
+    },
+    "THB": {
+        "alphabetic_code": "THB",
+        "name": "\u0e1a\u0e32\u0e17\u0e44\u0e17\u0e22",
+        "minor_unit": 2,
+        "symbol": "\u0e3f"
+    },
+    "TJS": {
+        "alphabetic_code": "TJS",
+        "name": "\u0421\u043e\u043c\u043e\u043d\u04e3",
+        "minor_unit": 2,
+        "symbol": "\u0441\u043e\u043c."
+    },
+    "TMT": {
+        "alphabetic_code": "TMT",
+        "name": "T\u00fcrkmen Manady",
+        "minor_unit": 2,
+        "symbol": "TMT"
+    },
+    "TND": {
+        "alphabetic_code": "TND",
+        "name": "\u062f\u064a\u0646\u0627\u0631 \u062a\u0648\u0646\u0633\u064a",
+        "minor_unit": 3,
+        "symbol": "\u062f.\u062a.\u200f"
+    },
+    "TRY": {
+        "alphabetic_code": "TRY",
+        "name": "T\u00fcrk Liras\u0131",
+        "minor_unit": 2,
+        "symbol": "\u20ba"
+    },
+    "TTD": {
+        "alphabetic_code": "TTD",
+        "name": "Trinidad & Tobago Dollars",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "TWD": {
+        "alphabetic_code": "TWD",
+        "name": "\u65b0\u53f0\u5e63",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "UAH": {
+        "alphabetic_code": "UAH",
+        "name": "\u0433\u0440\u0438\u0432\u0435\u043d\u044c",
+        "minor_unit": 2,
+        "symbol": "\u20b4"
+    },
+    "USD": {
+        "alphabetic_code": "USD",
+        "name": "US Dollars",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "UYU": {
+        "alphabetic_code": "UYU",
+        "name": "Pesos Uruguayos",
+        "minor_unit": 2,
+        "symbol": "$"
+    },
+    "UZS": {
+        "alphabetic_code": "UZS",
+        "name": "O\u2018zbekiston So\u2018mi",
+        "minor_unit": 2,
+        "symbol": "so\u02bbm"
+    },
+    "VES": {
+        "alphabetic_code": "VES",
+        "name": "Bol\u00edvares Soberanos",
+        "minor_unit": 2,
+        "symbol": "Bs.S"
+    },
+    "VND": {
+        "alphabetic_code": "VND",
+        "name": "\u0110\u1ed3ng Vi\u1ec7t Nam",
+        "minor_unit": 0,
+        "symbol": "\u20ab"
+    },
+    "XOF": {
+        "alphabetic_code": "XOF",
+        "name": "Franc CFA Yu Afrik Sowwu-jant",
+        "minor_unit": 0,
+        "symbol": "CFA"
+    },
+    "XXX": {
+        "alphabetic_code": "XXX",
+        "name": "\u043d\u0435\u043f\u043e\u0437\u043d\u0430\u0442\u0438\u0445 \u0432\u0430\u043b\u0443\u0442\u0430",
+        "minor_unit": 2,
+        "symbol": "\u00a4"
+    },
+    "YER": {
+        "alphabetic_code": "YER",
+        "name": "\u0631\u064a\u0627\u0644 \u064a\u0645\u0646\u064a\u0660",
+        "minor_unit": 0,
+        "symbol": "\u0631.\u064a.\u200f"
+    },
+    "ZAR": {
+        "alphabetic_code": "ZAR",
+        "name": "I-South African Rand",
+        "minor_unit": 2,
+        "symbol": "R"
+    }
+}

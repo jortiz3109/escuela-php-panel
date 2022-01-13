@@ -48,8 +48,12 @@ class IndexTest extends TestCase
 
     public function test_it_show_permissions_data(): void
     {
-        $permission = Permission::factory()->create($this->validPermissionData());
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME));
+        $data = $this->validPermissionData();
+        $permission = Permission::factory()->create($data);
+        $filters = http_build_query(['filters' => ['name' => $data['name']]]);
+
+        $response = $this->actingAs($this->defaultUser())->get(route(self::PERMISSIONS_ROUTE_NAME, $filters));
+
         $response->assertSee($permission->name);
         $response->assertSee($permission->description);
     }
