@@ -93,11 +93,11 @@ class MerchantCreateViewModel extends ViewModel
     {
         return [
             'model' => $this->model,
-            'route' => $this->getRoute(),
+            'action' => $this->getAction(),
         ];
     }
 
-    public function getRoute(): string
+    public function getAction(): string
     {
         return route('merchants.store');
     }

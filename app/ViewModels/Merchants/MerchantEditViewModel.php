@@ -26,7 +26,7 @@ class MerchantEditViewModel extends MerchantCreateViewModel
         return trans('merchants.titles.edit');
     }
 
-    public function getRoute(): string
+    public function getAction(): string
     {
         return $this->model->urlPresenter()->update();
     }
