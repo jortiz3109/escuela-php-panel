@@ -12,13 +12,12 @@ class UserEditViewModel extends ViewModel
 {
     use HasModel;
 
-    // TODO: Users index route on back button
     protected function buttons(): array
     {
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => '',
+                'route' => route('users.index'),
             ],
             'save' => [
                 'text' => trans('common.save'),
