@@ -7,12 +7,12 @@ use Illuminate\View\View;
 
 class DisplayEnabledComponent extends DisplayComponent
 {
-    public function renderField(array $model, string $key): View
+    public function renderField(array $resource, string $key = ''): View
     {
-        return view('partials.display.enabled', [
-            'url' => $model[$key],
-            'enabled' => $model['enabled'],
-            'button_enabled' => $model['button_enabled'],
+        return view('partials.display.table.enabled', [
+            'url' => $resource[$key],
+            'enabled' => $resource['enabled'],
+            'button_enabled' => $resource['button_enabled'],
             'valueClass' => CssHelper::getPositionClass($this->valuePosition),
         ]);
     }

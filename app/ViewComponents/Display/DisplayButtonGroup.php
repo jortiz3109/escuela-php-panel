@@ -12,10 +12,10 @@ class DisplayButtonGroup extends DisplayComponent
         parent::__construct('');
     }
 
-    public function renderField(array $model, string $key = ''): View
+    public function renderField(array $resource, string $key = ''): View
     {
         return view('partials.display.table.button-group', [
-            'model' => $model,
+            'model' => $resource,
             'buttons' => $this->buttons,
             'valueClass' => CssHelper::getPositionClass($this->valuePosition),
         ]);

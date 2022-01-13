@@ -4,7 +4,7 @@ namespace App\ViewModels\PaymentMethods;
 
 use App\Http\Resources\PaymentMethods\PaymentMethodIndexResource;
 use App\ViewComponents\Display\DisplayEnabledComponent;
-use App\ViewComponents\Display\DisplayLogoComponent;
+use App\ViewComponents\Display\DisplayImageComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\IndexViewModel;
@@ -40,7 +40,7 @@ class PaymentMethodsIndexViewModel extends IndexViewModel
     {
         return [
             'name' => DisplayTextComponent::create('merchants.fields.name'),
-            'logo' => DisplayLogoComponent::create('common.logo'),
+            'logo' => DisplayImageComponent::create('common.logo'),
             'url' => DisplayEnabledComponent::create('common.status'),
         ];
     }

@@ -19,10 +19,10 @@ abstract class DisplayButton extends DisplayComponent
         $this->routeKey = $routeKey;
     }
 
-    public function renderField(array $model, string $key = ''): View
+    public function renderField(array $resource, string $key = ''): View
     {
         return view($this->viewName, [
-            'route' => route($this->routeName, $model[$this->routeKey]),
+            'route' => route($this->routeName, $resource[$this->routeKey]),
         ]);
     }
 }
