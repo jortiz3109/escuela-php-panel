@@ -18,7 +18,7 @@
                     <div class="buttons">
                         @guest
                             <a class="button is-light">
-                                @lang('auth.login')
+                                {{ trans('auth.login') }}
                             </a>
                         @endguest
                     </div>

@@ -5,6 +5,10 @@ return [
     'save' => 'Save',
     'back' => 'Back',
     'actions' => 'Actions',
+    'fields' => [
+        'name' => 'Name',
+        'email' => 'E-mail Address',
+    ],
     'payment_methods' => 'Payment Methods',
     'responses' => [
         'updated' => ':model updated successfully!',
