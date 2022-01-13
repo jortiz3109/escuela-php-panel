@@ -61,6 +61,7 @@ class IndexTest extends TestCase
 
         $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME))
             ->assertSee($merchant->name)
+            ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
             ->assertSee($merchant->url)
             ->assertSee($merchant->country->name)
