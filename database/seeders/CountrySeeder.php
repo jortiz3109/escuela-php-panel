@@ -2,35 +2,24 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CountrySeeder extends Seeder
 {
+    private const INSERT_CHUNK_SIZE = 50;
+
     public function run(): void
     {
-        DB::table('countries')->insert([
-            [
-                'name' => 'Colombia',
-                'alpha_two_code' => 'CO',
-                'alpha_three_code' => 'COL',
-                'numeric_code' => '170',
-                'enabled_at' => now(),
-            ],
-            [
-                'name' => 'United States',
-                'alpha_two_code' => 'US',
-                'alpha_three_code' => 'USA',
-                'numeric_code' => '840',
-                'enabled_at' => now(),
-            ],
-            [
-                'name' => 'Brasil',
-                'alpha_two_code' => 'BR',
-                'alpha_three_code' => 'BRA',
-                'numeric_code' => '076',
-                'enabled_at' => now(),
-            ],
-        ]);
+        $countries = collect(
+            json_decode(file_get_contents(__DIR__ . '/../../resources/data_sources/countries.json'), true)
+        )->map(function ($item) {
+            return $item + ['enabled_at' => Carbon::now()->format('Y-m-d')];
+        });
+
+        foreach ($countries->chunk(self::INSERT_CHUNK_SIZE) as $chunk) {
+            Country::insert($chunk->toArray());
+        }
     }
 }

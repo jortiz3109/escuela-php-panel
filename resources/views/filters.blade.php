@@ -10,8 +10,17 @@
 
     <div class="card-content">
         <form action="{{ url()->current() }}" method="GET">
-            @foreach($filters as $filter => $value)
-                @includeIf("partials.filters.{$filter}", compact('value'))
+            @php
+                $numberOfColumns = 3;
+                $arrayChunks = array_chunk($filters, $numberOfColumns,true);
+            @endphp
+
+            @foreach($arrayChunks as $row => $content)
+                <div class="columns">
+                    @foreach($content as $key => $value)
+                        @includeIf("partials.filters.{$key}", compact('value'))
+                    @endforeach
+                </div>
             @endforeach
             <b-button type="is-link" native-type="submit" icon-left="magnify">{{ trans('filters.find') }}</b-button>
             <b-button tag="a" type="is-link" href="{{ url()->current() }}" icon-left="eraser">{{ trans('filters.clear') }}</b-button>

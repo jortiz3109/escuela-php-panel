@@ -155,7 +155,16 @@ class IndexTest extends TestCase
     private function createMerchantWithData(): Merchant
     {
         return Merchant::factory()
-            ->for(Country::factory(['name' => 'countryName', 'alpha_two_code' => '12']))
+            ->for(
+                Country::factory(
+                    [
+                        'name' => 'countryName',
+                        'alpha_two_code' => '12',
+                        'alpha_three_code' => '123',
+                        'numeric_code' => '0',
+                    ]
+                )
+            )
             ->for(Currency::factory(['alphabetic_code' => '123']))
             ->create([
                 'name' => 'EVERTEC',
