@@ -1,8 +1,18 @@
 {
-    "name": "laravel/laravel",
+    "name": "placetopay/php-school-panel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Application developed for the PHP Developers School 2021-2022.",
+    "keywords": ["php-school", "placetopay"],
+    "authors": [
+        {
+            "name": "John Edisson Ortiz Román",
+            "email": "john.ortiz@evertecinc.com"
+        },
+        {
+            "name": "Alejandro Silva Berbesí",
+            "email": "alejandro.silva@evertecinc.com"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0",
