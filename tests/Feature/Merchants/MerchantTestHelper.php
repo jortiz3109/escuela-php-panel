@@ -13,6 +13,10 @@ trait MerchantTestHelper
 
     public function fakeMerchantData(array $attributes = []): array
     {
-        return Merchant::factory()->make($attributes)->toArray();
+        $fakeMerchantData = Merchant::factory()->make($attributes)->toArray();
+
+        unset($fakeMerchantData['uuid']);
+
+        return $fakeMerchantData;
     }
 }

@@ -22,8 +22,6 @@ class StoreTest extends TestCase
         $this->post(route(self::MERCHANTS_ROUTE_NAME), $fakeMerchantData)
             ->assertRedirect(route('login'));
 
-        unset($fakeMerchantData['uuid']);
-
         $this->assertDatabaseMissing('merchants', $fakeMerchantData);
     }
 
@@ -34,8 +32,6 @@ class StoreTest extends TestCase
         $this->actingAs($this->defaultUser())
             ->post(route(self::MERCHANTS_ROUTE_NAME), $fakeMerchantData)
             ->assertRedirect(route('merchants.show', Merchant::latest()->first()));
-
-        unset($fakeMerchantData['uuid']);
 
         $this->assertDatabaseHas('merchants', $fakeMerchantData);
     }
