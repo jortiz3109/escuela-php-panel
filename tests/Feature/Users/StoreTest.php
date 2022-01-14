@@ -48,11 +48,11 @@ class StoreTest extends TestCase
 
     public function test_a_user_is_created_with_disabled_status_by_default(): void
     {
-        $this->actingAs($this->defaultUser())->post('/users', $data = $this->userData())
+        $this->actingAs($this->defaultUser())->post('/users', $this->userData())
             ->assertRedirect('dashboard');
 
         $this->assertDatabaseHas('users', [
-            'name' => $data['name'],
+            'name' => $this->userData()['name'],
             'enabled_at' => null,
         ]);
     }
@@ -60,7 +60,7 @@ class StoreTest extends TestCase
     public function test_it_has_a_created_by_id_with_authenticated_user_id(): void
     {
         $this->actingAs($user = $this->defaultUser())
-            ->post(route('users.store'), $data = $this->userData())
+            ->post(route('users.store'), $this->userData())
             ->assertRedirect('/dashboard');
 
         $this->assertEquals($user->id, User::latest('id')->first()->created_by);

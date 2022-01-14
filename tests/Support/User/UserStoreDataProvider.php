@@ -46,7 +46,7 @@ trait UserStoreDataProvider
         ];
     }
 
-    public function userData()
+    public function userData(): array
     {
         return [
             'name' => 'Test Name',
