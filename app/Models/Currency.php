@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
+use App\Models\Concerns\HasToggle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,7 @@ class Currency extends Model
 {
     use HasFactory;
     use HasFilters;
+    use HasToggle;
 
     public $timestamps = false;
 
