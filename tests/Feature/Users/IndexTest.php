@@ -76,7 +76,6 @@ class IndexTest extends TestCase
      */
     public function it_can_filter_users(array $filters, array $userData): void
     {
-        $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
         User::factory()->create($userData);
 
@@ -102,7 +101,7 @@ class IndexTest extends TestCase
         User::factory()->count($enabled['count'])->{$enabled['status']}()->create();
         User::factory()->count($disabled['count'])->{$disabled['status']}()->create();
 
-        $response = $this->actingAs($this->defaultUser())->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
+        $response = $this->actingAs(User::first())->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
         $users = $response->getOriginalContent()['users'];
 
         $response->assertStatus(Response::HTTP_OK);
