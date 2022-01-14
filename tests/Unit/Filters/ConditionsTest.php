@@ -37,7 +37,6 @@ class ConditionsTest extends TestCase
     public function test_conditions(string $class, string|array $criteria, string $expected): void
     {
         $class::append($this->builder, new Criteria($criteria));
-        //dd($this->builder->toSql());
         $this->assertEquals($expected, $this->builder->toSql());
     }
 
