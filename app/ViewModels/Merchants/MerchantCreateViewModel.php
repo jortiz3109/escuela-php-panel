@@ -104,12 +104,12 @@ class MerchantCreateViewModel extends ViewModel
 
     public function currencies(): Collection
     {
-        return Currency::enabled()->orderBy('alphabetic_code')->get();
+        return Currency::enabled()->orderBy('alphabetic_code')->get(['id', 'name']);
     }
 
     public function countries(): Collection
     {
-        return Country::enabled()->orderBy('name')->get();
+        return Country::enabled()->orderBy('name')->get(['id', 'name']);
     }
 
     public function documentTypes(): Collection

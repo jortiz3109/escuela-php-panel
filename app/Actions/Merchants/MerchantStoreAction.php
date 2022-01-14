@@ -17,7 +17,7 @@ class MerchantStoreAction extends MerchantUpdateAction implements ActionContract
      */
     public function execute(Model $merchant, Request $request): Merchant
     {
-        $merchant->uuid = Str::uuid()->toString();
+        $merchant->uuid = Str::orderedUuid()->toString();
 
         return parent::execute($merchant, $request);
     }
