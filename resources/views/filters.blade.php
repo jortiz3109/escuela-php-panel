@@ -18,7 +18,9 @@
             @foreach($arrayChunks as $row => $content)
                 <div class="columns">
                     @foreach($content as $key => $value)
-                        @includeIf("partials.filters.{$key}", compact('value'))
+                        <div class="column is-4">
+                            @includeIf("partials.filters.{$key}", compact('value'))
+                        </div>
                     @endforeach
                 </div>
             @endforeach
