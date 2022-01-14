@@ -48,4 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
     {
         return $this->hasMany(KnowDevice::class);
     }
+
+    public function disableEmailVerification(): void
+    {
+        $this->email_verified_at = null;
+
+        $this->save();
+    }
 }
