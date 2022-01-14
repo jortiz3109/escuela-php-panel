@@ -7,11 +7,12 @@ use App\Filters\Conditions\CurrencyAlphabeticCode;
 use App\Filters\Conditions\Email;
 use App\Filters\Conditions\Merchants\CountryTwoCode;
 use App\Filters\Conditions\Name;
+use App\Filters\Conditions\Status;
 use App\Filters\Conditions\Transactions\DateBetween;
 use App\Filters\Conditions\Transactions\MerchantName;
 use App\Filters\Conditions\Transactions\PaymentMethodId;
 use App\Filters\Conditions\Transactions\Reference;
-use App\Filters\Conditions\Transactions\Status;
+use App\Filters\Conditions\Transactions\Status as TransactionStatus;
 use App\Filters\Criteria;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -79,7 +80,7 @@ class ConditionsTest extends TestCase
                 'expected sql' => 'select * where "reference" like ?',
             ],
             'transactions status' => [
-                'conditions class' => Status::class,
+                'conditions class' => TransactionStatus::class,
                 'criteria' => Str::random(5),
                 'expected sql' => 'select * where "status" = ?',
             ],
@@ -92,6 +93,11 @@ class ConditionsTest extends TestCase
                 'conditions class' => Email::class,
                 'criteria' => Str::random(10),
                 'expected sql' => 'select * where "email" like ?',
+            ],
+            'status' => [
+                'conditions class' => Status::class,
+                'criteria' => Str::random(5),
+                'expected sql' => 'select *',
             ],
         ];
     }
