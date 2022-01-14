@@ -3,7 +3,6 @@
 namespace Tests\Feature\Api;
 
 use App\Models\Country;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
