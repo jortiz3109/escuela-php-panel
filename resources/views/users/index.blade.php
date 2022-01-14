@@ -8,6 +8,7 @@
             <th scope="col">{{trans('users.fields.email')}}</th>
             <th scope="col">{{trans('users.fields.created_at')}}</th>
             <th scope="col">{{trans('users.fields.status')}}</th>
+            <th scope="col">&nbsp;</th>
         </tr>
         </thead>
         <tfoot>
@@ -16,6 +17,7 @@
             <th scope="col">{{trans('users.fields.email')}}</th>
             <th scope="col">{{trans('users.fields.created_at')}}</th>
             <th scope="col">{{trans('users.fields.status')}}</th>
+            <th scope="col">&nbsp;</th>
         </tr>
         </tfoot>
         <tbody>
@@ -28,6 +30,7 @@
                 <td>
                     <p-status-button url="{{ route('users.status.toggle', [$user->id]) }}" is-enabled="{{ $user->isEnabled() }}" button-Enabled="{{ $user->isVerified() }}"></p-status-button>
                 </td>
+                <td><a href="{{ route('users.edit', $user->id) }}"><em class="fas fa-edit"></em></a></td>
             </tr>
         @endforeach
         </tbody>

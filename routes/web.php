@@ -23,9 +23,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
+    Route::resource('users', UserController::class)->only(['index', 'edit', 'update']);
 
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
 
     Route::resource('payment-methods', PaymentMethodController::class)->only('index');
 
