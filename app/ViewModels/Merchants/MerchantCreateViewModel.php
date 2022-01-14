@@ -114,6 +114,6 @@ class MerchantCreateViewModel extends ViewModel
 
     public function documentTypes(): Collection
     {
-        return DocumentType::all();
+        return DocumentType::all(['id', 'name']);
     }
 }
