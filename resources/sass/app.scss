@@ -7,6 +7,13 @@
 // Fontawesome
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+// maps
+@import "map";
+
 [v-cloak] {
     display: none;
+}
+
+.table.is-borderless td, .table.is-borderless th {
+    border: 0;
 }
