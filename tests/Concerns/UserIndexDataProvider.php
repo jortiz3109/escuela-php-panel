@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Support\User;
+namespace Tests\Concerns;
 
 trait UserIndexDataProvider
 {
@@ -20,7 +20,7 @@ trait UserIndexDataProvider
                 'enabled' => $this->makeFilter('enabled', 5),
                 'disabled' => $this->makeFilter('disabled', 10),
                 'filter_by' => 'disabled',
-                'filtered' => 10,
+                'filtered_data' => 11,
             ],
             'has filtered by enabled status' => [
                 'enabled' => $this->makeFilter('enabled', 5),
