@@ -16,7 +16,7 @@ class Merchant extends Model
 {
     use HasFactory;
     use HasFilters;
-    use HasUrlPresenters;
+    use HasUrlPresenter;
 
     public function country(): BelongsTo
     {
