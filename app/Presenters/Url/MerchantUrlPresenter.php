@@ -6,9 +6,9 @@ use App\Models\Merchant;
 
 class MerchantUrlPresenter extends UrlPresenter
 {
-    public function index(): string
+    public function index(string $filters = ''): string
     {
-        return route('merchants.index');
+        return route('merchants.index', $filters);
     }
 
     public function store(): string

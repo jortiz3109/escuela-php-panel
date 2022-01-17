@@ -16,7 +16,7 @@ class ShowTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->get($merchant->urlPresenter()->show($merchant))
+        $this->get(Merchant::urlPresenter()->show($merchant))
             ->assertRedirect(route('login'));
     }
 
@@ -24,14 +24,14 @@ class ShowTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->show($merchant))
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->show($merchant))
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
             ->assertSee($merchant->url)
             ->assertSee($merchant->country->name)
             ->assertSee($merchant->currency->alphabetic_code)
-            ->assertSee($merchant->urlPresenter()->edit($merchant))
+            ->assertSee(Merchant::urlPresenter()->edit($merchant))
             ->assertSee(route('merchants.index'))
             ->assertStatus(200);
     }

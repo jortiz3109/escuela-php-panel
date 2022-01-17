@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Merchants;
 
+use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
@@ -17,7 +18,7 @@ class UpdateTest extends TestCase
         $merchant = $this->fakeMerchant();
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->put($merchant->urlPresenter()->update($merchant))
+        $this->put(Merchant::urlPresenter()->update($merchant))
             ->assertRedirect(route('login'));
 
         $this->assertDatabaseMissing('merchants', [
@@ -31,8 +32,8 @@ class UpdateTest extends TestCase
         $fakeMerchantData = $this->fakeMerchantData();
 
         $this->actingAs($this->defaultUser())
-            ->put($merchant->urlPresenter()->update($merchant), $fakeMerchantData)
-            ->assertRedirect($merchant->urlPresenter()->show($merchant));
+            ->put(Merchant::urlPresenter()->update($merchant), $fakeMerchantData)
+            ->assertRedirect(Merchant::urlPresenter()->show($merchant));
 
         $this->assertDatabaseHas('merchants', [
             'id' => $merchant->getKey(),

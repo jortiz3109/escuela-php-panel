@@ -29,7 +29,7 @@ class StoreTest extends TestCase
 
         $this->actingAs($this->defaultUser())
             ->post(Merchant::urlPresenter()->store(), $fakeMerchantData)
-            ->assertRedirect(route('merchants.show', Merchant::latest()->first()));
+            ->assertRedirect(Merchant::urlPresenter()->show(Merchant::latest()->first()));
 
         $this->assertDatabaseHas('merchants', $fakeMerchantData);
     }

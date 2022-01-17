@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Merchants;
 
+use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
@@ -17,7 +18,7 @@ class EditTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->get($merchant->urlPresenter()->edit($merchant))
+        $this->get(Merchant::urlPresenter()->edit($merchant))
             ->assertRedirect(route('login'));
     }
 
@@ -25,7 +26,7 @@ class EditTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->edit($merchant))
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->edit($merchant))
             ->assertStatus(Response::HTTP_OK);
     }
 
@@ -33,7 +34,7 @@ class EditTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->edit($merchant))
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->edit($merchant))
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)

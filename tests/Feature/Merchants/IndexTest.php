@@ -83,7 +83,7 @@ class IndexTest extends TestCase
         $this->createMerchantWithData();
 
         $filters = http_build_query(['filters' => [$filter => $filterValue]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index($filters));
         $merchants = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $merchants);
@@ -96,7 +96,7 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, string $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters))
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index($filters))
             ->assertSessionHasErrors("filters.{$attribute}");
     }
 

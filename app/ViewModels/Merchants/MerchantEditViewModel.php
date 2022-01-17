@@ -2,6 +2,7 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\Models\Merchant;
 use App\ViewModels\Concerns\HasModel;
 
 class MerchantEditViewModel extends MerchantCreateViewModel
@@ -13,7 +14,7 @@ class MerchantEditViewModel extends MerchantCreateViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => $this->model->urlPresenter()->show(),
+                'route' => Merchant::urlPresenter()->show($this->model),
             ],
             'save' => [
                 'text' => trans('common.update'),
@@ -28,6 +29,6 @@ class MerchantEditViewModel extends MerchantCreateViewModel
 
     public function getAction(): string
     {
-        return $this->model->urlPresenter()->update();
+        return Merchant::urlPresenter()->update($this->model);
     }
 }
