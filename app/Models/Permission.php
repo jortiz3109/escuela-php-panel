@@ -14,8 +14,6 @@ class Permission extends Model
     use HasFilters;
 
     public const PERMISSIONS = [
-        PermissionType::INDEX => 'permission.index',
-        PermissionType::UPDATE => 'permission.update',
     ];
 
     public function users(): BelongsToMany

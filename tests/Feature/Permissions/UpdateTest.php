@@ -18,7 +18,7 @@ class UpdateTest extends TestCase
     use PermissionHasDataProvider;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.update';
-    private const PERMISSIONS_PERMISSION = Permission::PERMISSIONS[PermissionType::UPDATE];
+    private const PERMISSIONS_PERMISSION = PermissionType::PERMISSION_UPDATE;
     private Model $permission;
     private array $newData;
 

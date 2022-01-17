@@ -18,7 +18,7 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
     use MerchantHasDataProvider;
 
-    private const MERCHANT_PERMISSION = Merchant::PERMISSIONS[PermissionType::INDEX];
+    private const MERCHANT_PERMISSION = PermissionType::MERCHANT_INDEX;
 
     public function test_a_guest_user_cannot_access(): void
     {

@@ -19,7 +19,7 @@ class IndexTest extends TestCase
     use PermissionHasDataProvider;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.index';
-    private const PERMISSIONS_PERMISSION = Permission::PERMISSIONS[PermissionType::INDEX];
+    private const PERMISSIONS_PERMISSION = PermissionType::PERMISSION_INDEX;
 
     public function test_a_guest_user_cannot_access(): void
     {

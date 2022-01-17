@@ -19,13 +19,6 @@ class Merchant extends Model
     use HasFilters;
     use HasUrlPresenters;
 
-    public const PERMISSIONS = [
-        PermissionType::INDEX => 'merchant.index',
-        PermissionType::SHOW => 'merchant.show',
-        PermissionType::CREATE => 'merchant.create',
-        PermissionType::UPDATE => 'merchant.update',
-    ];
-
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

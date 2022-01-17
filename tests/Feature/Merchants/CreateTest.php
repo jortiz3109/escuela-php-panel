@@ -14,7 +14,7 @@ class CreateTest extends TestCase
     use RefreshDatabase;
     use HasAuthenticatedUser;
 
-    private const MERCHANT_PERMISSION = Merchant::PERMISSIONS[PermissionType::CREATE];
+    private const MERCHANT_PERMISSION = PermissionType::MERCHANT_CREATE;
 
     public function test_a_guest_user_cannot_access(): void
     {

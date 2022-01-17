@@ -16,7 +16,7 @@ class ShowTest extends TestCase
     use HasAuthenticatedUser;
     use MerchantHasDataProvider;
 
-    private const MERCHANT_PERMISSION = Merchant::PERMISSIONS[PermissionType::SHOW];
+    private const MERCHANT_PERMISSION = PermissionType::MERCHANT_SHOW;
 
     public function test_a_guest_user_cannot_access(): void
     {

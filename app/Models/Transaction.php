@@ -13,11 +13,6 @@ class Transaction extends Model
     use HasFactory;
     use HasFilters;
 
-    public const PERMISSIONS = [
-        PermissionType::INDEX => 'transaction.index',
-        PermissionType::SHOW => 'transaction.show',
-    ];
-
     protected $casts = [
         'date' => 'datetime',
     ];

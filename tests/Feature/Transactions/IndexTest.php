@@ -22,7 +22,7 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
 
     public const TRANSACTIONS_ROUTE_NAME = 'transactions.index';
-    private const TRANSACTION_PERMISSION = Transaction::PERMISSIONS[PermissionType::INDEX];
+    private const TRANSACTION_PERMISSION = PermissionType::TRANSACTION_INDEX;
 
     public function test_a_guest_user_cannot_access(): void
     {

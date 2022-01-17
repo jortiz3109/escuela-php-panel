@@ -16,7 +16,7 @@ class EditTest extends TestCase
     use RefreshDatabase;
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.edit';
-    private const PERMISSIONS_PERMISSION = Permission::PERMISSIONS[PermissionType::UPDATE];
+    private const PERMISSIONS_PERMISSION = PermissionType::PERMISSION_UPDATE;
     private Model $permission;
 
     protected function setUp(): void

@@ -16,7 +16,7 @@ class EditTest extends TestCase
     use HasAuthenticatedUser;
     use MerchantHasDataProvider;
 
-    private const MERCHANT_PERMISSION = Merchant::PERMISSIONS[PermissionType::UPDATE];
+    private const MERCHANT_PERMISSION = PermissionType::MERCHANT_UPDATE;
 
     public function test_a_guest_user_cannot_access(): void
     {

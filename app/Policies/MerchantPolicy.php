@@ -14,28 +14,28 @@ class MerchantPolicy
 
     public function viewAny(User $user): bool
     {
-        return Permission::firstWhere('name', Merchant::PERMISSIONS[PermissionType::INDEX])
+        return Permission::firstWhere('name', PermissionType::MERCHANT_INDEX)
             ->users
             ->contains($user);
     }
 
     public function view(User $user, Merchant $merchant): bool
     {
-        return Permission::firstWhere('name', Merchant::PERMISSIONS[PermissionType::SHOW])
+        return Permission::firstWhere('name', PermissionType::MERCHANT_SHOW)
             ->users
             ->contains($user);
     }
 
     public function create(User $user): bool
     {
-        return Permission::firstWhere('name', Merchant::PERMISSIONS[PermissionType::CREATE])
+        return Permission::firstWhere('name', PermissionType::MERCHANT_CREATE)
             ->users
             ->contains($user);
     }
 
     public function update(User $user, Merchant $merchant): bool
     {
-        return Permission::firstWhere('name', Merchant::PERMISSIONS[PermissionType::UPDATE])
+        return Permission::firstWhere('name', PermissionType::MERCHANT_UPDATE)
             ->users
             ->contains($user);
     }

@@ -20,7 +20,7 @@ class DetailsTest extends TestCase
     use WithFaker;
 
     public const TRANSACTION_DETAILS_ROUTE_NAME = 'transactions.show';
-    private const TRANSACTION_PERMISSION = Transaction::PERMISSIONS[PermissionType::SHOW];
+    private const TRANSACTION_PERMISSION = PermissionType::TRANSACTION_SHOW;
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -156,7 +156,7 @@ class DetailsTest extends TestCase
             'longitude' => null,
         ]);
 
-        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
+        $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $transaction->fresh();

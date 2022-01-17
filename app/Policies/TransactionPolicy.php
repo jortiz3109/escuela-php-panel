@@ -14,14 +14,14 @@ class TransactionPolicy
 
     public function viewAny(User $user): bool
     {
-        return Permission::firstWhere('name', Transaction::PERMISSIONS[PermissionType::INDEX])
+        return Permission::firstWhere('name', PermissionType::TRANSACTION_INDEX)
             ->users
             ->contains($user);
     }
 
     public function view(User $user, Transaction $transaction): bool
     {
-        return Permission::firstWhere('name', Transaction::PERMISSIONS[PermissionType::SHOW])
+        return Permission::firstWhere('name', PermissionType::TRANSACTION_SHOW)
             ->users
             ->contains($user);
     }
