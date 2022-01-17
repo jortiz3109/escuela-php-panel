@@ -6,7 +6,7 @@ return [
         'create' => 'Register User',
     ],
     'navbar' => [
-        'title' => 'User',
+        'title' => 'Users',
     ],
     'inputs' => [
         'name' => 'name',
