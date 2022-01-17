@@ -8,7 +8,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Concerns\HasAuthenticatedUser;
-use Tests\Support\User\UserIndexDataProvider;
+use Tests\Concerns\UserIndexDataProvider;
 use Tests\TestCase;
 
 class IndexTest extends TestCase

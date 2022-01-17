@@ -17,9 +17,6 @@ class Location
         $this->apiKey = $config['apiKey'];
     }
 
-    /**
-     * @throws LocationException
-     */
     public function getLocation(string $ip): array
     {
         $request = $this->route . $ip . '?access_key=' . $this->apiKey;
@@ -27,7 +24,9 @@ class Location
         $data = json_decode($response->body());
 
         if (isset($data->error)) {
-            throw new LocationException($data->error->info);
+            report(new LocationException($data->error->info));
+            $data->latitude = 0;
+            $data->longitude = 0;
         }
 
         return [

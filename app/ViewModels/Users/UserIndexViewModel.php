@@ -11,7 +11,12 @@ class UserIndexViewModel extends IndexViewModel
 
     protected function buttons(): array
     {
-        return [];
+        return [
+            'create' => [
+                'text' => trans('users.buttons.save'),
+                'route' => route('users.create'),
+            ],
+        ];
     }
 
     protected function title(): string
@@ -24,7 +29,7 @@ class UserIndexViewModel extends IndexViewModel
         return [
             'email' => old('filters.email') ?? request()->input('filters.email'),
             'created_at' => old('filters.created_at') ?? request()->input('filters.created_at'),
-            'status' => old('filters.status') ?? request()->input('filters.status'),
+            'status_enabled' => old('filters.status') ?? request()->input('filters.status_enabled'),
         ];
     }
 
