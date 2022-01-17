@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Countries;
 
+use App\Http\Resources\Countries\CountryIndexResource;
 use App\Models\Country;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -32,15 +33,19 @@ class IndexTest extends TestCase
     public function test_it_has_a_collection_of_countries(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::COUNTRIES_ROUTE_NAME));
+
         $response->assertViewHas('collection');
-        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']);
+        $this->assertInstanceOf(
+            LengthAwarePaginator::class,
+            $response->getOriginalContent()['collection']->resource
+        );
     }
 
     public function test_collection_has_countries(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::COUNTRIES_ROUTE_NAME));
 
-        $this->assertInstanceOf(Country::class, $response->getOriginalContent()['collection']->first());
+        $this->assertInstanceOf(CountryIndexResource::class, $response->getOriginalContent()['collection']->first());
     }
 
     public function test_it_can_filter_countries(): void

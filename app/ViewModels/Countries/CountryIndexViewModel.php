@@ -2,6 +2,8 @@
 
 namespace App\ViewModels\Countries;
 
+use App\Http\Resources\Countries\CountryIndexResource;
+use App\ViewComponents\Display\DisplayEnabledComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\IndexViewModel;
@@ -20,6 +22,7 @@ class CountryIndexViewModel extends IndexViewModel
         return [
             'name' => DisplayTextComponent::create('countries.fields.name'),
             'alpha_two_code' => DisplayTextComponent::create('countries.fields.alpha_two_code'),
+            'url' => DisplayEnabledComponent::create('common.status'),
         ];
     }
 
@@ -27,13 +30,14 @@ class CountryIndexViewModel extends IndexViewModel
     {
         return [
             'name' => old('filters.name') ?? request()->input('filters.name'),
+            'status_enabled' => old('filters.status_enabled') ?? request()->input('filters.status_enabled'),
         ];
     }
 
     protected function data(): array
     {
         return [
-            'collection' => $this->collection,
+            'collection' => CountryIndexResource::collection($this->collection),
         ];
     }
 }
