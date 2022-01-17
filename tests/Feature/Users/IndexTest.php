@@ -101,7 +101,10 @@ class IndexTest extends TestCase
         User::factory()->count($enabled['count'])->{$enabled['status']}()->create();
         User::factory()->count($disabled['count'])->{$disabled['status']}()->create();
 
-        $response = $this->actingAs($this->enabledUser())->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
+        $response = $this->actingAs($this->enabledUser())
+            ->get(
+                self::FILTER_URI . http_build_query(['filters' => ['status_enabled' =>  $filterBy]])
+            );
         $users = $response->getOriginalContent()['users'];
 
         $response->assertStatus(Response::HTTP_OK);
