@@ -2,22 +2,33 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\Models\Merchant;
 use App\ViewModels\Concerns\HasModel;
 
 class MerchantEditViewModel extends MerchantCreateViewModel
 {
     use HasModel;
 
+    protected function buttons(): array
+    {
+        return [
+            'back' => [
+                'text' => trans('common.back'),
+                'route' => Merchant::urlPresenter()->show($this->model),
+            ],
+            'save' => [
+                'text' => trans('common.update'),
+            ],
+        ];
+    }
+
     protected function title(): string
     {
         return trans('merchants.titles.edit');
     }
 
-    protected function data(): array
+    public function getAction(): string
     {
-        return [
-            'model' => $this->model,
-            'action' => '',
-        ];
+        return Merchant::urlPresenter()->update($this->model);
     }
 }

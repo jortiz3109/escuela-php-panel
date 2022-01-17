@@ -3,15 +3,20 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
+use Database\Factories\MerchantFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @method static MerchantFactory factory(...$parameters)
+ */
 class Merchant extends Model
 {
     use HasFactory;
     use HasFilters;
+    use HasUrlPresenter;
 
     public function country(): BelongsTo
     {
