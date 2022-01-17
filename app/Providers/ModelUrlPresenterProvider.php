@@ -13,7 +13,7 @@ class ModelUrlPresenterProvider extends ServiceProvider
     {
         $this->app->singleton(UrlPresenter::class, function ($app, array $params) {
             $presenterName = $this->presenterName($params['modelName']);
-            return new $presenterName($params['modelName']);
+            return new $presenterName();
         });
     }
 
