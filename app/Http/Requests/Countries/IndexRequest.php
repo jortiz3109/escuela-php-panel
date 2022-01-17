@@ -15,7 +15,8 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters' => ['bail', 'filled', 'array'],
-            'filters.name' => ['bail', 'filled', 'string', 'min:2', 'max:80'],
+            'filters.name' => ['bail', 'nullable', 'string', 'min:2', 'max:80'],
+            'filters.status_enabled' => ['bail', 'nullable', 'in:enabled,disabled'],
         ];
     }
 }

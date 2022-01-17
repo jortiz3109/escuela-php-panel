@@ -13,16 +13,6 @@ class PaymentMethodsIndexViewModel extends IndexViewModel
 {
     use HasPaginator;
 
-    protected function buttons(): array
-    {
-        return [
-            'back' => [
-                'text' => trans('buttons.actions.back'),
-                'route' => route('dashboard'),
-            ],
-        ];
-    }
-
     protected function title(): string
     {
         return trans('common.payment_methods');

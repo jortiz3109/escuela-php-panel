@@ -10,7 +10,8 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->enabled()->make([
-            'email' => 'test@test.com',
+            'name' => 'admin',
+            'email' => 'admin@email.com',
         ]);
     }
 }

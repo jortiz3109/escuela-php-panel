@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="button" @click="switchUserStatus" :class="buttonColor" :disabled="!buttonEnabled">
+    <button type="button" class="button is-small" @click="switchUserStatus" :class="buttonColor" :disabled="!buttonEnabled">
         <span>{{ isEnabled ? 'Enabled' : 'Disabled' }}</span>
         <b-icon
             v-if="!buttonEnabled"

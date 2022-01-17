@@ -20,7 +20,7 @@ trait UserIndexDataProvider
                 'enabled' => $this->makeFilter('enabled', 5),
                 'disabled' => $this->makeFilter('disabled', 10),
                 'filter_by' => 'disabled',
-                'filtered_data' => 11,
+                'filtered_data' => 10,
             ],
             'has filtered by enabled status' => [
                 'enabled' => $this->makeFilter('enabled', 5),

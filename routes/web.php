@@ -9,8 +9,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,26 +22,24 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('users', UserController::class)->only(['index', 'edit', 'update']);
+    Route::resource('users', UserController::class)->only(['index', 'create', 'store',  'edit', 'update']);
 
-    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
+    Route::resource('merchants', MerchantController::class)->except(['destroy']);
 
     Route::resource('payment-methods', PaymentMethodController::class)->only('index');
 
     Route::get('logins', LoginLogController::class)->name('logins.index');
 
-    Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+    Route::resource('transactions', TransactionController::class)->except(['destroy']);
 
     Route::resource('permissions', PermissionController::class)->only(['index', 'edit', 'update']);
 
     Route::view('/email/verify', 'auth.verify-email')->name('verification.notice');
 });
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-
-    return redirect(RouteServiceProvider::HOME);
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verifies'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
