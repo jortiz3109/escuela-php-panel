@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)->only(['index', 'edit', 'update']);
 
-    Route::resource('merchants', MerchantController::class)->only(['index', 'create', 'edit', 'show']);
+    Route::resource('merchants', MerchantController::class)->except(['destroy']);
 
     Route::resource('payment-methods', PaymentMethodController::class)->only('index');
 

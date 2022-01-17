@@ -16,50 +16,48 @@ class IndexTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
-
-    private const MERCHANTS_ROUTE_NAME = 'merchants.index';
+    use MerchantTestHelper;
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->get(Merchant::urlPresenter()->index());
         $response->assertRedirect(route('login'));
     }
 
     public function test_it_can_list_merchants(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index());
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_merchants(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index());
 
-        $response->assertViewHas('merchants');
+        $response->assertViewHas('collection');
         $this->assertInstanceOf(
             LengthAwarePaginator::class,
-            $response->getOriginalContent()['merchants']
+            $response->getOriginalContent()['collection']
         );
     }
 
     public function test_collection_has_merchants(): void
     {
-        Merchant::factory()->create();
+        $this->fakeMerchant();
 
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index());
 
         $this->assertInstanceOf(
             Merchant::class,
-            $response->getOriginalContent()['merchants']->first()
+            $response->getOriginalContent()['collection']->first()
         );
     }
 
     public function test_it_show_merchants_data(): void
     {
-        $merchant = Merchant::factory()->create();
+        $merchant = $this->fakeMerchant();
 
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
-        $response
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index())
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
@@ -85,8 +83,8 @@ class IndexTest extends TestCase
         $this->createMerchantWithData();
 
         $filters = http_build_query(['filters' => [$filter => $filterValue]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-        $merchants = $response->getOriginalContent()['merchants'];
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index($filters));
+        $merchants = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $merchants);
         $response->assertSee($showedValue);
@@ -98,9 +96,8 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, string $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME, $filters));
-
-        $response->assertSessionHasErrors("filters.{$attribute}");
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index($filters))
+            ->assertSessionHasErrors("filters.{$attribute}");
     }
 
     public function filtersProvider(): array

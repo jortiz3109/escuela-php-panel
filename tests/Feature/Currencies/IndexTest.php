@@ -20,26 +20,34 @@ class IndexTest extends TestCase
     public function test_a_guest_user_cannot_access(): void
     {
         $response = $this->get(route(self::CURRENCIES_ROUTE_NAME));
+
         $response->assertRedirect(route('login'));
     }
 
     public function test_it_can_list_currencies(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
+
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_currencies(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
+
         $response->assertViewHas('collection');
-        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']);
+        $this->assertInstanceOf(
+            LengthAwarePaginator::class,
+            $response->getOriginalContent()['collection']
+        );
     }
 
     public function test_collection_has_currencies(): void
     {
         Currency::factory()->create();
+
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
+
         $this->assertInstanceOf(Currency::class, $response->getOriginalContent()['collection']->first());
     }
 
