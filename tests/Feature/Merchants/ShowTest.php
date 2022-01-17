@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Merchants;
 
+use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
