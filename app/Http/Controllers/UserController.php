@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Actions\User\UserStoreAction;
-use App\Events\UserStored;
-use App\Http\Requests\Users\UserCreateRequest;
-use App\ViewModels\Users\UserCreateViewModel;
 use App\Actions\Users\UserUpdateAction;
+use App\Events\UserStored;
 use App\Http\Requests\Users\IndexRequest;
 use App\Http\Requests\Users\UpdateRequest;
+use App\Http\Requests\Users\UserCreateRequest;
 use App\Models\User;
+use App\ViewModels\Users\UserCreateViewModel;
 use App\ViewModels\Users\UserEditViewModel;
 use App\ViewModels\Users\UserIndexViewModel;
 use Illuminate\Http\RedirectResponse;
