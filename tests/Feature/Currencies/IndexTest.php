@@ -5,7 +5,6 @@ namespace Tests\Feature\Currencies;
 use App\Http\Resources\Currencies\CurrencyIndexResource;
 use App\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
