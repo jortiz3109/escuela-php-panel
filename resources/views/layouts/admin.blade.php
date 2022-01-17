@@ -24,11 +24,13 @@
                                     </a>
                                 </li>
                             @endcan
-                            <li>
-                                <a href="{{ route('payment-methods.index') }}">
-                                    <em class="pr-2 mdi mdi-card-account-details"></em>{{ trans('common.payment_methods') }}
-                                </a>
-                            </li>
+                            @can('viewAny', \App\Models\PaymentMethod::class)
+                                <li>
+                                    <a href="{{ route('payment-methods.index') }}">
+                                        <em class="pr-2 mdi mdi-card-account-details"></em>{{ trans('common.payment_methods') }}
+                                    </a>
+                                </li>
+                            @endcan
                             @can('viewAny', \App\Models\Country::class)
                                 <li>
                                     <a href="{{ route('countries.index') }}">
@@ -36,11 +38,13 @@
                                     </a>
                                 </li>
                             @endcan
-                            <li>
-                                <a href="{{ route('currencies.index') }}">
-                                    <em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('currencies.navbar.title') }}
-                                </a>
-                            </li>
+                            @can('viewAny', \App\Models\Currency::class)
+                                <li>
+                                    <a href="{{ route('currencies.index') }}">
+                                        <em class="pr-2 mdi mdi-currency-usd"></em>{{ trans('currencies.navbar.title') }}
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
 
                         <p class="menu-label">{{ trans('menu.security') }}</p>
@@ -52,11 +56,13 @@
                                     </a>
                                 </li>
                             @endcan
-                            <li>
-                                <a href="{{ route('users.index') }}">
-                                    <em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('users.navbar.title') }}
-                                </a>
-                            </li>
+                            @can('viewAny', \App\Models\User::class)
+                                <li>
+                                    <a href="{{ route('users.index') }}">
+                                        <em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('users.navbar.title') }}
+                                    </a>
+                                </li>
+                            @endcan
                             <li>
                                 <a href="{{ route('logins.index') }}">
                                     <em class="pr-2 mdi mdi-login"></em>{{ trans('Last logins') }}
