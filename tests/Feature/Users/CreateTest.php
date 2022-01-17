@@ -4,8 +4,8 @@ namespace Tests\Feature\Users;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\Concerns\UserStoreDataProvider;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
-use Tests\Support\User\UserStoreDataProvider;
 use Tests\TestCase;
 
 class CreateTest extends TestCase

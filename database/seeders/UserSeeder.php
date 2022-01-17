@@ -9,6 +9,9 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->enabled()->create(['name' => 'admin', 'email' => 'admin@email.com']);
+        User::factory()->enabled()->make([
+            'name' => 'admin',
+            'email' => 'admin@email.com',
+        ]);
     }
 }

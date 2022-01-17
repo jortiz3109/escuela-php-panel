@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Support\User;
+namespace Tests\Concerns;
 
 trait UserStoreDataProvider
 {

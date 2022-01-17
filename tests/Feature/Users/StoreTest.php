@@ -5,8 +5,8 @@ namespace Tests\Feature\Users;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\Concerns\UserStoreDataProvider;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
-use Tests\Support\User\UserStoreDataProvider;
 use Tests\TestCase;
 
 class StoreTest extends TestCase

@@ -6,8 +6,8 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Concerns\UserIndexDataProvider;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
-use Tests\Support\User\UserIndexDataProvider;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -76,11 +76,10 @@ class IndexTest extends TestCase
      */
     public function it_can_filter_users(array $filters, array $userData): void
     {
-        $this->withoutExceptionHandling();
         User::factory()->count(2)->create();
         User::factory()->create($userData);
 
-        $response = $this->actingAs($this->defaultUser())->get(self::FILTER_URI . http_build_query(['filters' => $filters]));
+        $response = $this->actingAs($this->enabledUser())->get(self::FILTER_URI . http_build_query(['filters' => $filters]));
         $users = $response->getOriginalContent()['users'];
 
         $this->assertCount(1, $users);
@@ -102,7 +101,7 @@ class IndexTest extends TestCase
         User::factory()->count($enabled['count'])->{$enabled['status']}()->create();
         User::factory()->count($disabled['count'])->{$disabled['status']}()->create();
 
-        $response = $this->actingAs($this->defaultUser())->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
+        $response = $this->actingAs($this->enabledUser())->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
         $users = $response->getOriginalContent()['users'];
 
         $response->assertStatus(Response::HTTP_OK);
