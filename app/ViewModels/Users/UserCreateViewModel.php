@@ -18,7 +18,7 @@ class UserCreateViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('merchants.index'),
+                'route' => route('users.index'),
             ],
             'save' => [
                 'text' => trans('common.save'),
