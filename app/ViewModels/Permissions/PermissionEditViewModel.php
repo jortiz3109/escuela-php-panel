@@ -53,7 +53,7 @@ class PermissionEditViewModel extends ViewModel
     {
         return [
             'model' => $this->model,
-            'route' => route('permissions.update', $this->model->id),
+            'action' => route('permissions.update', $this->model->id),
         ];
     }
 }

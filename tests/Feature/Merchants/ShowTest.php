@@ -20,25 +20,30 @@ class ShowTest extends TestCase
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $this->get($this->createMerchantWithData()->presenter()->show())
+        $merchant = $this->createMerchantWithData();
+
+        $this->get(Merchant::urlPresenter()->show($merchant))
             ->assertRedirect(route('login'));
     }
 
     public function test_an_user_without_permission_cannot_see_a_merchant(): void
     {
-        $this->actingAs($this->defaultUser())->get($this->createMerchantWithData()->presenter()->show())
+        $this->actingAs($this->defaultUser())
+            ->get(Merchant::urlPresenter()->show($this->createMerchantWithData()))
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     public function test_an_allowed_user_can_see_merchant(): void
     {
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($this->createMerchantWithData()->presenter()->show())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
+            ->get(Merchant::urlPresenter()->show($this->createMerchantWithData()))
             ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_an_allowed_user_can_see_show_view(): void
     {
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($this->createMerchantWithData()->presenter()->show())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
+            ->get(Merchant::urlPresenter()->show($this->createMerchantWithData()))
             ->assertViewIs('modules.show');
     }
 
@@ -46,7 +51,8 @@ class ShowTest extends TestCase
     {
         $merchant = $this->createMerchantWithData();
 
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($merchant->presenter()->show())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
+            ->get(Merchant::urlPresenter()->show($merchant))
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
@@ -59,9 +65,10 @@ class ShowTest extends TestCase
     {
         $merchant = $this->createMerchantWithData();
 
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($merchant->presenter()->show())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
+            ->get(Merchant::urlPresenter()->show($merchant))
             ->assertSeeText(trans('buttons.actions.edit'))
-            ->assertSee($merchant->presenter()->edit())
+            ->assertSee(Merchant::urlPresenter()->edit($merchant))
             ->assertSeeText(trans('buttons.actions.back'))
             ->assertSee(route('merchants.index'));
     }

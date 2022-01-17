@@ -20,7 +20,7 @@ class CreateMerchantsTable extends Migration
             $table->string('url')->nullable();
             $table->string('logo')->nullable();
 
-            $table->index(['document', 'document_type_id']);
+            $table->unique(['document', 'document_type_id']);
             $table->timestamps();
         });
     }

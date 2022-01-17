@@ -42,7 +42,7 @@ class MerchantController extends Controller
     {
         $merchant = $action->execute(new Merchant(), $request);
 
-        return redirect($merchant->presenter()->show())
+        return redirect($merchant->urlPresenter()->show($merchant))
             ->with('success', trans('merchants.alerts.successful_create'));
     }
 
@@ -55,7 +55,7 @@ class MerchantController extends Controller
     {
         $merchant = $action->execute($merchant, $request);
 
-        return redirect($merchant->presenter()->show())
+        return redirect($merchant->urlPresenter()->show($merchant))
             ->with('success', trans('merchants.alerts.successful_update'));
     }
 

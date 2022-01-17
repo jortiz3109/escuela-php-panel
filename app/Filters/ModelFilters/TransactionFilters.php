@@ -39,6 +39,7 @@ class TransactionFilters extends Filter
             'merchants.name as merchant',
             'transactions.reference',
             'currencies.alphabetic_code as currency',
+            'currencies.symbol as currency_symbol',
             'transactions.total_amount',
             'payment_methods.name as payment_method',
             'transactions.status',

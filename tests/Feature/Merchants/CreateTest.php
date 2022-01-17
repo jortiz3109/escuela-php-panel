@@ -14,30 +14,29 @@ class CreateTest extends TestCase
     use RefreshDatabase;
     use HasAuthenticatedUser;
 
-    private const MERCHANTS_ROUTE_NAME = 'merchants.create';
     private const MERCHANT_PERMISSION = Merchant::PERMISSIONS[PermissionType::CREATE];
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->get(Merchant::urlPresenter()->create());
         $response->assertRedirect(route('login'));
     }
 
     public function test_an_user_without_permission_cannot_access(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->create());
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     public function test_it_can_create_merchants(): void
     {
-        $response = $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get(Merchant::urlPresenter()->create());
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_shows_fields_to_create_merchants(): void
     {
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get(route(self::MERCHANTS_ROUTE_NAME))
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get(Merchant::urlPresenter()->create())
             ->assertSee(trans('merchants.placeholders.name'))
             ->assertSee(trans('merchants.placeholders.brand'))
             ->assertSee(trans('merchants.placeholders.document'))

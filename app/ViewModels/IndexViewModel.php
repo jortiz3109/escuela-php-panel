@@ -7,14 +7,19 @@ abstract class IndexViewModel extends ViewModel
     public function toArray(): array
     {
         return [
-                'buttons' => $this->buttons(),
-                'texts' => $this->texts(),
-                'filters' => $this->filters(),
-                'fields' => $this->fields(),
-            ] + $this->data();
+            'buttons' => $this->buttons(),
+            'texts' => $this->texts(),
+            'filters' => $this->filters(),
+            'fields' => $this->fields(),
+        ] + $this->data();
     }
 
-    public function filters(): array
+    protected function buttons(): array
+    {
+        return [];
+    }
+
+    protected function filters(): array
     {
         return [];
     }

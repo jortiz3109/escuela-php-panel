@@ -13,11 +13,6 @@ class PermissionIndexViewModel extends IndexViewModel
 {
     use HasPaginator;
 
-    protected function buttons(): array
-    {
-        return [];
-    }
-
     protected function title(): string
     {
         return trans('permissions.titles.index');

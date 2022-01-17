@@ -8,23 +8,21 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        if (config('app.env') !== 'production') {
-            User::factory()
-                ->enabled()
-                ->create([
-                    'name' => 'admin',
-                    'email' => 'admin@email.com',
-                ])->permissions()
-                ->attach(Permission::all());
+        User::factory()
+            ->enabled()
+            ->create([
+                'name' => 'admin',
+                'email' => 'admin@email.com',
+            ])->permissions()
+            ->attach(Permission::all());
 
-            User::factory()
-                ->enabled()
-                ->create([
-                    'name' => 'test',
-                    'email' => 'test@test.com',
-                ]);
-        }
+        User::factory()
+            ->enabled()
+            ->create([
+                'name' => 'test',
+                'email' => 'test@test.com',
+            ]);
     }
 }

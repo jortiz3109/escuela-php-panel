@@ -3,6 +3,7 @@
 namespace App\ViewModels\Merchants;
 
 use App\Http\Resources\Merchants\MerchantShowResource;
+use App\Models\Merchant;
 use App\ViewComponents\Display\DisplayExternalURLComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasModel;
@@ -45,7 +46,7 @@ class MerchantShowViewModel extends ViewModel
             ],
             'edit' => [
                 'text' => trans('buttons.actions.edit'),
-                'route' => $this->model->presenter()->edit(),
+                'route' => Merchant::urlPresenter()->edit($this->model),
             ],
         ];
     }

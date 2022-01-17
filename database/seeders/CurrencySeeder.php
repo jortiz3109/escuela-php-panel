@@ -2,38 +2,24 @@
 
 namespace Database\Seeders;
 
+use App\Models\Currency;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CurrencySeeder extends Seeder
 {
-    public function run()
+    private const INSERT_CHUNK_SIZE = 50;
+
+    public function run(): void
     {
-        DB::table('currencies')->insert([
-            [
-                'name' => 'Colombian Pesos',
-                'minor_unit' => 2,
-                'alphabetic_code' => 'COP',
-                'numeric_code' => '170',
-                'symbol' => '$',
-                'enabled_at' => now(),
-            ],
-            [
-                'name' => 'US Dollar',
-                'minor_unit' => 2,
-                'alphabetic_code' => 'USD',
-                'numeric_code' => '840',
-                'symbol' => '$',
-                'enabled_at' => now(),
-            ],
-            [
-                'name' => 'Brazilian Real',
-                'minor_unit' => 2,
-                'alphabetic_code' => 'BRL',
-                'numeric_code' => '986',
-                'symbol' => 'R$',
-                'enabled_at' => now(),
-            ],
-        ]);
+        $currencies = collect(
+            json_decode(file_get_contents(__DIR__ . '/../../resources/data_sources/currencies.json'), true)
+        )->map(function ($item) {
+            return $item + ['enabled_at' => Carbon::now()->format('Y-m-d')];
+        });
+
+        foreach ($currencies->chunk(self::INSERT_CHUNK_SIZE) as $chunk) {
+            Currency::insert($chunk->toArray());
+        }
     }
 }

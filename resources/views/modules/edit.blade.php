@@ -3,7 +3,7 @@
 @section('content')
     <template>
         <section>
-            <form id="submit" method="POST" action="{{ $route }}">
+            <form id="submit" method="POST" action="{{ $action }}">
                 @csrf
                 @method('PUT')
                 @foreach($fields as $field)

@@ -20,19 +20,24 @@ class EditTest extends TestCase
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $this->get($this->createMerchantWithData()->presenter()->edit())
+        $this->get(Merchant::urlPresenter()
+            ->edit($this->createMerchantWithData()))
             ->assertRedirect(route('login'));
     }
 
     public function test_an_user_without_permission_cannot_create_a_merchant(): void
     {
-        $this->actingAs($this->defaultUser())->get($this->createMerchantWithData()->presenter()->edit())
+        $this->actingAs($this->defaultUser())
+            ->get(Merchant::urlPresenter()->edit($this->createMerchantWithData()))
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     public function test_it_can_edit_merchants(): void
     {
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($this->createMerchantWithData()->presenter()->edit())
+        $merchant = $this->createMerchantWithData();
+
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
+            ->get(Merchant::urlPresenter()->edit($merchant))
             ->assertStatus(Response::HTTP_OK);
     }
 
@@ -40,7 +45,8 @@ class EditTest extends TestCase
     {
         $merchant = $this->createMerchantWithData();
 
-        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))->get($merchant->presenter()->edit())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
+            ->get(Merchant::urlPresenter()->edit($merchant))
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)

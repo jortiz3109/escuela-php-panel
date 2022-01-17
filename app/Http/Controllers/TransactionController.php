@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Transactions\SaveTransactionLocation;
 use App\Http\Requests\Transactions\IndexRequest;
 use App\Models\Transaction;
 use App\ViewModels\Transactions\TransactionDetailsViewModel;
@@ -30,6 +31,9 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction, TransactionDetailsViewModel $viewModel): View
     {
+        if (!$transaction->latitude || !$transaction->longitude) {
+            $transaction = SaveTransactionLocation::execute($transaction);
+        }
         return view('transactions.show', $viewModel->model($transaction));
     }
 }

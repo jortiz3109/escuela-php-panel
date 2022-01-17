@@ -4,16 +4,16 @@
         <caption class="is-hidden">{{ $texts['title'] }}</caption>
         <thead>
         <tr>
-            <th scope="col">@lang('logins.fields.created_at')</th>
-            <th scope="col">@lang('logins.fields.ip_address')</th>
-            <th scope="col">@lang('logins.fields.user_agent')</th>
+            <th scope="col">{{ trans('logins.fields.created_at') }}</th>
+            <th scope="col">{{ trans('logins.fields.ip_address') }}</th>
+            <th scope="col">{{ trans('logins.fields.user_agent') }}</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-            <th scope="col">@lang('logins.fields.created_at')</th>
-            <th scope="col">@lang('logins.fields.ip_address')</th>
-            <th scope="col">@lang('logins.fields.user_agent')</th>
+            <th scope="col">{{ trans('logins.fields.ip_address') }}</th>
+            <th scope="col">{{ trans('logins.fields.user_agent') }}</th>
+            <th scope="col">{{ trans('logins.fields.created_at') }}</th>
         </tr>
         </tfoot>
         <tbody>

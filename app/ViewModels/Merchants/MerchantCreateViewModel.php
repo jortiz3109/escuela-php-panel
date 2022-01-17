@@ -5,6 +5,7 @@ namespace App\ViewModels\Merchants;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\DocumentType;
+use App\Models\Merchant;
 use App\ViewComponents\Inputs\AutocompleteInput;
 use App\ViewComponents\Inputs\Input;
 use App\ViewComponents\Inputs\NumberInput;
@@ -23,7 +24,7 @@ class MerchantCreateViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('merchants.index'),
+                'route' => Merchant::urlPresenter()->index(),
             ],
             'save' => [
                 'text' => trans('common.create'),
@@ -75,14 +76,14 @@ class MerchantCreateViewModel extends ViewModel
 
             AutocompleteInput::create(
                 trans('merchants.labels.country'),
-                'country',
+                'country_id',
                 trans('merchants.placeholders.country'),
             )->required()
                 ->setData($this->countries()),
 
             AutocompleteInput::create(
                 trans('merchants.labels.currency'),
-                'currency',
+                'currency_id',
                 trans('merchants.placeholders.currency'),
             )->required()
                 ->setData($this->currencies()),
@@ -93,27 +94,27 @@ class MerchantCreateViewModel extends ViewModel
     {
         return [
             'model' => $this->model,
-            'route' => $this->getRoute(),
+            'action' => $this->getAction(),
         ];
     }
 
-    public function getRoute(): string
+    public function getAction(): string
     {
         return route('merchants.store');
     }
 
     public function currencies(): Collection
     {
-        return Currency::enabled()->orderBy('alphabetic_code')->get();
+        return Currency::enabled()->orderBy('alphabetic_code')->get(['id', 'name']);
     }
 
     public function countries(): Collection
     {
-        return Country::enabled()->orderBy('name')->get();
+        return Country::enabled()->orderBy('name')->get(['id', 'name']);
     }
 
     public function documentTypes(): Collection
     {
-        return DocumentType::all();
+        return DocumentType::all(['id', 'name']);
     }
 }

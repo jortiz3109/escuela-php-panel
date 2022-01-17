@@ -23,7 +23,7 @@ class UpdateTest extends TestCase
         $merchant = $this->createMerchantWithData();
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->put($merchant->presenter()->update())
+        $this->put(Merchant::urlPresenter()->update($merchant))
             ->assertRedirect(route('login'));
 
         $this->assertDatabaseMissing('merchants', [
@@ -36,7 +36,8 @@ class UpdateTest extends TestCase
         $merchant = $this->createMerchantWithData();
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->actingAs($this->defaultUser())->put($merchant->presenter()->update())
+        $this->actingAs($this->defaultUser())
+            ->put(Merchant::urlPresenter()->update($merchant))
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertDatabaseMissing('merchants', [
@@ -50,8 +51,8 @@ class UpdateTest extends TestCase
         $fakeMerchantData = $this->fakeMerchantData();
 
         $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
-            ->put($merchant->presenter()->update(), $fakeMerchantData)
-            ->assertRedirect($merchant->presenter()->show());
+            ->put(Merchant::urlPresenter()->update($merchant), $fakeMerchantData)
+            ->assertRedirect(Merchant::urlPresenter()->show($merchant));
 
         $this->assertDatabaseHas('merchants', [
             'id' => $merchant->getKey(),

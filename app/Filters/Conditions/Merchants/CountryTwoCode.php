@@ -4,6 +4,7 @@ namespace App\Filters\Conditions\Merchants;
 
 use App\Filters\Condition;
 use App\Filters\Criteria;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Builder;
 
 class CountryTwoCode extends Condition

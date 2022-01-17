@@ -12,8 +12,8 @@ trait MerchantHasDataProvider
     public function createMerchantWithData(array $attributes = []): Merchant
     {
         return Merchant::factory()
-            ->for(Country::factory(['name' => 'countryName', 'alpha_two_code' => '12']))
-            ->for(Currency::factory(['alphabetic_code' => '123']))
+            ->for(Country::firstWhere('name', 'Colombia'))
+            ->for(Currency::firstWhere('alphabetic_code', 'COP'))
             ->create(array_replace([
                 'name' => 'EVERTEC',
                 'brand' => 'PlacetoPay',
@@ -54,14 +54,14 @@ trait MerchantHasDataProvider
             'By country' => [
                 'filter' => 'country',
                 'attribute' => 'country',
-                'filterValue' => '12',
-                'showedValue' => 'countryName',
+                'filterValue' => 'CO',
+                'showedValue' => 'Colombia',
             ],
             'By currency' => [
                 'filter' => 'currency',
                 'attribute' => 'currency',
-                'filterValue' => '123',
-                'showedValue' => '123',
+                'filterValue' => 'COP',
+                'showedValue' => 'Pesos Colombianos',
             ],
         ];
     }
