@@ -4,25 +4,30 @@ namespace App\ViewModels\Merchants;
 
 use App\Models\Country;
 use App\Models\Currency;
+use App\Models\DocumentType;
 use App\Models\Merchant;
 use App\ViewComponents\Inputs\AutocompleteInput;
 use App\ViewComponents\Inputs\Input;
 use App\ViewComponents\Inputs\NumberInput;
 use App\ViewComponents\Inputs\TextInput;
 use App\ViewComponents\Inputs\URLInput;
+use App\ViewModels\Concerns\HasModel;
 use App\ViewModels\ViewModel;
+use Illuminate\Database\Eloquent\Collection;
 
 class MerchantCreateViewModel extends ViewModel
 {
+    use HasModel;
+
     protected function buttons(): array
     {
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('merchants.index'),
+                'route' => Merchant::urlPresenter()->index(),
             ],
             'save' => [
-                'text' => trans('common.save'),
+                'text' => trans('common.create'),
             ],
         ];
     }
@@ -50,6 +55,13 @@ class MerchantCreateViewModel extends ViewModel
                 trans('merchants.placeholders.brand'),
             )->required(),
 
+            AutocompleteInput::create(
+                trans('merchants.labels.document_type'),
+                'document_type_id',
+                trans('merchants.placeholders.document_type'),
+            )->required()
+                ->setData($this->documentTypes()),
+
             NumberInput::create(
                 trans('merchants.labels.document'),
                 'document',
@@ -64,25 +76,45 @@ class MerchantCreateViewModel extends ViewModel
 
             AutocompleteInput::create(
                 trans('merchants.labels.country'),
-                'country',
+                'country_id',
                 trans('merchants.placeholders.country'),
             )->required()
-                ->setData(Country::pluck('name', 'id')->toArray()),
+                ->setData($this->countries()),
 
             AutocompleteInput::create(
                 trans('merchants.labels.currency'),
-                'currency',
+                'currency_id',
                 trans('merchants.placeholders.currency'),
             )->required()
-                ->setData(Currency::pluck('name', 'id')->toArray()),
+                ->setData($this->currencies()),
         ];
     }
 
     protected function data(): array
     {
         return [
-            'model' => new Merchant(),
-            'action' => '',
+            'model' => $this->model,
+            'action' => $this->getAction(),
         ];
+    }
+
+    public function getAction(): string
+    {
+        return route('merchants.store');
+    }
+
+    public function currencies(): Collection
+    {
+        return Currency::enabled()->orderBy('alphabetic_code')->get(['id', 'name']);
+    }
+
+    public function countries(): Collection
+    {
+        return Country::enabled()->orderBy('name')->get(['id', 'name']);
+    }
+
+    public function documentTypes(): Collection
+    {
+        return DocumentType::all(['id', 'name']);
     }
 }
