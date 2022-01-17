@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Presenters\Url\UrlPresenter;
 
-trait HasUrlPresenters
+trait HasUrlPresenter
 {
     public static function urlPresenter(): UrlPresenter
     {
