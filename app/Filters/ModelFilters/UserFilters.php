@@ -15,7 +15,7 @@ class UserFilters extends Filter
     protected array $applicableConditions = [
         'email' => Email::class,
         'created_at' => CreatedAt::class,
-        'status' => Status::class,
+        'status_enabled' => Status::class,
     ];
 
     protected function select(): Filter
