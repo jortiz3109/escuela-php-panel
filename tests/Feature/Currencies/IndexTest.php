@@ -5,6 +5,7 @@ namespace Tests\Feature\Currencies;
 use App\Http\Resources\Currencies\CurrencyIndexResource;
 use App\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Feature\Concerns\HasAuthenticatedUser;
@@ -38,7 +39,7 @@ class IndexTest extends TestCase
         $response->assertViewHas('collection');
         $this->assertInstanceOf(
             LengthAwarePaginator::class,
-            $response->getOriginalContent()['collection']
+            $response->getOriginalContent()['collection']->resource
         );
     }
 
