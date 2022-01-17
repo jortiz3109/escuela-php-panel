@@ -15,6 +15,7 @@
 * [Construido con](#construido-con)
 * [Prerequisitos](#prerequisitos)
 * [Instalación](#instalación)
+* [Servicios externos](#servicios-externos)
 
 
 
@@ -80,3 +81,24 @@ Nota: Si no cuentas con [Supervisor](http://supervisord.org/) y su configuració
 ```bash
 $ php artisan queue:work
 ```
+### Servicios externos
+
+1. ####Maps
+
+Puedes definir entre Google Maps(google) y leaflet(leaflet) como servicio de geolocalización, por defecto estará 
+configurado leaflet. Si usas google tendrás que agregar el api key que requiere este servicio
+```bash
+MIX_MAP_SERVICE=google
+MIX_MAP_GOOGLE_API_KEY=TuApyKey
+```
+2. #### Localización
+
+Para poder obtener la geolocalización de la transacción desde la IP del usuario es necesario consumir un servicio
+que nos provea dicha información, para ello usamos [IP Stack](https://ipstack.com/). Para configurarlo debemos agregar las 
+siguientes variables
+
+```bash
+IP_STACK_API_KEY=TuApiKey
+IP_STACK_ROUTE=http://api.ipstack.com/
+```
+    

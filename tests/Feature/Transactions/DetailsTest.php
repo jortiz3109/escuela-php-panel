@@ -138,8 +138,8 @@ class DetailsTest extends TestCase
         $transaction->fresh();
 
         $this->assertDatabaseHas('transactions', [
-            'latitude' => null,
-            'longitude' => null,
+            'latitude' => 0,
+            'longitude' => 0,
         ]);
     }
 }
