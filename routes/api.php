@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CountryStatusController;
 use App\Http\Controllers\Api\PaymentMethodStatusController;
 use App\Http\Controllers\Api\UserStatusController;
 use Illuminate\Http\Request;
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::patch('users/{user}/toggle', [UserStatusController::class, 'toggle'])->name('users.status.toggle');
 Route::patch('payment-methods/{payment_method}/toggle', [PaymentMethodStatusController::class, 'toggle'])->name('payment-methods.status.toggle');
+Route::patch('countries/{country}/toggle', [CountryStatusController::class, 'toggle'])->name('countries.status.toggle');
