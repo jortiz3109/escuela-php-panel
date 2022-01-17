@@ -25,7 +25,7 @@ trait UserIndexDataProvider
                 'enabled' => $this->makeFilter('enabled', 5),
                 'disabled' => $this->makeFilter('disabled', 10),
                 'filter_by' => 'disabled',
-                'filtered' => 12,
+                'filtered' => 11,
             ],
         ];
     }
