@@ -15,6 +15,5 @@ class UserStoreAction
             'password' => Hash::make($data['password']),
             'created_by' => auth()->id(),
         ]);
-
     }
 }
