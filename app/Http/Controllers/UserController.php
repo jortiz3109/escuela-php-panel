@@ -54,19 +54,5 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success', trans('users.alerts.successful_update'));
     }
-
-    public function verify(Request $request)
-    {
-        $user = User::find($request->route('id'));
-
-        if (!hash_equals((string)$request->route('hash'), sha1($user->getEmailForVerification()))) {
-            throw new AuthorizationException();
-        }
-
-        if ($user->markEmailAsVerified()) {
-            event(new Verified($user));
-        }
-
-        return redirect($this->redirectPath())->with('verified', true);
-    }
+    
 }
