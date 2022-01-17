@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('users', UserController::class)->only(['index', 'edit', 'update']);
+    Route::resource('users', UserController::class)->only(['index', 'create', 'store',  'edit', 'update']);
 
     Route::resource('merchants', MerchantController::class)->except(['destroy']);
 
