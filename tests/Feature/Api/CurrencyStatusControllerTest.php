@@ -15,41 +15,59 @@ class CurrencyStatusControllerTest extends TestCase
 
     private const TOGGLE_CURRENCY_STATUS_ROUTE = 'currencies.status.toggle';
 
-    /**
-     * @dataProvider dataProvider
-     */
-    public function test_it_can_toggle_status(bool $status): void
+    public function test_it_can_to_enable_a_currency(): void
     {
-        $currency = $this->defaultCurrency($status);
+        $disabledCurrency = $this->disabledCurrency();
 
-        $this->actingAs($this->enabledUser())
-            ->patch(route(self::TOGGLE_CURRENCY_STATUS_ROUTE, [$currency->id]))
-            ->assertStatus(Response::HTTP_OK)
+        $response = $this->actingAs($this->enabledUser())
+            ->patch(route(self::TOGGLE_CURRENCY_STATUS_ROUTE, [$disabledCurrency->id]));
+
+        $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => trans('common.responses.updated', ['model' => 'currency']),
             ]);
 
-        $currency->fresh();
+        $updatedCurrency = $disabledCurrency->fresh();
 
-        $this->assertTrue($status ? $currency->isEnabled() : !$currency->isEnabled());
+        $this->assertTrue($updatedCurrency->isEnabled());
     }
 
-    public function dataProvider(): array
+    public function test_it_can_to_disable_a_currency(): void
     {
-        return [
-            'change country enabled to disabled' => [true],
-            'change country disabled to enabled' => [false],
-        ];
+        $enabledCurrency = $this->enabledCurrency();
+
+        $response = $this->actingAs($this->enabledUser())
+            ->patch(route(self::TOGGLE_CURRENCY_STATUS_ROUTE, [$enabledCurrency->id]));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJson([
+                'message' => trans('common.responses.updated', ['model' => 'currency']),
+            ]);
+
+        $updatedCurrency = $enabledCurrency->fresh();
+
+        $this->assertTrue(!$updatedCurrency->isEnabled());
     }
 
-    private function defaultCurrency(bool $status): Currency
+    private function enabledCurrency(): Currency
     {
         if (!Currency::count()) {
-            return Currency::factory()->create(['enabled_at' => $status ? now() : null]);
+            return Currency::factory()->enabled()->create();
         }
 
         $currency = Currency::first();
-        $status ? $currency->markAsEnabled() : $currency->markAsDisabled();
+        $currency->markAsEnabled();
+        return $currency;
+    }
+
+    private function disabledCurrency(): Currency
+    {
+        if (!Currency::count()) {
+            return Currency::factory()->disabled()->create();
+        }
+
+        $currency = Currency::first();
+        $currency->markAsDisabled();
         return $currency;
     }
 }
