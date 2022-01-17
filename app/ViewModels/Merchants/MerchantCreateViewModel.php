@@ -5,6 +5,7 @@ namespace App\ViewModels\Merchants;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\DocumentType;
+use App\Models\Merchant;
 use App\ViewComponents\Inputs\AutocompleteInput;
 use App\ViewComponents\Inputs\Input;
 use App\ViewComponents\Inputs\NumberInput;
@@ -23,7 +24,7 @@ class MerchantCreateViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('merchants.index'),
+                'route' => Merchant::urlPresenter()->index(),
             ],
             'save' => [
                 'text' => trans('common.create'),

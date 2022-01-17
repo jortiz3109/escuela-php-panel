@@ -17,7 +17,7 @@ class UpdateTest extends TestCase
         $merchant = $this->fakeMerchant();
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->put($this->fakeMerchant()->urlPresenter()->update())
+        $this->put($merchant->urlPresenter()->update($merchant))
             ->assertRedirect(route('login'));
 
         $this->assertDatabaseMissing('merchants', [
@@ -31,8 +31,8 @@ class UpdateTest extends TestCase
         $fakeMerchantData = $this->fakeMerchantData();
 
         $this->actingAs($this->defaultUser())
-            ->put($merchant->urlPresenter()->update(), $fakeMerchantData)
-            ->assertRedirect($merchant->urlPresenter()->show());
+            ->put($merchant->urlPresenter()->update($merchant), $fakeMerchantData)
+            ->assertRedirect($merchant->urlPresenter()->show($merchant));
 
         $this->assertDatabaseHas('merchants', [
             'id' => $merchant->getKey(),

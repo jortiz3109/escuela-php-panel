@@ -2,6 +2,8 @@
 
 namespace App\ViewModels\Merchants;
 
+use App\Models\Merchant;
+use App\Presenters\Url\MerchantUrlPresenter;
 use App\ViewComponents\Display\Buttons\DisplayEditButton;
 use App\ViewComponents\Display\Buttons\DisplayShowButton;
 use App\ViewComponents\Display\DisplayButtonGroup;
@@ -19,7 +21,7 @@ class MerchantIndexViewModel extends IndexViewModel
         return [
             'create' => [
                 'text' => trans('merchants.titles.create'),
-                'route' => route('merchants.create'),
+                'route' => Merchant::urlPresenter()->create(),
             ],
         ];
     }

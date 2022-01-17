@@ -13,13 +13,11 @@ class StoreTest extends TestCase
     use HasAuthenticatedUser;
     use MerchantTestHelper;
 
-    public const MERCHANTS_ROUTE_NAME = 'merchants.store';
-
     public function test_a_guest_user_cannot_access(): void
     {
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->post(route(self::MERCHANTS_ROUTE_NAME), $fakeMerchantData)
+        $this->post(Merchant::urlPresenter()->store(), $fakeMerchantData)
             ->assertRedirect(route('login'));
 
         $this->assertDatabaseMissing('merchants', $fakeMerchantData);
@@ -30,7 +28,7 @@ class StoreTest extends TestCase
         $fakeMerchantData = $this->fakeMerchantData();
 
         $this->actingAs($this->defaultUser())
-            ->post(route(self::MERCHANTS_ROUTE_NAME), $fakeMerchantData)
+            ->post(Merchant::urlPresenter()->store(), $fakeMerchantData)
             ->assertRedirect(route('merchants.show', Merchant::latest()->first()));
 
         $this->assertDatabaseHas('merchants', $fakeMerchantData);

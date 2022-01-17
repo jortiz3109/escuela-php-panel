@@ -15,13 +15,17 @@ class EditTest extends TestCase
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $this->get($this->fakeMerchant()->urlPresenter()->edit())
+        $merchant = $this->fakeMerchant();
+
+        $this->get($merchant->urlPresenter()->edit($merchant))
             ->assertRedirect(route('login'));
     }
 
     public function test_it_can_edit_merchants(): void
     {
-        $this->actingAs($this->defaultUser())->get($this->fakeMerchant()->urlPresenter()->edit())
+        $merchant = $this->fakeMerchant();
+
+        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->edit($merchant))
             ->assertStatus(Response::HTTP_OK);
     }
 
@@ -29,7 +33,7 @@ class EditTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->edit())
+        $this->actingAs($this->defaultUser())->get($merchant->urlPresenter()->edit($merchant))
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)

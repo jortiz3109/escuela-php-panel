@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Filters\Concerns\HasFilters;
-use App\Presenters\MerchantUrlPresenter;
 use Database\Factories\MerchantFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +16,7 @@ class Merchant extends Model
 {
     use HasFactory;
     use HasFilters;
+    use HasUrlPresenters;
 
     public function country(): BelongsTo
     {
@@ -36,10 +36,5 @@ class Merchant extends Model
     public function documentType(): BelongsTo
     {
         return $this->belongsTo(DocumentType::class);
-    }
-
-    public function urlPresenter(): MerchantUrlPresenter
-    {
-        return new MerchantUrlPresenter($this);
     }
 }

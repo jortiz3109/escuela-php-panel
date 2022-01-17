@@ -18,23 +18,21 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
     use MerchantTestHelper;
 
-    private const MERCHANTS_ROUTE_NAME = 'merchants.index';
-
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->get(Merchant::urlPresenter()->index());
         $response->assertRedirect(route('login'));
     }
 
     public function test_it_can_list_merchants(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index());
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_merchants(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index());
 
         $response->assertViewHas('collection');
         $this->assertInstanceOf(
@@ -47,7 +45,7 @@ class IndexTest extends TestCase
     {
         $this->fakeMerchant();
 
-        $response = $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME));
+        $response = $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index());
 
         $this->assertInstanceOf(
             Merchant::class,
@@ -59,7 +57,7 @@ class IndexTest extends TestCase
     {
         $merchant = $this->fakeMerchant();
 
-        $this->actingAs($this->defaultUser())->get(route(self::MERCHANTS_ROUTE_NAME))
+        $this->actingAs($this->defaultUser())->get(Merchant::urlPresenter()->index())
             ->assertSee($merchant->name)
             ->assertSee($merchant->brand)
             ->assertSee($merchant->document)
