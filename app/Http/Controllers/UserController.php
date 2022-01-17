@@ -29,6 +29,8 @@ class UserController extends Controller
         UserStored::dispatch($user);
 
         return redirect()->route('dashboard')->with('success', trans('users.message.success'));
+    }
+
     public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
     {
         $users = User::filter($request->input('filters', []))->paginate();
