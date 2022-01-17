@@ -38,7 +38,7 @@ class IndexTest extends TestCase
         $response->assertViewHas('collection');
         $this->assertInstanceOf(
             LengthAwarePaginator::class,
-            $response->getOriginalContent()['collection']->resource
+            $response->getOriginalContent()['collection']
         );
     }
 
