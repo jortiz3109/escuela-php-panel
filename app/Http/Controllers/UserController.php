@@ -12,14 +12,13 @@ use App\Models\User;
 use App\ViewModels\Users\UserCreateViewModel;
 use App\ViewModels\Users\UserEditViewModel;
 use App\ViewModels\Users\UserIndexViewModel;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Http\Client\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    private string $userIndexRoute = 'users.index';
+
     public function create(UserCreateViewModel $viewModel): View
     {
         return view('modules.create', $viewModel);
@@ -31,14 +30,14 @@ class UserController extends Controller
 
         UserStored::dispatch($user);
 
-        return redirect()->route('users.index')->with('success', trans('users.message.success'));
+        return redirect()->route($this->userIndexRoute)->with('success', trans('users.message.success'));
     }
 
     public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
     {
         $users = User::filter($request->input('filters', []))->paginate();
 
-        return view('users.index', $viewModel->collection($users));
+        return view($this->userIndexRoute, $viewModel->collection($users));
     }
 
     public function edit(User $user, UserEditViewModel $viewModel): View
@@ -51,8 +50,7 @@ class UserController extends Controller
         $action->execute($user, $request);
 
         return redirect()
-            ->route('users.index')
+            ->route($this->userIndexRoute)
             ->with('success', trans('users.alerts.successful_update'));
     }
-    
 }
