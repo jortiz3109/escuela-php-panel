@@ -16,6 +16,9 @@ class PermissionType
     public const PERMISSION_INDEX = 'permission.index';
     public const PERMISSION_UPDATE = 'permission.update';
 
+    public const USER_INDEX = 'user.index';
+    public const USER_UPDATE = 'user.update';
+
     public const TRANSACTION_INDEX = 'transaction.index';
     public const TRANSACTION_SHOW = 'transaction.show';
 }

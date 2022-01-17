@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Users;
 
+use App\Constants\PermissionType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
@@ -14,6 +16,7 @@ class UpdateTest extends TestCase
     use RefreshDatabase;
 
     public const USERS_ROUTE_NAME = 'users.update';
+    private const USERS_PERMISSION = PermissionType::USER_UPDATE;
     private User $user;
 
     protected function setUp(): void
@@ -32,10 +35,17 @@ class UpdateTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function test_an_user_without_permission_cannot_access(): void
+    {
+        $this->actingAs($this->defaultUser())
+            ->put(route(self::USERS_ROUTE_NAME, $this->user->id, $this->userData()))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
     public function test_it_can_update_user(): void
     {
         $this
-            ->actingAs($this->defaultUser())
+            ->actingAs($this->allowedUser(self::USERS_PERMISSION))
             ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $this->userData());
 
         $this->user->refresh();
@@ -53,7 +63,7 @@ class UpdateTest extends TestCase
     public function test_it_cannot_update_user_with_invalid_data(string $field, array $data): void
     {
         $response = $this
-            ->actingAs($this->defaultUser())
+            ->actingAs($this->allowedUser(self::USERS_PERMISSION))
             ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $data);
 
         $response->assertSessionHasErrors($field);
@@ -62,7 +72,7 @@ class UpdateTest extends TestCase
     public function test_a_user_loses_their_email_verification_when_updating_it(): void
     {
         $this
-            ->actingAs($this->defaultUser())
+            ->actingAs($this->allowedUser(self::USERS_PERMISSION))
             ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $this->userData());
 
         $this->user->refresh();

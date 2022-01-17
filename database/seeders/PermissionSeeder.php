@@ -49,6 +49,14 @@ class PermissionSeeder extends Seeder
             'name' => PermissionType::PERMISSION_UPDATE,
             'description' => 'Can update a permission',
         ],
+        [
+            'name' => PermissionType::USER_INDEX,
+            'description' => 'Can list all users',
+        ],
+        [
+            'name' => PermissionType::USER_UPDATE,
+            'description' => 'Can update a user',
+        ],
     ];
 
     public function run()
