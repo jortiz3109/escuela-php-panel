@@ -23,6 +23,10 @@
         {
             "name": "Juan David Zea",
             "email": "juan.zea@evertecinc.com"
+        },
+        {
+            "name": "Juan David Colorado",
+            "email": "juan.colorado@evertecinc.com"
         }
     ],
     "license": "MIT",
