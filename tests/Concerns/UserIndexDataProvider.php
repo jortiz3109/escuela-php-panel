@@ -11,13 +11,13 @@ trait UserIndexDataProvider
                 'enabled' => 5,
                 'disabled' => 15,
                 'filter_by' => 'enabled',
-                'filtered_data' => 8,
+                'filtered_data' => 15,
             ],
             'has filtered by disabled status' => [
                 'enabled' => 5,
                 'disabled' => 10,
                 'filter_by' => 'disabled',
-                'filtered' => 10,
+                'filtered' => 15,
             ],
         ];
     }
