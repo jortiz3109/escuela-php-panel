@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Currencies;
 
+use App\Http\Resources\Currencies\CurrencyIndexResource;
 use App\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -38,7 +39,7 @@ class IndexTest extends TestCase
         $response->assertViewHas('collection');
         $this->assertInstanceOf(
             LengthAwarePaginator::class,
-            $response->getOriginalContent()['collection']
+            $response->getOriginalContent()['collection']->resource
         );
     }
 
@@ -48,7 +49,7 @@ class IndexTest extends TestCase
 
         $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
 
-        $this->assertInstanceOf(Currency::class, $response->getOriginalContent()['collection']->first());
+        $this->assertInstanceOf(CurrencyIndexResource::class, $response->getOriginalContent()['collection']->first());
     }
 
     public function test_it_can_filter_currencies(): void
