@@ -2,6 +2,7 @@
 
 return [
     'index' => 'List',
+    'save' => 'Save',
     'create' => 'Create',
     'update' => 'Update',
     'back' => 'Back',
