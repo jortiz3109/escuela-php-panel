@@ -12,6 +12,9 @@ use App\Models\User;
 use App\ViewModels\Users\UserCreateViewModel;
 use App\ViewModels\Users\UserEditViewModel;
 use App\ViewModels\Users\UserIndexViewModel;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -28,7 +31,7 @@ class UserController extends Controller
 
         UserStored::dispatch($user);
 
-        return redirect()->route('dashboard')->with('success', trans('users.message.success'));
+        return redirect()->route('users.index')->with('success', trans('users.message.success'));
     }
 
     public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
@@ -50,5 +53,20 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->with('success', trans('users.alerts.successful_update'));
+    }
+
+    public function verify(Request $request)
+    {
+        $user = User::find($request->route('id'));
+
+        if (!hash_equals((string)$request->route('hash'), sha1($user->getEmailForVerification()))) {
+            throw new AuthorizationException();
+        }
+
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
+
+        return redirect($this->redirectPath())->with('verified', true);
     }
 }

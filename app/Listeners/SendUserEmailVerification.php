@@ -10,6 +10,8 @@ class SendUserEmailVerification
 {
     public function handle(UserStored $event): void
     {
-        $event->user()->save() ? event(new Registered($event->user())) : Log::error('');
+        $event->user()->save() ?
+            event(new Registered($event->user())) :
+            Log::error(trans('users.log.email_validation_could_not_be_sent', ['email' => $event->user->email, 'id' => $event->user->email]));
     }
 }

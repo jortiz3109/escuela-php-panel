@@ -38,9 +38,6 @@ return [
         'index' => 'Users',
         'edit' => 'Edit user',
     ],
-    'navbar' => [
-        'title' => 'Users',
-    ],
     'fields' => [
         'name' => 'Name',
         'email' => 'Email',
@@ -51,11 +48,14 @@ return [
         'enabled' => 'Enabled',
         'disabled' => 'Disabled',
     ],
-    'placeholders' => [
-        'name' => 'Enter user name...',
-        'email' => 'example@email.com',
-    ],
     'alerts' => [
         'successful_update' => 'The user has been updated',
+    ],
+    'log' =>[
+        'email_validation_could_not_be_sent' => 'The email validation could not been sent for :email, with id :id',
+    ],
+    'messages' =>[
+      'email_verified_success' => 'Your email has been verified.',
+      'email_had_been_verified' => 'Your has already been verified. If your user is blocked please contact the admin a support contact',
     ],
 ];

@@ -62,7 +62,7 @@ class UserCreateViewModel extends ViewModel
     {
         return [
             'model' => new User(),
-            'action' => 'users.store',
+            'action' => route('users.store'),
         ];
     }
 }
