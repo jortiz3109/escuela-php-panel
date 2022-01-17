@@ -49,7 +49,7 @@ class StoreTest extends TestCase
     public function test_a_user_is_created_with_disabled_status_by_default(): void
     {
         $this->actingAs($this->defaultUser())->post('/users', $this->userData())
-            ->assertRedirect('dashboard');
+            ->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
             'name' => $this->userData()['name'],
@@ -61,7 +61,7 @@ class StoreTest extends TestCase
     {
         $this->actingAs($user = $this->defaultUser())
             ->post(route('users.store'), $this->userData())
-            ->assertRedirect('/dashboard');
+            ->assertRedirect(route('users.index'));
 
         $this->assertEquals($user->id, User::latest('id')->first()->created_by);
     }
