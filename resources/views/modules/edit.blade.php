@@ -1,4 +1,4 @@
-@php /** @var \App\Inputs\Input[] $fields */ @endphp
+@php /** @var \App\ViewComponents\Inputs\Input[] $fields */ @endphp
 @extends('layouts.admin')
 @section('content')
     <template>
