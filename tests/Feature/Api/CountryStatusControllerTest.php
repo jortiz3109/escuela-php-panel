@@ -15,41 +15,59 @@ class CountryStatusControllerTest extends TestCase
 
     private const TOGGLE_COUNTRY_STATUS_ROUTE = 'countries.status.toggle';
 
-    /**
-     * @dataProvider dataProvider
-     */
-    public function test_it_can_toggle_status(bool $status): void
+    public function test_it_can_to_enable_a_country(): void
     {
-        $country = $this->defaultCountry($status);
+        $disabledCountry = $this->disabledCountry();
 
-        $this->actingAs($this->enabledUser())
-            ->patch(route(self::TOGGLE_COUNTRY_STATUS_ROUTE, [$country->id]))
-            ->assertStatus(Response::HTTP_OK)
+        $response = $this->actingAs($this->enabledUser())
+            ->patch(route(self::TOGGLE_COUNTRY_STATUS_ROUTE, [$disabledCountry->id]));
+
+        $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => trans('common.responses.updated', ['model' => 'country']),
             ]);
 
-        $country->fresh();
+        $updatedCountry = $disabledCountry->fresh();
 
-        $this->assertTrue($status ? $country->isEnabled() : !$country->isEnabled());
+        $this->assertTrue($updatedCountry->isEnabled());
     }
 
-    public function dataProvider(): array
+    public function test_it_can_to_disable_a_country(): void
     {
-        return [
-            'change country enabled to disabled' => [true],
-            'change country disabled to enabled' => [false],
-        ];
+        $enabledCountry = $this->enabledCountry();
+
+        $response = $this->actingAs($this->enabledUser())
+            ->patch(route(self::TOGGLE_COUNTRY_STATUS_ROUTE, [$enabledCountry->id]));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJson([
+                'message' => trans('common.responses.updated', ['model' => 'country']),
+            ]);
+
+        $updatedCountry = $enabledCountry->fresh();
+
+        $this->assertTrue(!$updatedCountry->isEnabled());
     }
 
-    private function defaultCountry(bool $status): Country
+    private function enabledCountry(): Country
     {
         if (!Country::count()) {
-            return Country::factory()->create(['enabled_at' => $status ? now() : null]);
+            return Country::factory()->enabled()->create();
         }
 
         $country = Country::first();
-        $status ? $country->markAsEnabled() : $country->markAsDisabled();
+        $country->markAsEnabled();
+        return $country;
+    }
+
+    private function disabledCountry(): Country
+    {
+        if (!Country::count()) {
+            return Country::factory()->disabled()->create();
+        }
+
+        $country = Country::first();
+        $country->markAsDisabled();
         return $country;
     }
 }
