@@ -10,6 +10,11 @@ use Illuminate\View\View;
 
 class CountryController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Country::class, 'country');
+    }
+
     /**
      * @throws BindingResolutionException
      */

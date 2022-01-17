@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Constants\PermissionType;
 use App\Constants\TransactionStatus;
 use App\Helpers\AmountHelper;
 use App\Http\Resources\Transactions\TransactionIndexResource;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -21,6 +22,7 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
 
     public const TRANSACTIONS_ROUTE_NAME = 'transactions.index';
+    private const TRANSACTION_PERMISSION = PermissionType::TRANSACTION_INDEX;
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -28,15 +30,21 @@ class IndexTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_it_can_list_transactions(): void
+    public function test_an_user_without_permission_cannot_access(): void
     {
         $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function test_it_can_list_transactions(): void
+    {
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME));
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_transactions(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME));
 
         $response->assertViewHas('collection');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
@@ -46,16 +54,22 @@ class IndexTest extends TestCase
     public function test_collection_has_transactions(): void
     {
         Transaction::factory()->create();
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME));
         $this->assertInstanceOf(Transaction::class, $response->getOriginalContent()['collection']->first()->resource);
     }
 
     public function test_it_show_transactions_data(): void
     {
         $transaction = Transaction::factory()->create();
-        $formattedAmount = AmountHelper::format($transaction->total_amount, $transaction->currency->alphabetic_code);
 
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME));
+        $formattedAmount = AmountHelper::format(
+            $transaction->total_amount,
+            $transaction->currency->alphabetic_code,
+            $transaction->currency->symbol,
+        );
+
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
+            ->get(route(self::TRANSACTIONS_ROUTE_NAME));
 
         $response->assertSee($transaction->date->toDateString());
         $response->assertSee($transaction->merchant->name);
@@ -71,7 +85,7 @@ class IndexTest extends TestCase
         Transaction::factory()->create(['status' => TransactionStatus::STATUS_APPROVED]);
 
         $filters = http_build_query(['filters' => ['status' => TransactionStatus::STATUS_APPROVED]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
@@ -84,7 +98,7 @@ class IndexTest extends TestCase
         $transaction = Transaction::factory()->create();
 
         $filters = http_build_query(['filters' => ['merchant' => $transaction->merchant->name]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
@@ -98,7 +112,7 @@ class IndexTest extends TestCase
         Transaction::factory()->create(['reference' => $reference]);
 
         $filters = http_build_query(['filters' => ['reference' => $reference]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
@@ -117,7 +131,7 @@ class IndexTest extends TestCase
         Transaction::factory()->for($paymentMethod)->create();
 
         $filters = http_build_query(['filters' => ['payment_method' => $paymentMethod->id]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
@@ -129,7 +143,7 @@ class IndexTest extends TestCase
         Transaction::factory()->create(['date' => Carbon::parse('2021-11-29')]);
 
         $filters = http_build_query(['filters' => ['dates' => '11/29/2021 - 11/29/2021']]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
         $transactions = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $transactions);
@@ -142,7 +156,7 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))->get(route(self::TRANSACTIONS_ROUTE_NAME, $filters));
 
         $response->assertSessionHasErrors("filters.{$attribute}");
     }

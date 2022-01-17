@@ -2,13 +2,15 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Constants\PermissionType;
+use App\Http\Resources\Transactions\TransactionShowResource;
 use App\Models\Person;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class DetailsTest extends TestCase
@@ -18,6 +20,7 @@ class DetailsTest extends TestCase
     use WithFaker;
 
     public const TRANSACTION_DETAILS_ROUTE_NAME = 'transactions.show';
+    private const TRANSACTION_PERMISSION = PermissionType::TRANSACTION_SHOW;
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -25,21 +28,42 @@ class DetailsTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_it_can_render_the_transaction_details_page(): void
+    public function test_an_user_without_permission_cannot_access(): void
     {
         $transaction = Transaction::factory()->create();
 
         $response = $this->actingAs($this->defaultUser())
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function test_it_can_render_the_transaction_details_page(): void
+    {
+        $transaction = Transaction::factory()->create();
+
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
+            ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
+
         $response->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_it_has_a_transaction_model(): void
+    {
+        $transaction = Transaction::factory()->create();
+
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
+            ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
+
+        $response->assertViewHas('model');
+        $this->assertEquals((new TransactionShowResource($transaction))->toArray(), $response->getOriginalContent()['model']);
     }
 
     public function test_it_can_show_the_transaction_info(): void
     {
         $transaction = Transaction::factory()->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertSee($transaction->merchant->name)
@@ -64,7 +88,7 @@ class DetailsTest extends TestCase
             ]), 'payer')
             ->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertSee('payer-name');
@@ -80,7 +104,7 @@ class DetailsTest extends TestCase
             ]), 'payer')
             ->create();
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $response->assertSee('buyer-name');
@@ -102,7 +126,7 @@ class DetailsTest extends TestCase
             'longitude' => null,
         ]);
 
-        $response = $this->actingAs($this->defaultUser())
+        $response = $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $transaction->fresh();
@@ -132,7 +156,7 @@ class DetailsTest extends TestCase
             'longitude' => null,
         ]);
 
-        $this->actingAs($this->defaultUser())
+        $this->actingAs($this->allowedUser(self::TRANSACTION_PERMISSION))
             ->get(route(self::TRANSACTION_DETAILS_ROUTE_NAME, $transaction));
 
         $transaction->fresh();

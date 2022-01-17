@@ -10,7 +10,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Notification;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase

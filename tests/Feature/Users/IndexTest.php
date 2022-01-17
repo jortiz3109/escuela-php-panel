@@ -2,12 +2,13 @@
 
 namespace Tests\Feature\Users;
 
+use App\Constants\PermissionType;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\Concerns\UserIndexDataProvider;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -17,27 +18,8 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
 
     private const USERS_ROUTE_NAME = 'users.index';
+    private const USERS_PERMISSION = PermissionType::USER_INDEX;
     private const FILTER_URI = '/users?';
-
-    /**
-     * @test
-     */
-    public function it_can_list_users(): void
-    {
-        $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME))
-            ->assertStatus(Response::HTTP_OK);
-    }
-
-    /**
-     * @test
-     */
-    public function it_has_a_collection_of_users(): void
-    {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME));
-
-        $response->assertViewHas('users');
-        $this->assertInstanceOf(Paginator::class, $response->getOriginalContent()['users']);
-    }
 
     /**
      * @test
@@ -51,9 +33,43 @@ class IndexTest extends TestCase
     /**
      * @test
      */
+    public function a_user_without_permission_cannot_list_users(): void
+    {
+        $this->actingAs($this->defaultUser())
+            ->get(route(self::USERS_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_list_users(): void
+    {
+        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
+            ->get(route(self::USERS_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_a_collection_of_users(): void
+    {
+        $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
+            ->get(route(self::USERS_ROUTE_NAME));
+
+        $response->assertViewHas('users');
+        $this->assertInstanceOf(Paginator::class, $response->getOriginalContent()['users']);
+    }
+
+    /**
+     * @test
+     */
     public function collection_has_users(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::USERS_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
+            ->get(route(self::USERS_ROUTE_NAME));
+
         $this->assertInstanceOf(User::class, $response->getOriginalContent()['users']->first());
     }
 
@@ -62,7 +78,8 @@ class IndexTest extends TestCase
      */
     public function it_show_users_data(): void
     {
-        $response = $this->actingAs($user = $this->defaultUser())->get(route(self::USERS_ROUTE_NAME));
+        $response = $this->actingAs($user = $this->allowedUser(self::USERS_PERMISSION))
+            ->get(route(self::USERS_ROUTE_NAME));
 
         $response->assertSee($user->name);
         $response->assertSee($user->email);
@@ -79,7 +96,9 @@ class IndexTest extends TestCase
         User::factory()->count(2)->create();
         User::factory()->create($userData);
 
-        $response = $this->actingAs($this->enabledUser())->get(self::FILTER_URI . http_build_query(['filters' => $filters]));
+        $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
+            ->get(self::FILTER_URI . http_build_query(['filters' => $filters]));
+
         $users = $response->getOriginalContent()['users'];
 
         $this->assertCount(1, $users);
@@ -90,21 +109,22 @@ class IndexTest extends TestCase
 
     /**
      * @dataProvider hasFilteredStatusDataProvider
-     * @param array $enabled
-     * @param array $disabled
+     *
+     * @param int $enabled
+     * @param int $disabled
      * @param string $filterBy
      * @param int $filtered
+     *
      * @test
      */
-    public function it_can_filter_by_status(array $enabled, array $disabled, string $filterBy, int $filtered): void
+    public function it_can_filter_by_status(int $enabled, int $disabled, string $filterBy, int $filtered): void
     {
-        User::factory()->count($enabled['count'])->{$enabled['status']}()->create();
-        User::factory()->count($disabled['count'])->{$disabled['status']}()->create();
+        User::factory()->count($enabled)->enabled()->create();
+        User::factory()->count($disabled)->disabled()->create();
 
-        $response = $this->actingAs($this->enabledUser())
-            ->get(
-                self::FILTER_URI . http_build_query(['filters' => ['status_enabled' =>  $filterBy]])
-            );
+        $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
+            ->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
+
         $users = $response->getOriginalContent()['users'];
 
         $response->assertStatus(Response::HTTP_OK);

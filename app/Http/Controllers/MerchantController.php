@@ -18,6 +18,11 @@ use Illuminate\View\View;
 
 class MerchantController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Merchant::class, 'merchant');
+    }
+
     /**
      * @throws BindingResolutionException
      */

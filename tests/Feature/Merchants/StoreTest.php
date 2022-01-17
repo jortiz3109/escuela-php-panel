@@ -2,16 +2,21 @@
 
 namespace Tests\Feature\Merchants;
 
+use App\Constants\PermissionType;
 use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Symfony\Component\HttpFoundation\Response;
+use Tests\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\MerchantHasDataProvider;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
     use RefreshDatabase;
     use HasAuthenticatedUser;
-    use MerchantTestHelper;
+    use MerchantHasDataProvider;
+
+    private const MERCHANT_PERMISSION = PermissionType::MERCHANT_CREATE;
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -23,11 +28,21 @@ class StoreTest extends TestCase
         $this->assertDatabaseMissing('merchants', $fakeMerchantData);
     }
 
+    public function test_an_user_without_permissions_cannot_store_a_merchant(): void
+    {
+        $fakeMerchantData = $this->fakeMerchantData();
+
+        $this->actingAs($this->defaultUser())->post(Merchant::urlPresenter()->store(), $fakeMerchantData)
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertDatabaseMissing('merchants', $fakeMerchantData);
+    }
+
     public function test_it_can_store_merchants(): void
     {
         $fakeMerchantData = $this->fakeMerchantData();
 
-        $this->actingAs($this->defaultUser())
+        $this->actingAs($this->allowedUser(self::MERCHANT_PERMISSION))
             ->post(Merchant::urlPresenter()->store(), $fakeMerchantData)
             ->assertRedirect(Merchant::urlPresenter()->show(Merchant::latest()->first()));
 

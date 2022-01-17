@@ -5,7 +5,7 @@ namespace Tests\Feature\Api;
 use App\Models\PaymentMethod;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class PaymentMethodControllerTest extends TestCase

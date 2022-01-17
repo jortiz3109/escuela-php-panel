@@ -2,12 +2,13 @@
 
 namespace Tests\Feature\PaymentMethods;
 
+use App\Constants\PermissionType;
 use App\Http\Resources\PaymentMethods\PaymentMethodIndexResource;
 use App\Models\PaymentMethod;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -16,6 +17,7 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
 
     private const PAYMENT_METHODS_ROUTE_NAME = 'payment-methods.index';
+    private const PAYMENT_METHODS_PERMISSION = PermissionType::PAYMENT_METHOD_INDEX;
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -23,15 +25,24 @@ class IndexTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function test_an_user_without_permission_cannot_access(): void
+    {
+        $this->actingAs($this->defaultUser())
+            ->get(route(self::PAYMENT_METHODS_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
     public function test_it_can_list_payment_methods(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PAYMENT_METHODS_ROUTE_NAME));
-        $response->assertStatus(Response::HTTP_OK);
+        $this->actingAs($this->allowedUser(self::PAYMENT_METHODS_PERMISSION))
+            ->get(route(self::PAYMENT_METHODS_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_payment_methods(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PAYMENT_METHODS_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::PAYMENT_METHODS_PERMISSION))
+            ->get(route(self::PAYMENT_METHODS_ROUTE_NAME));
 
         $response->assertViewHas('collection');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
@@ -42,7 +53,9 @@ class IndexTest extends TestCase
     {
         $paymentMethod = PaymentMethod::factory()->create();
 
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PAYMENT_METHODS_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::PAYMENT_METHODS_PERMISSION))
+            ->get(route(self::PAYMENT_METHODS_ROUTE_NAME));
+
         $response
             ->assertSee($paymentMethod->name)
             ->assertSee($paymentMethod->logo)
@@ -68,7 +81,9 @@ class IndexTest extends TestCase
         ]);
 
         $filters = http_build_query(['filters' => [$filter => $filterValue]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PAYMENT_METHODS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::PAYMENT_METHODS_PERMISSION))
+            ->get(route(self::PAYMENT_METHODS_ROUTE_NAME, $filters));
+
         $paymentMethods = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $paymentMethods);
@@ -81,7 +96,8 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::PAYMENT_METHODS_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::PAYMENT_METHODS_PERMISSION))
+            ->get(route(self::PAYMENT_METHODS_ROUTE_NAME, $filters));
 
         $response->assertSessionHasErrors("filters.{$attribute}");
     }

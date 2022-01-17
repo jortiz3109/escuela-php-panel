@@ -49,8 +49,9 @@ abstract class Filter
         $applicableConditions = array_intersect_key($this->conditions, $this->applicableConditions);
         foreach ($applicableConditions as $condition => $value) {
             $conditionClass = $this->getCondition($condition);
-            (is_null($value)) ?: $conditionClass::append($this->query, new Criteria($value));
+            $conditionClass::append($this->query, new Criteria($value));
         }
+
         return $this;
     }
 

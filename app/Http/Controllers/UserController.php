@@ -19,6 +19,11 @@ class UserController extends Controller
 {
     private const USER_INDEX_ROUTE = 'users.index';
 
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     public function create(UserCreateViewModel $viewModel): View
     {
         return view('modules.create', $viewModel);

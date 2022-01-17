@@ -13,6 +13,11 @@ use Illuminate\View\View;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Permission::class, 'permission');
+    }
+
     /**
      * @throws BindingResolutionException
      */

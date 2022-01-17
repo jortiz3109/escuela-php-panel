@@ -4,29 +4,20 @@ namespace Tests\Concerns;
 
 trait UserIndexDataProvider
 {
-    public function makeFilter(string $status, int $amount)
+    public function hasFilteredStatusDataProvider(): array
     {
         return [
-            'status' => $status,
-            'count' => $amount,
-        ];
-    }
-
-    public function hasFilteredStatusDataProvider()
-    {
-        return [
-
-            'has filtered by disabled status' => [
-                'enabled' => $this->makeFilter('enabled', 5),
-                'disabled' => $this->makeFilter('disabled', 10),
-                'filter_by' => 'disabled',
-                'filtered_data' => 10,
-            ],
             'has filtered by enabled status' => [
-                'enabled' => $this->makeFilter('enabled', 5),
-                'disabled' => $this->makeFilter('disabled', 10),
+                'enabled' => 5,
+                'disabled' => 15,
                 'filter_by' => 'enabled',
-                'filtered_data' => 6,
+                'filtered_data' => 15,
+            ],
+            'has filtered by disabled status' => [
+                'enabled' => 5,
+                'disabled' => 10,
+                'filter_by' => 'disabled',
+                'filtered' => 15,
             ],
         ];
     }

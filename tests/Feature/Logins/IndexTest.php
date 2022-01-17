@@ -5,10 +5,11 @@ namespace Tests\Feature\Logins;
 use App\Models\KnowDevice;
 use App\Models\LoginLog;
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Feature\Concerns\HasAuthenticatedUser;
+use Tests\Concerns\HasAuthenticatedUser;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -27,7 +28,7 @@ class IndexTest extends TestCase
 
     public function test_it_has_a_collection_of_logins(): void
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
+        /** @var Authenticatable */
         $user = User::factory()
             ->hasKnowDevices(1)
             ->create();
@@ -48,7 +49,7 @@ class IndexTest extends TestCase
 
     public function test_collection_has_logins(): void
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
+        /** @var Authenticatable */
         $user = User::factory()->hasKnowDevices(1)->create();
         $device = $user->knowDevices()->first();
 
@@ -67,7 +68,7 @@ class IndexTest extends TestCase
 
     public function test_it_show_logins_data(): void
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
+        /** @var Authenticatable $user */
         $user = User::factory()
             ->has(KnowDevice::factory())
             ->create();

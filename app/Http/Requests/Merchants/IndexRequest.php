@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests\Merchants;
 
+use App\Models\Merchant;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('viewAny', Merchant::class);
     }
 
     public function rules(): array
