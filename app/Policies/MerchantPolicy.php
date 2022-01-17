@@ -16,7 +16,7 @@ class MerchantPolicy
         return $user->hasPermission(PermissionType::MERCHANT_INDEX);
     }
 
-    public function view(User $user, Merchant $merchant): bool
+    public function view(User $user): bool
     {
         return $user->hasPermission(PermissionType::MERCHANT_SHOW);
     }
@@ -26,7 +26,7 @@ class MerchantPolicy
         return $user->hasPermission(PermissionType::MERCHANT_CREATE);
     }
 
-    public function update(User $user, Merchant $merchant): bool
+    public function update(User $user): bool
     {
         return $user->hasPermission(PermissionType::MERCHANT_UPDATE);
     }

@@ -16,7 +16,7 @@ class PermissionPolicy
         return $user->hasPermission(PermissionType::PERMISSION_INDEX);
     }
 
-    public function update(User $user, Permission $permission)
+    public function update(User $user)
     {
         return $user->hasPermission(PermissionType::PERMISSION_UPDATE);
     }

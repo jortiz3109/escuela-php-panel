@@ -16,7 +16,7 @@ class TransactionPolicy
         return $user->hasPermission(PermissionType::TRANSACTION_INDEX);
     }
 
-    public function view(User $user, Transaction $transaction): bool
+    public function view(User $user): bool
     {
         return $user->hasPermission(PermissionType::TRANSACTION_SHOW);
     }

@@ -6,6 +6,8 @@ class PermissionType
 {
     public const COUNTRY_INDEX = 'country.index';
 
+    public const CURRENCY_INDEX = 'currency.index';
+
     public const MERCHANT_INDEX = 'merchant.index';
     public const MERCHANT_SHOW = 'merchant.show';
     public const MERCHANT_CREATE = 'merchant.create';

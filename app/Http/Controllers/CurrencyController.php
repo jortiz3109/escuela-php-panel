@@ -10,6 +10,11 @@ use Illuminate\View\View;
 
 class CurrencyController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Currency::class, 'currency');
+    }
+
     /**
      * @throws BindingResolutionException
      */

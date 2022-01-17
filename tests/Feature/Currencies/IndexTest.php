@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Currencies;
 
+use App\Constants\PermissionType;
 use App\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -16,6 +17,7 @@ class IndexTest extends TestCase
     use HasAuthenticatedUser;
 
     public const CURRENCIES_ROUTE_NAME = 'currencies.index';
+    public const CURRENCY_PERMISSION = PermissionType::CURRENCY_INDEX;
 
     public function test_a_guest_user_cannot_access(): void
     {
@@ -23,23 +25,34 @@ class IndexTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function test_an_user_without_permission_cannot_access(): void
+    {
+        $this->actingAs($this->defaultUser())
+            ->get(route(self::CURRENCIES_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
     public function test_it_can_list_currencies(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
-        $response->assertStatus(Response::HTTP_OK);
+        $this->actingAs($this->allowedUser(self::CURRENCY_PERMISSION))
+            ->get(route(self::CURRENCIES_ROUTE_NAME))
+            ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_it_has_a_collection_of_currencies(): void
     {
-        $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::CURRENCY_PERMISSION))
+            ->get(route(self::CURRENCIES_ROUTE_NAME));
+
         $response->assertViewHas('collection');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']);
     }
 
     public function test_collection_has_currencies(): void
     {
-        Currency::factory()->create();
-        $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME));
+        $response = $this->actingAs($this->allowedUser(self::CURRENCY_PERMISSION))
+            ->get(route(self::CURRENCIES_ROUTE_NAME));
+
         $this->assertInstanceOf(Currency::class, $response->getOriginalContent()['collection']->first());
     }
 
@@ -55,7 +68,9 @@ class IndexTest extends TestCase
         );
 
         $filters = http_build_query(['filters' => ['name' => $currencyName]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::CURRENCY_PERMISSION))
+            ->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
+
         $currencies = $response->getOriginalContent()['collection'];
 
         $this->assertEquals(1, $currencies->count());
@@ -68,7 +83,8 @@ class IndexTest extends TestCase
     public function test_it_validates_filters(string $attribute, $value): void
     {
         $filters = http_build_query(['filters' => [$attribute => $value]]);
-        $response = $this->actingAs($this->defaultUser())->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
+        $response = $this->actingAs($this->allowedUser(self::CURRENCY_PERMISSION))
+            ->get(route(self::CURRENCIES_ROUTE_NAME, $filters));
 
         $response->assertSessionHasErrors("filters.{$attribute}");
     }
