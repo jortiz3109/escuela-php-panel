@@ -11,12 +11,4 @@ class Permission extends Model
 {
     use HasFactory;
     use HasFilters;
-
-    public const PERMISSIONS = [
-    ];
-
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class);
-    }
 }
