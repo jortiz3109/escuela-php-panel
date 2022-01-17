@@ -17,7 +17,7 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    private string $userIndexRoute = 'users.index';
+    private const USER_INDEX_ROUTE = 'users.index';
 
     public function create(UserCreateViewModel $viewModel): View
     {
@@ -30,14 +30,14 @@ class UserController extends Controller
 
         UserStored::dispatch($user);
 
-        return redirect()->route($this->userIndexRoute)->with('success', trans('users.message.success'));
+        return redirect()->route(self::USER_INDEX_ROUTE)->with('success', trans('users.message.success'));
     }
 
     public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
     {
         $users = User::filter($request->input('filters', []))->paginate();
 
-        return view($this->userIndexRoute, $viewModel->collection($users));
+        return view(self::USER_INDEX_ROUTE, $viewModel->collection($users));
     }
 
     public function edit(User $user, UserEditViewModel $viewModel): View
@@ -50,7 +50,7 @@ class UserController extends Controller
         $action->execute($user, $request);
 
         return redirect()
-            ->route($this->userIndexRoute)
+            ->route(self::USER_INDEX_ROUTE)
             ->with('success', trans('users.alerts.successful_update'));
     }
 }
