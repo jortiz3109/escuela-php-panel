@@ -10,6 +10,10 @@ class PermissionSeeder extends Seeder
 {
     protected const PERMISSIONS_DATA = [
         [
+            'name' => PermissionType::COUNTRY_INDEX,
+            'description' => 'Can list all countries',
+        ],
+        [
             'name' => PermissionType::MERCHANT_INDEX,
             'description' => 'Can list all merchants',
         ],

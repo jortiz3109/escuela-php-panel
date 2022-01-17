@@ -66,4 +66,10 @@ class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
 
         $this->save();
     }
+
+    public function hasPermission(string $permissionName): bool
+    {
+        return (bool)$this->permissions->firstWhere('name', $permissionName);
+
+    }
 }

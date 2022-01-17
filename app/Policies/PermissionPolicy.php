@@ -13,15 +13,11 @@ class PermissionPolicy
 
     public function viewAny(User $user): bool
     {
-        return Permission::firstWhere('name', PermissionType::PERMISSION_INDEX)
-            ->users
-            ->contains($user);
+        return $user->hasPermission(PermissionType::PERMISSION_INDEX);
     }
 
     public function update(User $user, Permission $permission)
     {
-        return Permission::firstWhere('name', PermissionType::PERMISSION_UPDATE)
-            ->users
-            ->contains($user);
+        return $user->hasPermission(PermissionType::PERMISSION_UPDATE);
     }
 }

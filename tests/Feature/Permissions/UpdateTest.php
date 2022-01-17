@@ -19,6 +19,7 @@ class UpdateTest extends TestCase
 
     public const PERMISSIONS_ROUTE_NAME = 'permissions.update';
     private const PERMISSIONS_PERMISSION = PermissionType::PERMISSION_UPDATE;
+
     private Model $permission;
     private array $newData;
 
