@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Constants\PermissionType;
-use App\Models\Merchant;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
