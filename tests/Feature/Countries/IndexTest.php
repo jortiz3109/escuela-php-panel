@@ -5,7 +5,6 @@ namespace Tests\Feature\Countries;
 use App\Http\Resources\Countries\CountryIndexResource;
 use App\Models\Country;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
