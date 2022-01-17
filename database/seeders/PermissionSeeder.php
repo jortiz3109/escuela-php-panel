@@ -58,6 +58,10 @@ class PermissionSeeder extends Seeder
             'description' => 'Can list all users',
         ],
         [
+            'name' => PermissionType::USER_CREATE,
+            'description' => 'Can create a user',
+        ],
+        [
             'name' => PermissionType::USER_UPDATE,
             'description' => 'Can update a user',
         ],

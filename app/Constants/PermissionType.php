@@ -19,6 +19,7 @@ class PermissionType
     public const PERMISSION_UPDATE = 'permission.update';
 
     public const USER_INDEX = 'user.index';
+    public const USER_CREATE = 'user.create';
     public const USER_UPDATE = 'user.update';
 
     public const TRANSACTION_INDEX = 'transaction.index';

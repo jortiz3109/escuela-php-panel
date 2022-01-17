@@ -15,6 +15,11 @@ class UserPolicy
         return $user->hasPermission(PermissionType::USER_INDEX);
     }
 
+    public function create(User $user): bool
+    {
+        return $user->hasPermission(PermissionType::USER_CREATE);
+    }
+
     public function update(User $user): bool
     {
         return $user->hasPermission(PermissionType::USER_UPDATE);

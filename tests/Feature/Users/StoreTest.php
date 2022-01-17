@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Users;
 
+use App\Constants\PermissionType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
@@ -15,10 +16,12 @@ class StoreTest extends TestCase
     use UserStoreDataProvider;
     use HasAuthenticatedUser;
 
+    private const USERS_PERMISSION = PermissionType::USER_CREATE;
+
     public function test_it_can_create_a_user(): void
     {
         $data = $this->userData();
-        $this->actingAs($this->defaultUser())->post('/users', $data)
+        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))->post('/users', $data)
             ->assertStatus(Response::HTTP_FOUND);
 
         $this->assertDatabaseHas('users', [
@@ -35,7 +38,7 @@ class StoreTest extends TestCase
      */
     public function test_it_can_not_create_a_user_with_invalid_data(string $field, array $data): void
     {
-        $this->actingAs($this->defaultUser())
+        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
             ->post('/users', $data)
             ->assertStatus(Response::HTTP_FOUND)
             ->assertInvalid([$field]);
@@ -48,7 +51,7 @@ class StoreTest extends TestCase
 
     public function test_a_user_is_created_with_disabled_status_by_default(): void
     {
-        $this->actingAs($this->defaultUser())->post('/users', $this->userData())
+        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))->post('/users', $this->userData())
             ->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
@@ -59,7 +62,7 @@ class StoreTest extends TestCase
 
     public function test_it_has_a_created_by_id_with_authenticated_user_id(): void
     {
-        $this->actingAs($user = $this->defaultUser())
+        $this->actingAs($user = $this->allowedUser(self::USERS_PERMISSION))
             ->post(route('users.store'), $this->userData())
             ->assertRedirect(route('users.index'));
 
