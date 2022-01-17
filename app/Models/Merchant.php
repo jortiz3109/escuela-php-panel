@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Constants\PermissionType;
 use App\Filters\Concerns\HasFilters;
 use Database\Factories\MerchantFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

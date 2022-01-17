@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Constants\PermissionType;
 use App\Filters\Concerns\HasFilters;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
