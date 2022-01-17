@@ -15,4 +15,22 @@ class CountryFactory extends Factory
             'numeric_code' => $this->faker->unique()->bothify('###'),
         ];
     }
+
+    public function enabled(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'enabled_at' => $this->faker->dateTime(),
+            ];
+        });
+    }
+
+    public function disabled(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'enabled_at' => null,
+            ];
+        });
+    }
 }
