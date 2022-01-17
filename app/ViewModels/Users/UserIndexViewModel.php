@@ -11,7 +11,12 @@ class UserIndexViewModel extends IndexViewModel
 
     protected function buttons(): array
     {
-        return [];
+        return [
+            'create' => [
+                'text' => trans('users.buttons.save'),
+                'route' => route('users.create'),
+            ],
+        ];
     }
 
     protected function title(): string

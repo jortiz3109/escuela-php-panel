@@ -24,6 +24,9 @@ class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
         'name',
         'email',
         'password',
+        'created_by',
+        'updated_by',
+        'enabled_at',
     ];
 
     protected $hidden = [
@@ -54,5 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
         $this->email_verified_at = null;
 
         $this->save();
+    }
+
+    public function isEmailVerified(): bool
+    {
+        return null !== $this->email_verified_at;
     }
 }

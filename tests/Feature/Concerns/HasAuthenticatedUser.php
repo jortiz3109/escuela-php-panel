@@ -8,7 +8,7 @@ trait HasAuthenticatedUser
 {
     public function defaultUser(): User
     {
-        return User::factory()->create();
+        return User::factory()->verified()->create(['email' => 'test@test.com']);
     }
 
     public function enabledUser(): User
