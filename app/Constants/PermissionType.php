@@ -13,6 +13,8 @@ class PermissionType
     public const MERCHANT_CREATE = 'merchant.create';
     public const MERCHANT_UPDATE = 'merchant.update';
 
+    public const PAYMENT_METHOD_INDEX = 'payment-method.index';
+
     public const PERMISSION_INDEX = 'permission.index';
     public const PERMISSION_UPDATE = 'permission.update';
 

@@ -42,6 +42,10 @@ class PermissionSeeder extends Seeder
             'description' => 'Can show a transaction',
         ],
         [
+            'name' => PermissionType::PAYMENT_METHOD_INDEX,
+            'description' => 'Can list all payment methods',
+        ],
+        [
             'name' => PermissionType::PERMISSION_INDEX,
             'description' => 'Can list all permissions',
         ],

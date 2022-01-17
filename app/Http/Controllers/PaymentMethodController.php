@@ -9,6 +9,11 @@ use Illuminate\View\View;
 
 class PaymentMethodController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(PaymentMethod::class, 'paymentMethod');
+    }
+
     public function index(IndexRequest $request, PaymentMethodsIndexViewModel $viewModel): View
     {
         $paymentMethods = PaymentMethod::filter($request->input('filters', []))->paginate();
