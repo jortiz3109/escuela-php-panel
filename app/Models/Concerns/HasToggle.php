@@ -20,11 +20,6 @@ trait HasToggle
         return !is_null($this->enabled_at);
     }
 
-    public function isVerified(): bool
-    {
-        return !is_null($this->email_verified_at);
-    }
-
     public function markAsEnabled(): void
     {
         $this->enabled_at = Carbon::now()->toDateTimeString();
