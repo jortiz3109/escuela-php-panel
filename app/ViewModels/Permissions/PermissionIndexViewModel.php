@@ -2,7 +2,6 @@
 
 namespace App\ViewModels\Permissions;
 
-use App\Http\Resources\Permissions\PermissionIndexResource;
 use App\ViewComponents\Display\Buttons\DisplayEditButton;
 use App\ViewComponents\Display\DisplayButtonGroup;
 use App\ViewComponents\Display\DisplayDateComponent;
