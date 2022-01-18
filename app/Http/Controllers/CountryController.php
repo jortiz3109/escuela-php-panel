@@ -22,6 +22,6 @@ class CountryController extends Controller
     {
         $countries = Country::filter($request->input('filters', []))->paginate();
 
-        return view('countries.index', $viewModel->collection($countries));
+        return view('modules.index', $viewModel->collection($countries));
     }
 }

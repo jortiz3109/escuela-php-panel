@@ -100,7 +100,7 @@ class MerchantCreateViewModel extends ViewModel
 
     public function getAction(): string
     {
-        return route('merchants.store');
+        return Merchant::urlPresenter()->store();
     }
 
     public function currencies(): Collection

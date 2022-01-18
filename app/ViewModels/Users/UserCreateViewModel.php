@@ -18,10 +18,10 @@ class UserCreateViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('users.index'),
+                'route' => User::urlPresenter()->index(),
             ],
             'save' => [
-                'text' => trans('common.save'),
+                'text' => trans('common.create'),
             ],
         ];
     }
@@ -34,25 +34,24 @@ class UserCreateViewModel extends ViewModel
     protected function fields(): array
     {
         return [
-            new TextInput(
+            TextInput::create(
                 trans('users.labels.name'),
-                trans('users.inputs.name'),
+                'name',
                 trans('users.placeholders.name'),
-                true
-            ),
-            new EmailInput(
+            )->required(),
+            EmailInput::create(
                 trans('users.labels.email'),
-                trans('users.inputs.email'),
+                'email',
                 trans('users.placeholders.email'),
-            ),
-            new PasswordInput(
+            )->required(),
+            PasswordInput::create(
                 trans('users.labels.password'),
-                trans('users.inputs.password'),
+                'password',
                 trans('users.placeholders.password'),
             ),
-            new PasswordInput(
+            PasswordInput::create(
                 trans('users.labels.password_confirmation'),
-                trans('users.inputs.password_confirmation'),
+                'password_confirmation',
                 trans('users.placeholders.password_confirmation'),
             ),
         ];
@@ -62,7 +61,7 @@ class UserCreateViewModel extends ViewModel
     {
         return [
             'model' => new User(),
-            'action' => route('users.store'),
+            'action' => User::urlPresenter()->store(),
         ];
     }
 }

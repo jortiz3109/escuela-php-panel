@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
     use Notifiable;
     use HasFilters;
     use HasToggle;
+    use HasUrlPresenter;
 
     protected $fillable = [
         'name',

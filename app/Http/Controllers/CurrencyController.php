@@ -22,6 +22,6 @@ class CurrencyController extends Controller
     {
         $currencies = Currency::filter($request->input('filters', []))->paginate();
 
-        return view('currencies.index', $viewModel->collection($currencies));
+        return view('modules.index', $viewModel->collection($currencies));
     }
 }

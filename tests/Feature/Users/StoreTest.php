@@ -18,10 +18,10 @@ class StoreTest extends TestCase
 
     private const USERS_PERMISSION = PermissionType::USER_CREATE;
 
-    public function test_it_can_create_a_user(): void
+    public function test_it_can_create_an_user(): void
     {
         $data = $this->userData();
-        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))->post('/users', $data)
+        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))->post(User::urlPresenter()->store(), $data)
             ->assertStatus(Response::HTTP_FOUND);
 
         $this->assertDatabaseHas('users', [
@@ -36,10 +36,10 @@ class StoreTest extends TestCase
      * @param string $field
      * @param array  $data
      */
-    public function test_it_can_not_create_a_user_with_invalid_data(string $field, array $data): void
+    public function test_it_can_not_create_an_user_with_invalid_data(string $field, array $data): void
     {
         $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->post('/users', $data)
+            ->post(User::urlPresenter()->store(), $data)
             ->assertStatus(Response::HTTP_FOUND)
             ->assertInvalid([$field]);
 
@@ -49,10 +49,10 @@ class StoreTest extends TestCase
         ]);
     }
 
-    public function test_a_user_is_created_with_disabled_status_by_default(): void
+    public function test_an_user_is_created_with_disabled_status_by_default(): void
     {
-        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))->post('/users', $this->userData())
-            ->assertRedirect(route('users.index'));
+        $this->actingAs($this->allowedUser(self::USERS_PERMISSION))->post(User::urlPresenter()->store(), $this->userData())
+            ->assertRedirect(User::urlPresenter()->index());
 
         $this->assertDatabaseHas('users', [
             'name' => $this->userData()['name'],
@@ -63,8 +63,8 @@ class StoreTest extends TestCase
     public function test_it_has_a_created_by_id_with_authenticated_user_id(): void
     {
         $this->actingAs($user = $this->allowedUser(self::USERS_PERMISSION))
-            ->post(route('users.store'), $this->userData())
-            ->assertRedirect(route('users.index'));
+            ->post(User::urlPresenter()->store(), $this->userData())
+            ->assertRedirect(User::urlPresenter()->index());
 
         $this->assertEquals($user->id, User::latest('id')->first()->created_by);
     }

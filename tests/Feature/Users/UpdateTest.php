@@ -69,7 +69,7 @@ class UpdateTest extends TestCase
         $response->assertSessionHasErrors($field);
     }
 
-    public function test_a_user_loses_their_email_verification_when_updating_it(): void
+    public function test_an_user_loses_their_email_verification_when_updating_it(): void
     {
         $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))

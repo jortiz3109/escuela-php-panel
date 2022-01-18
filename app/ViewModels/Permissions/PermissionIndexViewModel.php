@@ -5,6 +5,7 @@ namespace App\ViewModels\Permissions;
 use App\Http\Resources\Permissions\PermissionIndexResource;
 use App\ViewComponents\Display\Buttons\DisplayEditButton;
 use App\ViewComponents\Display\DisplayButtonGroup;
+use App\ViewComponents\Display\DisplayDateComponent;
 use App\ViewComponents\Display\DisplayTextComponent;
 use App\ViewModels\Concerns\HasPaginator;
 use App\ViewModels\IndexViewModel;
@@ -30,7 +31,7 @@ class PermissionIndexViewModel extends IndexViewModel
         return [
             'name' => DisplayTextComponent::create('permissions.fields.name'),
             'description' => DisplayTextComponent::create('permissions.fields.description'),
-            'created_at' => DisplayTextComponent::create('permissions.fields.created_at')->setPositions('center'),
+            'created_at' => DisplayDateComponent::create('permissions.fields.created_at')->setPositions('center'),
             'button_group' => DisplayButtonGroup::create([
                 DisplayEditButton::create('permissions.edit'),
             ])->setValuePosition('center'),
@@ -40,7 +41,7 @@ class PermissionIndexViewModel extends IndexViewModel
     protected function data(): array
     {
         return [
-            'collection' => PermissionIndexResource::collection($this->collection),
+            'collection' => $this->collection,
         ];
     }
 }

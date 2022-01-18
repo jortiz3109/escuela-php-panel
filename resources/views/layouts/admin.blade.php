@@ -12,7 +12,7 @@
                         <ul class="menu-list">
                             @can('viewAny', \App\Models\Merchant::class)
                                 <li>
-                                    <a href="{{ route('merchants.index') }}">
+                                    <a href="{{ App\Models\Merchant::urlPresenter()->index() }}">
                                         <em class="is-active pr-2 mdi mdi-piggy-bank-outline"></em>{{ trans('merchants.navbar.title') }}
                                     </a>
                                 </li>
@@ -58,7 +58,7 @@
                             @endcan
                             @can('viewAny', \App\Models\User::class)
                                 <li>
-                                    <a href="{{ route('users.index') }}">
+                                    <a href="{{ App\Models\User::urlPresenter()->index() }}">
                                         <em class="pr-2 mdi mdi-account-multiple"></em>{{ trans('users.navbar.title') }}
                                     </a>
                                 </li>

@@ -70,6 +70,6 @@ class ShowTest extends TestCase
             ->assertSeeText(trans('buttons.actions.edit'))
             ->assertSee(Merchant::urlPresenter()->edit($merchant))
             ->assertSeeText(trans('buttons.actions.back'))
-            ->assertSee(route('merchants.index'));
+            ->assertSee(Merchant::urlPresenter()->index());
     }
 }

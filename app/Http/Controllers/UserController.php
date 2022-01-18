@@ -17,11 +17,16 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    private const USER_INDEX_ROUTE = 'users.index';
-
     public function __construct()
     {
         $this->authorizeResource(User::class, 'user');
+    }
+
+    public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
+    {
+        $users = User::filter($request->input('filters', []))->paginate();
+
+        return view('modules.index', $viewModel->collection($users));
     }
 
     public function create(UserCreateViewModel $viewModel): View
@@ -35,14 +40,8 @@ class UserController extends Controller
 
         UserStored::dispatch($user);
 
-        return redirect()->route(self::USER_INDEX_ROUTE)->with('success', trans('users.message.success'));
-    }
-
-    public function index(IndexRequest $request, UserIndexViewModel $viewModel): View
-    {
-        $users = User::filter($request->input('filters', []))->paginate();
-
-        return view(self::USER_INDEX_ROUTE, $viewModel->collection($users));
+        return redirect(User::urlPresenter()->index())
+            ->with('success', trans('users.alerts.successful_create'));
     }
 
     public function edit(User $user, UserEditViewModel $viewModel): View
@@ -54,8 +53,7 @@ class UserController extends Controller
     {
         $action->execute($user, $request);
 
-        return redirect()
-            ->route(self::USER_INDEX_ROUTE)
+        return redirect(User::urlPresenter()->index())
             ->with('success', trans('users.alerts.successful_update'));
     }
 }
