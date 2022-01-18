@@ -55,7 +55,12 @@ class UserEditViewModel extends ViewModel
     {
         return [
             'model' => $this->model,
-            'action' => User::urlPresenter()->update($this->model),
+            'action' => $this->getAction(),
         ];
+    }
+
+    protected function getAction(): string
+    {
+        return User::urlPresenter()->update($this->model);
     }
 }

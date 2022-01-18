@@ -9,7 +9,7 @@ use App\ViewComponents\Inputs\TextInput;
 use App\ViewModels\Concerns\HasCollection;
 use App\ViewModels\ViewModel;
 
-class UserCreateViewModel extends ViewModel
+class UserCreateViewModel extends UserEditViewModel
 {
     use HasCollection;
 
@@ -33,17 +33,7 @@ class UserCreateViewModel extends ViewModel
 
     protected function fields(): array
     {
-        return [
-            TextInput::create(
-                trans('users.labels.name'),
-                'name',
-                trans('users.placeholders.name'),
-            )->required(),
-            EmailInput::create(
-                trans('users.labels.email'),
-                'email',
-                trans('users.placeholders.email'),
-            )->required(),
+        return array_merge(parent::fields(), [
             PasswordInput::create(
                 trans('users.labels.password'),
                 'password',
@@ -54,14 +44,11 @@ class UserCreateViewModel extends ViewModel
                 'password_confirmation',
                 trans('users.placeholders.password_confirmation'),
             )->required(),
-        ];
+        ]);
     }
 
-    protected function data(): array
+    protected function getAction(): string
     {
-        return [
-            'model' => new User(),
-            'action' => User::urlPresenter()->store(),
-        ];
+        return User::urlPresenter()->store();
     }
 }

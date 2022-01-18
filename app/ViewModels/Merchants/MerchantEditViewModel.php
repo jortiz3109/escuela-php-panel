@@ -7,8 +7,6 @@ use App\ViewModels\Concerns\HasModel;
 
 class MerchantEditViewModel extends MerchantCreateViewModel
 {
-    use HasModel;
-
     protected function buttons(): array
     {
         return [

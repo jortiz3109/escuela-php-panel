@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function create(UserCreateViewModel $viewModel): View
     {
-        return view('modules.create', $viewModel);
+        return view('modules.create', $viewModel->model(new User()));
     }
 
     public function store(StoreRequest $request): RedirectResponse
