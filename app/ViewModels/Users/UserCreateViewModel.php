@@ -3,11 +3,8 @@
 namespace App\ViewModels\Users;
 
 use App\Models\User;
-use App\ViewComponents\Inputs\EmailInput;
 use App\ViewComponents\Inputs\PasswordInput;
-use App\ViewComponents\Inputs\TextInput;
 use App\ViewModels\Concerns\HasCollection;
-use App\ViewModels\ViewModel;
 
 class UserCreateViewModel extends UserEditViewModel
 {
