@@ -21,11 +21,6 @@ class UserUrlPresenter extends UrlPresenter
         return route('users.create');
     }
 
-    public function show(User $user): string
-    {
-        return route('users.show', $user);
-    }
-
     public function edit(User $user): string
     {
         return route('users.edit', $user);

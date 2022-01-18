@@ -14,7 +14,6 @@ class EditTest extends TestCase
     use HasAuthenticatedUser;
     use RefreshDatabase;
 
-    public const USERS_ROUTE_NAME = 'users.edit';
     private const USERS_PERMISSION = PermissionType::USER_UPDATE;
     private User $user;
 
@@ -27,7 +26,7 @@ class EditTest extends TestCase
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->get(route(self::USERS_ROUTE_NAME, $this->user));
+        $response = $this->get(User::urlPresenter()->edit($this->user));
         $response->assertRedirect(route('login'));
     }
 
@@ -35,7 +34,7 @@ class EditTest extends TestCase
     {
         $response = $this
             ->actingAs($this->defaultUser())
-            ->get(route(self::USERS_ROUTE_NAME, $this->user));
+            ->get(User::urlPresenter()->edit($this->user));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
@@ -44,7 +43,7 @@ class EditTest extends TestCase
     {
         $response = $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME, $this->user));
+            ->get(User::urlPresenter()->edit($this->user));
 
         $response->assertStatus(Response::HTTP_OK);
     }
@@ -53,7 +52,7 @@ class EditTest extends TestCase
     {
         $response = $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME, $this->user));
+            ->get(User::urlPresenter()->edit($this->user));
 
         $response->assertViewIs('modules.edit');
     }
@@ -62,7 +61,7 @@ class EditTest extends TestCase
     {
         $response = $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME, $this->user));
+            ->get(User::urlPresenter()->edit($this->user));
 
         $response->assertSee($this->user->name);
         $response->assertSee($this->user->email);
