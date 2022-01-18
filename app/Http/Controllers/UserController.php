@@ -7,7 +7,7 @@ use App\Actions\Users\UserUpdateAction;
 use App\Events\UserStored;
 use App\Http\Requests\Users\IndexRequest;
 use App\Http\Requests\Users\UpdateRequest;
-use App\Http\Requests\Users\UserCreateRequest;
+use App\Http\Requests\Users\StoreRequest;
 use App\Models\User;
 use App\ViewModels\Users\UserCreateViewModel;
 use App\ViewModels\Users\UserEditViewModel;
@@ -34,7 +34,7 @@ class UserController extends Controller
         return view('modules.create', $viewModel);
     }
 
-    public function store(UserCreateRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         $user = UserStoreAction::execute($request->validated());
 
