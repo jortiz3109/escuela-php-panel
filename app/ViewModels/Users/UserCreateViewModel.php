@@ -48,12 +48,12 @@ class UserCreateViewModel extends ViewModel
                 trans('users.labels.password'),
                 'password',
                 trans('users.placeholders.password'),
-            ),
+            )->required(),
             PasswordInput::create(
                 trans('users.labels.password_confirmation'),
                 'password_confirmation',
                 trans('users.placeholders.password_confirmation'),
-            ),
+            )->required(),
         ];
     }
 
