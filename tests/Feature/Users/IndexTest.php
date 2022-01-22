@@ -3,9 +3,10 @@
 namespace Tests\Feature\Users;
 
 use App\Constants\PermissionType;
+use App\Http\Resources\Users\UsersIndexResource;
 use App\Models\User;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Concerns\HasAuthenticatedUser;
 use Tests\Concerns\UserIndexDataProvider;
@@ -17,26 +18,24 @@ class IndexTest extends TestCase
     use UserIndexDataProvider;
     use HasAuthenticatedUser;
 
-    private const USERS_ROUTE_NAME = 'users.index';
     private const USERS_PERMISSION = PermissionType::USER_INDEX;
-    private const FILTER_URI = '/users?';
 
     /**
      * @test
      */
     public function a_guest_user_cannot_access(): void
     {
-        $this->get(route(self::USERS_ROUTE_NAME))
+        $this->get(User::urlPresenter()->index())
             ->assertRedirect(route('login'));
     }
 
     /**
      * @test
      */
-    public function a_user_without_permission_cannot_list_users(): void
+    public function an_user_without_permission_cannot_list_users(): void
     {
         $this->actingAs($this->defaultUser())
-            ->get(route(self::USERS_ROUTE_NAME))
+            ->get(User::urlPresenter()->index())
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -46,7 +45,7 @@ class IndexTest extends TestCase
     public function it_can_list_users(): void
     {
         $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME))
+            ->get(User::urlPresenter()->index())
             ->assertStatus(Response::HTTP_OK);
     }
 
@@ -56,10 +55,10 @@ class IndexTest extends TestCase
     public function it_has_a_collection_of_users(): void
     {
         $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME));
+            ->get(User::urlPresenter()->index());
 
-        $response->assertViewHas('users');
-        $this->assertInstanceOf(Paginator::class, $response->getOriginalContent()['users']);
+        $response->assertViewHas('collection');
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
     }
 
     /**
@@ -68,9 +67,9 @@ class IndexTest extends TestCase
     public function collection_has_users(): void
     {
         $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME));
+            ->get(User::urlPresenter()->index());
 
-        $this->assertInstanceOf(User::class, $response->getOriginalContent()['users']->first());
+        $this->assertInstanceOf(UsersIndexResource::class, $response->getOriginalContent()['collection']->first());
     }
 
     /**
@@ -79,7 +78,7 @@ class IndexTest extends TestCase
     public function it_show_users_data(): void
     {
         $response = $this->actingAs($user = $this->allowedUser(self::USERS_PERMISSION))
-            ->get(route(self::USERS_ROUTE_NAME));
+            ->get(User::urlPresenter()->index());
 
         $response->assertSee($user->name);
         $response->assertSee($user->email);
@@ -96,10 +95,11 @@ class IndexTest extends TestCase
         User::factory()->count(2)->create();
         User::factory()->create($userData);
 
+        $filters = http_build_query(['filters' => $filters]);
         $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(self::FILTER_URI . http_build_query(['filters' => $filters]));
+            ->get(User::urlPresenter()->index($filters));
 
-        $users = $response->getOriginalContent()['users'];
+        $users = $response->getOriginalContent()['collection'];
 
         $this->assertCount(1, $users);
         $this->assertEquals($userData['created_at'], date('d-m-Y', strtotime($users->first()->created_at)));
@@ -122,10 +122,11 @@ class IndexTest extends TestCase
         User::factory()->count($enabled)->enabled()->create();
         User::factory()->count($disabled)->disabled()->create();
 
+        $filters = http_build_query(['filters' => ['status' =>  $filterBy]]);
         $response = $this->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->get(self::FILTER_URI . http_build_query(['filters' => ['status' =>  $filterBy]]));
+            ->get(User::urlPresenter()->index($filters));
 
-        $users = $response->getOriginalContent()['users'];
+        $users = $response->getOriginalContent()['collection'];
 
         $response->assertStatus(Response::HTTP_OK);
         $this->assertCount($filtered, $users);

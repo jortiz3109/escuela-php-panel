@@ -3,13 +3,10 @@
 namespace App\ViewModels\Users;
 
 use App\Models\User;
-use App\ViewComponents\Inputs\EmailInput;
 use App\ViewComponents\Inputs\PasswordInput;
-use App\ViewComponents\Inputs\TextInput;
 use App\ViewModels\Concerns\HasCollection;
-use App\ViewModels\ViewModel;
 
-class UserCreateViewModel extends ViewModel
+class UserCreateViewModel extends UserEditViewModel
 {
     use HasCollection;
 
@@ -18,10 +15,10 @@ class UserCreateViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('users.index'),
+                'route' => User::urlPresenter()->index(),
             ],
             'save' => [
-                'text' => trans('common.save'),
+                'text' => trans('common.create'),
             ],
         ];
     }
@@ -33,36 +30,22 @@ class UserCreateViewModel extends ViewModel
 
     protected function fields(): array
     {
-        return [
-            new TextInput(
-                trans('users.labels.name'),
-                trans('users.inputs.name'),
-                trans('users.placeholders.name'),
-                true
-            ),
-            new EmailInput(
-                trans('users.labels.email'),
-                trans('users.inputs.email'),
-                trans('users.placeholders.email'),
-            ),
-            new PasswordInput(
+        return array_merge(parent::fields(), [
+            PasswordInput::create(
                 trans('users.labels.password'),
-                trans('users.inputs.password'),
+                'password',
                 trans('users.placeholders.password'),
-            ),
-            new PasswordInput(
+            )->required(),
+            PasswordInput::create(
                 trans('users.labels.password_confirmation'),
-                trans('users.inputs.password_confirmation'),
+                'password_confirmation',
                 trans('users.placeholders.password_confirmation'),
-            ),
-        ];
+            )->required(),
+        ]);
     }
 
-    protected function data(): array
+    protected function getAction(): string
     {
-        return [
-            'model' => new User(),
-            'action' => route('users.store'),
-        ];
+        return User::urlPresenter()->store();
     }
 }

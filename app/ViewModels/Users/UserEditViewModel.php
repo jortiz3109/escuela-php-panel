@@ -2,6 +2,7 @@
 
 namespace App\ViewModels\Users;
 
+use App\Models\User;
 use App\ViewComponents\Inputs\EmailInput;
 use App\ViewComponents\Inputs\Input;
 use App\ViewComponents\Inputs\TextInput;
@@ -17,10 +18,10 @@ class UserEditViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('common.back'),
-                'route' => route('users.index'),
+                'route' => User::urlPresenter()->index(),
             ],
             'save' => [
-                'text' => trans('common.save'),
+                'text' => trans('common.update'),
             ],
         ];
     }
@@ -54,7 +55,12 @@ class UserEditViewModel extends ViewModel
     {
         return [
             'model' => $this->model,
-            'action' => route('users.update', $this->model),
+            'action' => $this->getAction(),
         ];
+    }
+
+    protected function getAction(): string
+    {
+        return User::urlPresenter()->update($this->model);
     }
 }

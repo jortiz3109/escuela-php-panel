@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Filters\Concerns\HasFilters;
 use App\Models\Concerns\HasToggle;
 use App\Models\Contracts\ToggleInterface;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static UserFactory factory(...$parameters)
+ */
 class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
 {
     use HasApiTokens;
@@ -20,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail, ToggleInterface
     use Notifiable;
     use HasFilters;
     use HasToggle;
+    use HasUrlPresenter;
 
     protected $fillable = [
         'name',

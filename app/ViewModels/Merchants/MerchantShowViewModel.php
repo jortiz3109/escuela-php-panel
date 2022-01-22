@@ -42,7 +42,7 @@ class MerchantShowViewModel extends ViewModel
         return [
             'back' => [
                 'text' => trans('buttons.actions.back'),
-                'route' => route('merchants.index'),
+                'route' => Merchant::urlPresenter()->index(),
             ],
             'edit' => [
                 'text' => trans('buttons.actions.edit'),

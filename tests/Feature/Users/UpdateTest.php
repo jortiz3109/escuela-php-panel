@@ -15,7 +15,6 @@ class UpdateTest extends TestCase
     use HasAuthenticatedUser;
     use RefreshDatabase;
 
-    public const USERS_ROUTE_NAME = 'users.update';
     private const USERS_PERMISSION = PermissionType::USER_UPDATE;
     private User $user;
 
@@ -31,14 +30,14 @@ class UpdateTest extends TestCase
 
     public function test_a_guest_user_cannot_access(): void
     {
-        $response = $this->put(route(self::USERS_ROUTE_NAME, $this->user->id, $this->userData()));
+        $response = $this->put(User::urlPresenter()->update($this->user), $this->userData());
         $response->assertRedirect(route('login'));
     }
 
     public function test_an_user_without_permission_cannot_access(): void
     {
         $this->actingAs($this->defaultUser())
-            ->put(route(self::USERS_ROUTE_NAME, $this->user->id, $this->userData()))
+            ->put(User::urlPresenter()->update($this->user), $this->userData())
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -46,7 +45,7 @@ class UpdateTest extends TestCase
     {
         $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $this->userData());
+            ->put(User::urlPresenter()->update($this->user), $this->userData());
 
         $this->user->refresh();
 
@@ -64,16 +63,27 @@ class UpdateTest extends TestCase
     {
         $response = $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $data);
+            ->put(User::urlPresenter()->update($this->user), $data);
 
         $response->assertSessionHasErrors($field);
     }
 
-    public function test_a_user_loses_their_email_verification_when_updating_it(): void
+    public function test_it_cannot_update_user_with_repeated_email(): void
+    {
+        $fakeUser = User::factory()->create();
+
+        $response = $this
+            ->actingAs($this->allowedUser(self::USERS_PERMISSION))
+            ->put(User::urlPresenter()->update($this->user), ['email' => $fakeUser->email]);
+
+        $response->assertSessionHasErrors(['email']);
+    }
+
+    public function test_an_user_loses_their_email_verification_when_updating_it(): void
     {
         $this
             ->actingAs($this->allowedUser(self::USERS_PERMISSION))
-            ->put(route(self::USERS_ROUTE_NAME, $this->user->id), $this->userData());
+            ->put(User::urlPresenter()->update($this->user), $this->userData());
 
         $this->user->refresh();
 

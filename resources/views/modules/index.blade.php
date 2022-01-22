@@ -1,3 +1,4 @@
+@php /** @var \App\ViewComponents\Display\DisplayComponent[] $fields */ @endphp
 @extends('layouts.admin')
 @section('content')
     <table class="table is-hoverable is-fullwidth is-striped">

@@ -9,12 +9,6 @@ return [
     'navbar' => [
         'title' => 'Users',
     ],
-    'inputs' => [
-        'name' => 'name',
-        'email' => 'email',
-        'password' => 'password',
-        'password_confirmation' => 'password_confirmation',
-    ],
     'labels' => [
         'name' => 'Name',
         'email' => 'Email',
@@ -30,9 +24,6 @@ return [
     'buttons' => [
         'save' => 'Create User',
         'cancel' => 'Cancel User',
-    ],
-    'message' => [
-        'success' => 'created successfully.',
     ],
     'logs' => [
         'store_error' => 'User could not be stored',
@@ -50,6 +41,7 @@ return [
         'disabled' => 'Disabled',
     ],
     'alerts' => [
+        'successful_create' => 'The user has been created',
         'successful_update' => 'The user has been updated',
     ],
     'log' =>[

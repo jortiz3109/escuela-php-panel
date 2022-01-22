@@ -26,7 +26,7 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::filter($request->input('filters', []))->paginate();
 
-        return view('modules.index', $viewModel->collection($transactions));
+        return view('transactions.index', $viewModel->collection($transactions));
     }
 
     public function show(Transaction $transaction, TransactionDetailsViewModel $viewModel): View

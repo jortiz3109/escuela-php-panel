@@ -3,7 +3,6 @@
 namespace Tests\Feature\Permissions;
 
 use App\Constants\PermissionType;
-use App\Http\Resources\Permissions\PermissionIndexResource;
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -43,15 +42,14 @@ class IndexTest extends TestCase
     {
         $response = $this->actingAs($this->allowedUser(self::PERMISSIONS_PERMISSION))->get(route(self::PERMISSIONS_ROUTE_NAME));
         $response->assertViewHas('collection');
-        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']->resource);
-        $this->assertEquals(PermissionIndexResource::class, $response->getOriginalContent()['collection']->collects);
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()['collection']);
     }
 
     public function test_collection_has_permissions(): void
     {
         Permission::factory()->create();
         $response = $this->actingAs($this->allowedUser(self::PERMISSIONS_PERMISSION))->get(route(self::PERMISSIONS_ROUTE_NAME));
-        $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['collection']->first()->resource);
+        $this->assertInstanceOf(Permission::class, $response->getOriginalContent()['collection']->first());
     }
 
     public function test_it_show_permissions_data(): void

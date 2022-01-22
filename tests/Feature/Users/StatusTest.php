@@ -16,7 +16,7 @@ class StatusTest extends TestCase
     {
         $user = $this->enabledUser();
 
-        $this->actingAs($this->enabledUser())->patch(route('users.status.toggle', [$user->id]))
+        $this->actingAs($this->enabledUser())->patch(route('users.status.toggle', $user))
             ->assertStatus(Response::HTTP_OK);
         $user->refresh();
 
@@ -27,7 +27,7 @@ class StatusTest extends TestCase
     {
         $user = $this->defaultUser();
 
-        $this->actingAs($user)->patch(route('users.status.toggle', [$user->id]))
+        $this->actingAs($user)->patch(route('users.status.toggle', $user))
             ->assertStatus(Response::HTTP_OK);
         $user->refresh();
 
